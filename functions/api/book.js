@@ -1,6 +1,8 @@
-// POST /api/book — validate the rental agreement form, store it in KV, alert admin on Telegram.
+// POST /api/book — validate a package booking, re-price it on the server, store it in KV,
+// and send the details + payment receipt to the admin on Telegram.
+// Prices come from /pricing.json (the same file the booking page reads).
 
-const BIKES = ["Yamaha Aerox 155", "Royal Enfield Hunter 350", "KTM Duke 200"];
+import PRICING from "../../pricing.json";
 
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), {
@@ -10,79 +12,113 @@ const json = (data, status = 200) =>
 
 // Telegram HTML mode needs these three characters escaped.
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const inr = (n) => "₹" + Number(n).toLocaleString("en-IN");
 
-// "14:30" -> "2:30 PM"
-const to12h = (t) => {
-  const [h, m] = t.split(":").map(Number);
-  return `${h % 12 || 12}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
-};
-
-// Server-side validation (never trust the browser).
-function validate(b) {
-  const errors = [];
-  const clean = (v, max) => String(v ?? "").trim().slice(0, max);
-  const d = {
-    date: clean(b.date, 10),
-    vehicleNo: clean(b.vehicleNo, 20),
-    name: clean(b.name, 80),
-    address: clean(b.address, 200),
-    duration: Number(b.duration),
-    unit: b.unit === "Day" ? "Day" : "Hrs",
-    license: clean(b.license, 30),
-    pickupTime: clean(b.pickupTime, 5),
-    dropTime: clean(b.dropTime, 5),
-    phone: clean(b.phone, 20),
-    destination: clean(b.destination, 100),
-    bike: clean(b.bike, 60),
-  };
-  const time = /^([01]\d|2[0-3]):[0-5]\d$/;
-  if (!d.name) errors.push("Name is required.");
-  if (!d.address) errors.push("Address is required.");
-  if (!Number.isInteger(d.duration) || d.duration < 1 || d.duration > 99) errors.push("Enter a valid duration.");
-  if (d.license.length < 4) errors.push("Driving licence number is required.");
-  if (!time.test(d.pickupTime)) errors.push("Choose a pick up time.");
-  if (!time.test(d.dropTime)) errors.push("Choose a drop time.");
-  if (!/^\+?[0-9\s-]{7,15}$/.test(d.phone)) errors.push("Enter a valid phone number.");
-  if (!d.destination) errors.push("Destination is required.");
-  if (!BIKES.includes(d.bike)) errors.push("Choose a bike.");
-  if (isNaN(Date.parse(d.date))) errors.push("Choose a date.");
-  if (b.agreed !== true) errors.push("You must accept the terms and conditions.");
-  const sig = String(b.signature ?? "");
-  if (!/^data:image\/(jpeg|png);base64,[A-Za-z0-9+/=]+$/.test(sig) || sig.length > 200000) errors.push("A signature is required.");
-  return { d, sig, errors };
+// Same rules as calc() in reserve.html.
+export function price(pkg, people, children, optionIds) {
+  const kids = pkg.childPrice == null ? 0 : children;
+  const lines = [{ label: "Adults", qty: people, amount: people * pkg.adultPrice }];
+  if (kids > 0) lines.push({ label: "Children", qty: kids, amount: kids * pkg.childPrice });
+  for (const o of pkg.options) {
+    if (!optionIds.includes(o.id)) continue;
+    const heads = people + kids;
+    lines.push({ label: o.label, qty: o.unit === "person" ? heads : 1, amount: o.unit === "person" ? heads * o.price : o.price });
+  }
+  return { lines, total: lines.reduce((t, l) => t + l.amount, 0) };
 }
 
-async function notifyTelegram(env, id, d) {
+const todayIST = () => new Date(Date.now() + 5.5 * 3600 * 1000).toISOString().slice(0, 10);
+const addDays = (iso, n) => new Date(Date.parse(iso) + n * 86400000).toISOString().slice(0, 10);
+
+export function validate(b) {
+  const errors = [];
+  const clean = (v, max) => String(v ?? "").trim().slice(0, max);
+  const key = clean(b.package, 20);
+  const pkg = PRICING.packages[key];
+  if (!pkg) return { errors: ["Choose a package."] };
+
+  const people = Number(b.people);
+  const children = pkg.childPrice == null ? 0 : Number(b.children || 0);
+  const d = {
+    package: key,
+    packageName: pkg.name,
+    name: clean(b.name, 80),
+    whatsapp: clean(b.whatsapp, 20),
+    date: clean(b.date, 10),
+    request: clean(b.request, 500),
+    people,
+    children,
+    options: Array.isArray(b.options) ? b.options.filter((o) => pkg.options.some((x) => x.id === o)) : [],
+    payMethod: ["qr", "upi", "bank"].includes(b.payMethod) ? b.payMethod : "qr",
+  };
+  if (!d.name) errors.push("Name is required.");
+  if (!/^\+?[0-9\s-]{7,15}$/.test(d.whatsapp)) errors.push("Enter a valid WhatsApp number.");
+  if (!Number.isInteger(people) || people < 1 || people > 50) errors.push("Enter a valid number of people.");
+  if (!Number.isInteger(children) || children < 0 || children > 50) errors.push("Enter a valid number of children.");
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(d.date) || isNaN(Date.parse(d.date))) errors.push("Choose a date.");
+  else if (d.date < addDays(todayIST(), pkg.minDaysAhead))
+    errors.push(key === "expedition" ? "Expedition bookings must be made at least 3 days ahead." : "Choose a future date.");
+
+  if (errors.length) return { errors };
+
+  const { lines, total } = price(pkg, people, children, d.options);
+  const advance = Number(b.advance);
+  const min = Math.min(PRICING.minAdvance, total);
+  if (!Number.isFinite(advance) || advance < min || advance > total)
+    errors.push(`Advance must be between ${inr(min)} and ${inr(total)}.`);
+  if (b.agreed !== true) errors.push("You must accept the Cancellation Policy.");
+
+  const receipt = String(b.receipt ?? "");
+  const m = receipt.match(/^data:(image\/jpeg|image\/png|application\/pdf);base64,([A-Za-z0-9+/=]+)$/);
+  if (!m || receipt.length > 2200000) errors.push("A payment receipt (image or PDF, under ~1.5 MB) is required.");
+
+  return { d, lines, total, advance, balance: total - advance, receipt, receiptType: m && m[1], errors };
+}
+
+async function notifyTelegram(env, id, v) {
   if (!env.TELEGRAM_TOKEN || !env.TELEGRAM_CHAT_ID) return;
+  const { d } = v;
+  const items = v.lines.map((l) => `• ${esc(l.label)}${l.qty > 1 ? " × " + l.qty : ""}: ${inr(l.amount)}`).join("\n");
   const text =
-    `🏍 <b>New reservation ${esc(id)}</b>\n\n` +
-    `<b>Name:</b> ${esc(d.name)}\n<b>Phone:</b> ${esc(d.phone)}\n<b>Address:</b> ${esc(d.address)}\n` +
-    `<b>Licence:</b> ${esc(d.license)}\n<b>Bike:</b> ${esc(d.bike)}${d.vehicleNo ? " · " + esc(d.vehicleNo) : ""}\n` +
-    `<b>Date:</b> ${esc(d.date)}\n<b>Pick up:</b> ${to12h(d.pickupTime)}  <b>Drop:</b> ${to12h(d.dropTime)}\n` +
-    `<b>Duration:</b> ${d.duration} ${d.unit}\n<b>Destination:</b> ${esc(d.destination)}\n` +
-    `<b>Terms accepted and signed</b> ✅`;
-  await fetch(`https://api.telegram.org/bot${env.TELEGRAM_TOKEN}/sendMessage`, {
+    `🏕 <b>New booking ${esc(id)}</b>\n<b>${esc(d.packageName)}</b>\n\n` +
+    `<b>Name:</b> ${esc(d.name)}\n<b>WhatsApp:</b> ${esc(d.whatsapp)}\n<b>Date:</b> ${esc(d.date)}\n` +
+    `<b>People:</b> ${d.people}${d.children ? " + " + d.children + " children" : ""}\n` +
+    (d.request ? `<b>Request:</b> ${esc(d.request)}\n` : "") +
+    `\n${items}\n\n<b>Total:</b> ${inr(v.total)}\n<b>Advance paid (${esc(d.payMethod.toUpperCase())}):</b> ${inr(v.advance)}\n<b>Balance:</b> ${inr(v.balance)}\n\nReceipt attached below. Please verify before confirming.`;
+  const api = (m) => `https://api.telegram.org/bot${env.TELEGRAM_TOKEN}/${m}`;
+  await fetch(api("sendMessage"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text, parse_mode: "HTML" }),
   });
+  // Receipt as a document so PDFs and images both work.
+  const bin = Uint8Array.from(atob(v.receipt.split(",")[1]), (c) => c.charCodeAt(0));
+  const ext = v.receiptType === "application/pdf" ? "pdf" : v.receiptType === "image/png" ? "png" : "jpg";
+  const fd = new FormData();
+  fd.append("chat_id", env.TELEGRAM_CHAT_ID);
+  fd.append("caption", `Receipt for ${id}`);
+  fd.append("document", new Blob([bin], { type: v.receiptType }), `receipt-${id}.${ext}`);
+  await fetch(api("sendDocument"), { method: "POST", body: fd });
 }
 
 export async function onRequestPost({ request, env }) {
   let body;
   try { body = await request.json(); } catch { return json({ error: "Invalid JSON." }, 400); }
 
-  const { d, sig, errors } = validate(body);
-  if (errors.length) return json({ error: errors[0], errors }, 400);
+  const v = validate(body);
+  if (v.errors.length) return json({ error: v.errors[0], errors: v.errors }, 400);
 
   const uuid = crypto.randomUUID ? crypto.randomUUID().slice(0, 4) : Math.random().toString(36).slice(2, 6);
   const id = `BKG-${Date.now()}-${uuid}`;
-  const booking = { id, ...d, agreed: true, signature: sig, status: "Pending", createdAt: new Date().toISOString() };
+  const booking = {
+    id, ...v.d, items: v.lines, total: v.total, advance: v.advance, balance: v.balance,
+    receipt: v.receipt, agreed: true, status: "Pending", createdAt: new Date().toISOString(),
+  };
 
   await env.BOOKINGS_KV.put(id, JSON.stringify(booking));
 
   // A Telegram hiccup must never lose a booking, so failures are swallowed.
-  try { await notifyTelegram(env, id, d); } catch (e) { console.log("Telegram failed", e); }
+  try { await notifyTelegram(env, id, v); } catch (e) { console.log("Telegram failed", e); }
 
-  return json({ success: true, id });
+  return json({ success: true, id, total: v.total, balance: v.balance });
 }
