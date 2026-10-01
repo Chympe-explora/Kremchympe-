@@ -22,7 +22,7 @@ h1{margin:0;font:700 clamp(1.7rem,5vw,2.4rem)/1.1 'Playfair Display',Georgia,ser
 .bar div{display:flex;gap:.5rem}
 #msg{min-height:1.3em;font-size:.85rem;margin:0 0 .6rem}
 .wrap{background:#fff;border-radius:1.5rem;overflow-x:auto}
-table{width:100%;min-width:780px;border-collapse:collapse}
+table{width:100%;min-width:980px;border-collapse:collapse}
 th,td{padding:.75rem;text-align:left;vertical-align:top;font-size:.8rem}
 th{font:700 .85rem 'Playfair Display',Georgia,serif;white-space:nowrap}
 tbody tr{border-top:1px solid #e5e5e5}
@@ -43,8 +43,13 @@ select{padding:.3rem;border:1px solid #ccc;border-radius:.5rem;font:inherit}
   <div class="bar"><h1>Bookings</h1><div><button id="refresh" class="pill">Refresh</button><button id="logout" class="pill">Sign out</button></div></div>
   <p id="msg" role="status"></p>
   <div class="wrap"><table>
-    <thead><tr><th>ID</th><th>Name</th><th>Phone</th><th>Bike</th><th>Dates</th><th>Status</th><th>Actions</th></tr></thead>
+    <thead><tr><th>ID</th><th>Customer</th><th>Bike</th><th>When</th><th>Trip</th><th>Signature</th><th>Status</th><th>Actions</th></tr></thead>
     <tbody id="rows"></tbody>
+  </table></div>
+  <h1 style="margin:2rem 0 1rem">Reviews</h1>
+  <div class="wrap"><table style="min-width:640px">
+    <thead><tr><th>Date</th><th>Stars</th><th>Name</th><th>Comment</th><th>Actions</th></tr></thead>
+    <tbody id="revRows"></tbody>
   </table></div>
 </main>
 <script>
@@ -74,11 +79,12 @@ function render(list){
   list.forEach(function(b){
     var tr=tb.insertRow();
     cell(tr,b.id);
-    cell(tr,b.name).append(document.createElement('br'),b.email);
-    cell(tr,b.phone);
-    cell(tr,b.bike).append(document.createElement('br'),b.location);
-    var dt=cell(tr,b.pickupDate+' → '+b.returnDate);
-    if(b.message)dt.append(document.createElement('br'),'“'+b.message+'”');
+    var who=cell(tr,b.name);who.append(document.createElement('br'),b.phone,document.createElement('br'),b.address||'');
+    var bike=cell(tr,b.bike);if(b.vehicleNo)bike.append(document.createElement('br'),b.vehicleNo);
+    cell(tr,b.date).append(document.createElement('br'),(b.pickupTime||'')+' → '+(b.dropTime||''),document.createElement('br'),(b.duration||'')+' '+(b.unit||''));
+    cell(tr,b.destination||'').append(document.createElement('br'),'Licence: '+(b.license||''));
+    var sg=tr.insertCell();
+    if(typeof b.signature==='string'&&/^data:image\/(jpeg|png);base64,/.test(b.signature)){var im=new Image();im.src=b.signature;im.alt='Signature';im.style.cssText='width:110px;border:1px solid #ccc;background:#fff';sg.append(im)}
     var sel=document.createElement('select');
     STATUSES.forEach(function(s){sel.add(new Option(s,s,false,s===b.status))});
     sel.onchange=async function(){
@@ -95,9 +101,25 @@ function render(list){
     cell(tr,'').append(del);
   });
 }
+function renderReviews(list){
+  var tb=$('revRows');tb.innerHTML='';
+  if(!list.length){cell(tb.insertRow(),'No reviews yet.').colSpan=5;return}
+  list.forEach(function(r){
+    var tr=tb.insertRow();
+    cell(tr,(r.createdAt||'').slice(0,10));
+    cell(tr,'★'.repeat(r.rating)+'☆'.repeat(5-r.rating));
+    cell(tr,r.name||'(no name)');cell(tr,r.comment||'(rating only)');
+    var del=document.createElement('button');del.textContent='Delete';del.className='pill';
+    del.onclick=async function(){
+      if(!confirm('Remove this review from the website?'))return;
+      try{await api('/feedback/'+encodeURIComponent(r.id),{method:'DELETE'});say('Review removed.');load()}catch(e){say(e.message)}
+    };
+    cell(tr,'').append(del);
+  });
+}
 async function load(){
   say('Loading…');
-  try{render(await api('/bookings'));say('')}
+  try{var res=await Promise.all([api('/bookings'),api('/feedback')]);render(res[0]);renderReviews(res[1]);say('')}
   catch(e){if(e.message!=='Unauthorized')say(e.message)}
 }
 function showDash(){$('login').classList.add('hidden');$('dash').classList.remove('hidden');load()}
