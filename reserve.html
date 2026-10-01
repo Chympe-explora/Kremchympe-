@@ -65,6 +65,13 @@ a{color:inherit}
 .note b{text-decoration:underline;font-size:.9rem}
 .done{text-align:center;padding:2rem 0}
 .done h2{font:700 1.8rem/1.2 var(--serif);margin-bottom:1rem}
+.gate{transition:opacity .4s ease,transform .4s ease}
+.gate.leave{opacity:0;transform:translateY(-14px);pointer-events:none}
+.gate-title{font:700 clamp(1.5rem,5vw,2.1rem)/1.1 var(--serif);text-align:center;text-transform:uppercase;margin-bottom:.8rem}
+.gate-lead{text-align:center;font-size:clamp(.78rem,2.2vw,.9rem);line-height:1.5;margin-bottom:1.4rem;padding-bottom:1.2rem;border-bottom:2px solid #111}
+.gate-hint{text-align:center;margin-top:.6rem;font-size:.8rem;min-height:1.2em}
+#f.enter{animation:up .6s both}
+.ack{padding:1rem;border:2px solid #111;background:#f7fbfe}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 
 </style>
@@ -72,7 +79,23 @@ a{color:inherit}
 <body>
 <nav class="top"><a class="back" href="book.html">&larr; Home</a></nav>
 <main class="sheet" id="sheet">
-<form id="f" novalidate>
+<section class="gate" id="gate" aria-labelledby="gateTitle">
+  <h1 class="gate-title" id="gateTitle">Terms and Conditions</h1>
+  <p class="gate-lead">Please read the terms below before you reserve. Tick the box at the end and the booking form opens automatically.</p>
+  <div class="terms">
+<div class="cl"><span class="n">1.</span><div><b>Eligibility:</b> The Customer must be at least 18 years of age and hold a valid driver's license to rent a scooter. The Customer must present a copy of their driver's license and a valid identification document at the time of rental. Documents will be returned at the end of rental period.</div></div>
+<div class="cl"><span class="n">2.</span><div><b>Booking and extended Charges:</b> Full amount to be paid at the time of taking the vehicle. Extension of the rental period shall be permitted only upon payment of the full rental charges for existing bookings.</div></div>
+<div class="cl"><span class="n">3.</span><div><b>Fueling Process and Charges:</b> Rental package doesn't include fuel. Full Tank of fuel will be provided and it should also be returned with full tank of fuel. The customer will be charge for full tank refilling of fuel if by any means he/she fails to return the vehicle in full tank.</div></div>
+<div class="cl"><span class="n">4.</span><div><b>Rental Period &amp; Process:</b><div class="subs"><div class="sub"><span class="n">i)</span><div><b>For 6-Hours Plan:</b> The rental period shall be 6 hours from the actual pickup time. The renter must return the vehicle within 6 hours at the designated pickup/return location. If the renter fails to return the vehicle within 6 hours, the rental period shall automatically be considered a 12-hour rental period, and the renter shall be liable to pay the full 12-hour rental charge. No hourly extension is permitted after the 6-hour rental period.</div></div><div class="sub"><span class="n">ii)</span><div><b>For 12 Hours:</b> Renting period will be commenced between 8 A.M-8 P.M (No hourly extension is permitted after 8 P.M.). If a 12 hour rental applies at 8 P.M and the scooty is not return by that time, the customer shall be charged for a fresh 24 hour rental period. The 12 hour rental shall not be converted into a 24 hour rental by payment of difference in charges, as Rentals operates only between 8.00 A.M and 8 P.M.</div></div><div class="sub"><span class="n">iii)</span><div><b>For 24 hours plan:</b> Renting period will be concluded and countable from the Pickup time till next day/date of Pickup is applicable after 8 P.M extend the rental period must notify Rentals at least 3 hours before the Schedule return time. (No Hourly extension is applicable after 8 P.M strictly under any circumstances).</div></div><div class="sub"><span class="n">iv)</span><div><b>Late Return:</b> If the return is delayed from the rental period (under any circumstances), the customer shall be liable to pay late return charges of <b>Rs 70 per hour</b>. This hourly rate fee is applied only for delays of up to 2 hours. Hourly Time extension/delayed Period for more than 2 hours are not applicable, customer as expected to go for any of the following plan listed above i.e.6, 12, 24 hours that also only incase of 24 Hours Plan.</div></div></div></div></div>
+<div class="cl"><span class="n">5.</span><div><b>Use of Scooter:</b><div class="subs"><div class="sub"><span class="n">a)</span><div>Before Renting the Scooter the customer is bound to check &amp; make a 360full view video of the Scooter condition to avoid any future disturbance. The Customer shall not use the scooter for racing, off-road riding, or any unlawful/illegal activities. The customer shall comply with all applicable traffic rules and speed limits as prescribed by laws.</div></div><div class="sub"><span class="n">b)</span><div>The rental is strictly only for the state of Meghalaya.</div></div><div class="sub"><span class="n">c)</span><div>No other Person is permitted to operate the vehicle other than the person availing the rental (customer).</div></div><div class="sub"><span class="n">d)</span><div>Sub-Renting of the vehicle to third Party is strictly prohibited without Permission.</div></div><div class="sub"><span class="n">e)</span><div>Not more than two Person (including Rider and Pillion) is allowed to ride at a time.</div></div><div class="sub"><span class="n">f)</span><div>If the vehicle is return in dirty/muddy condition, Additional 100 rupees extra will be charged for washing.</div></div></div></div></div>
+<div class="cl"><span class="n">6.</span><div><b>Damage, Accident and Liability:</b><div class="subs"><div class="sub"><span class="n">a)</span><div>The customer shall use the vehicle entirely at his/her own risk. Rentals shall not be liable for any accidents, injuries / death, or damages arising during the rental period.</div></div><div class="sub"><span class="n">b)</span><div>Rental will not be responsible for any accidental expenses of Rider and Pillion, even in the case of death. Rentals will not bare any responsibility even if this is caused by any unavoidable circumstances or third party(involving another vehicle, person, animal, etc.).</div></div><div class="sub"><span class="n">c)</span><div>Any damages caused to the third-party vehicle or any person involved at the time of accident or any unavoidable/natural circumstances the customer is able to pay.</div></div><div class="sub"><span class="n">d)</span><div>Any accident, stolen motorcycle, stolen parts, vehicle damages, scratches, traffic fines, booking charge, parking charge and any other damages or violation is the customer responsibility for Penalty.</div></div><div class="sub"><span class="n">e)</span><div>The customer is liable to pay for stolen/damage of helmets.</div></div><div class="sub"><span class="n">f)</span><div>Any damage/defects/torn caused to the Raincoats, customer is liable to pay full amount of the items or as conclude by Rentals.</div></div></div></div></div>
+<div class="cl"><span class="n">7.</span><div><b>Maintenance and Repairs:</b> The Customer is responsible for maintaining the scooter in good condition during the rental period and to return the scooter in same condition as taken. The Customer is obligated to report any mechanical issues or damages to the Shining Ride Rental immediately without any delay. If failed to report at the time of use, the customer will have to bear the cost for all the further damaged done (under any circumstances).</div></div>
+<div class="cl"><span class="n">8.</span><div><b>Refund and Cancelation Policy:</b><div class="subs"><div class="sub"><span class="n">a)</span><div>Booking charges are 30 percent refundable on cancelation between 12 to 24 hour. No refund if cancelled 12 hours prior to schedule booking time.</div></div><div class="sub"><span class="n">b)</span><div>Shining Ride Rental reserves the rights to cancel any booking or refuse any request for any extension of the rental period at its sole discretion, without assigning any reason.</div></div><div class="sub"><span class="n">c)</span><div>Once scooty has been handed over and the rental period has commenced, no refund, whether full or partial, shall be provided if the customer returns the scooty before the scheduled return time or chooses to terminate the rental early.</div></div></div></div></div>
+</div>
+  <label class="ack" for="agree"><input type="checkbox" id="agree"><span>By renting a scooter from Shining Ride Rental the Customer acknowledges that they have read and understood the above terms and conditions and agree to comply with the obligations outlined herein.</span></label>
+  <p class="gate-hint" id="gateHint" role="status" aria-live="polite">Tick the box to continue to the form.</p>
+</section>
+<form id="f" novalidate hidden>
   <div class="head">
     <svg class="logo-svg" viewBox="0 0 330 82" role="img" aria-label="Shining Ride Rental, Ride Beyond Limits">
   <g fill="#111"><path d="M60 40 L84 10 L98 26 L112 8 L150 40 Z"/></g>
@@ -103,21 +126,6 @@ a{color:inherit}
     <div class="f"><label for="bike">Bike Model :</label>
       <select class="in" id="bike" required><option value="">Select a bike</option><option>Yamaha Aerox 155</option><option>Royal Enfield Hunter 350</option><option>KTM Duke 200</option></select><p class="err"></p></div>
   </div>
-
-  <h2 class="sec-title">Terms and Conditions</h2>
-  <div class="terms">
-<div class="cl"><span class="n">1.</span><div><b>Eligibility:</b> The Customer must be at least 18 years of age and hold a valid driver's license to rent a scooter. The Customer must present a copy of their driver's license and a valid identification document at the time of rental. Documents will be returned at the end of rental period.</div></div>
-<div class="cl"><span class="n">2.</span><div><b>Booking and extended Charges:</b> Full amount to be paid at the time of taking the vehicle. Extension of the rental period shall be permitted only upon payment of the full rental charges for existing bookings.</div></div>
-<div class="cl"><span class="n">3.</span><div><b>Fueling Process and Charges:</b> Rental package doesn't include fuel. Full Tank of fuel will be provided and it should also be returned with full tank of fuel. The customer will be charge for full tank refilling of fuel if by any means he/she fails to return the vehicle in full tank.</div></div>
-<div class="cl"><span class="n">4.</span><div><b>Rental Period &amp; Process:</b><div class="subs"><div class="sub"><span class="n">i)</span><div><b>For 6-Hours Plan:</b> The rental period shall be 6 hours from the actual pickup time. The renter must return the vehicle within 6 hours at the designated pickup/return location. If the renter fails to return the vehicle within 6 hours, the rental period shall automatically be considered a 12-hour rental period, and the renter shall be liable to pay the full 12-hour rental charge. No hourly extension is permitted after the 6-hour rental period.</div></div><div class="sub"><span class="n">ii)</span><div><b>For 12 Hours:</b> Renting period will be commenced between 8 A.M-8 P.M (No hourly extension is permitted after 8 P.M.). If a 12 hour rental applies at 8 P.M and the scooty is not return by that time, the customer shall be charged for a fresh 24 hour rental period. The 12 hour rental shall not be converted into a 24 hour rental by payment of difference in charges, as Rentals operates only between 8.00 A.M and 8 P.M.</div></div><div class="sub"><span class="n">iii)</span><div><b>For 24 hours plan:</b> Renting period will be concluded and countable from the Pickup time till next day/date of Pickup is applicable after 8 P.M extend the rental period must notify Rentals at least 3 hours before the Schedule return time. (No Hourly extension is applicable after 8 P.M strictly under any circumstances).</div></div><div class="sub"><span class="n">iv)</span><div><b>Late Return:</b> If the return is delayed from the rental period (under any circumstances), the customer shall be liable to pay late return charges of <b>Rs 70 per hour</b>. This hourly rate fee is applied only for delays of up to 2 hours. Hourly Time extension/delayed Period for more than 2 hours are not applicable, customer as expected to go for any of the following plan listed above i.e.6, 12, 24 hours that also only incase of 24 Hours Plan.</div></div></div></div></div>
-<div class="cl"><span class="n">5.</span><div><b>Use of Scooter:</b><div class="subs"><div class="sub"><span class="n">a)</span><div>Before Renting the Scooter the customer is bound to check &amp; make a 360full view video of the Scooter condition to avoid any future disturbance. The Customer shall not use the scooter for racing, off-road riding, or any unlawful/illegal activities. The customer shall comply with all applicable traffic rules and speed limits as prescribed by laws.</div></div><div class="sub"><span class="n">b)</span><div>The rental is strictly only for the state of Meghalaya.</div></div><div class="sub"><span class="n">c)</span><div>No other Person is permitted to operate the vehicle other than the person availing the rental (customer).</div></div><div class="sub"><span class="n">d)</span><div>Sub-Renting of the vehicle to third Party is strictly prohibited without Permission.</div></div><div class="sub"><span class="n">e)</span><div>Not more than two Person (including Rider and Pillion) is allowed to ride at a time.</div></div><div class="sub"><span class="n">f)</span><div>If the vehicle is return in dirty/muddy condition, Additional 100 rupees extra will be charged for washing.</div></div></div></div></div>
-<div class="cl"><span class="n">6.</span><div><b>Damage, Accident and Liability:</b><div class="subs"><div class="sub"><span class="n">a)</span><div>The customer shall use the vehicle entirely at his/her own risk. Rentals shall not be liable for any accidents, injuries / death, or damages arising during the rental period.</div></div><div class="sub"><span class="n">b)</span><div>Rental will not be responsible for any accidental expenses of Rider and Pillion, even in the case of death. Rentals will not bare any responsibility even if this is caused by any unavoidable circumstances or third party(involving another vehicle, person, animal, etc.).</div></div><div class="sub"><span class="n">c)</span><div>Any damages caused to the third-party vehicle or any person involved at the time of accident or any unavoidable/natural circumstances the customer is able to pay.</div></div><div class="sub"><span class="n">d)</span><div>Any accident, stolen motorcycle, stolen parts, vehicle damages, scratches, traffic fines, booking charge, parking charge and any other damages or violation is the customer responsibility for Penalty.</div></div><div class="sub"><span class="n">e)</span><div>The customer is liable to pay for stolen/damage of helmets.</div></div><div class="sub"><span class="n">f)</span><div>Any damage/defects/torn caused to the Raincoats, customer is liable to pay full amount of the items or as conclude by Rentals.</div></div></div></div></div>
-<div class="cl"><span class="n">7.</span><div><b>Maintenance and Repairs:</b> The Customer is responsible for maintaining the scooter in good condition during the rental period and to return the scooter in same condition as taken. The Customer is obligated to report any mechanical issues or damages to the Shining Ride Rental immediately without any delay. If failed to report at the time of use, the customer will have to bear the cost for all the further damaged done (under any circumstances).</div></div>
-<div class="cl"><span class="n">8.</span><div><b>Refund and Cancelation Policy:</b><div class="subs"><div class="sub"><span class="n">a)</span><div>Booking charges are 30 percent refundable on cancelation between 12 to 24 hour. No refund if cancelled 12 hours prior to schedule booking time.</div></div><div class="sub"><span class="n">b)</span><div>Shining Ride Rental reserves the rights to cancel any booking or refuse any request for any extension of the rental period at its sole discretion, without assigning any reason.</div></div><div class="sub"><span class="n">c)</span><div>Once scooty has been handed over and the rental period has commenced, no refund, whether full or partial, shall be provided if the customer returns the scooty before the scheduled return time or chooses to terminate the rental early.</div></div></div></div></div>
-</div>
-
-
-  <div class="f"><label class="ack" for="agree"><input type="checkbox" id="agree" required><span>By renting a scooter from Shining Ride Rental the Customer acknowledges that they have read and understood the above terms and conditions and agree to comply with the obligations outlined herein.</span></label><p class="err" id="agreeErr"></p></div>
 
   <p class="thanks"><b>★ ★ ★ ★</b> THANK YOU, HAVE A WONDERFUL RIDE. <b>★ ★ ★ ★</b></p>
 
@@ -178,6 +186,20 @@ function signatureData(){
   return c.toDataURL('image/jpeg',.7);
 }
 
+
+/* ---------- terms first: ticking the box opens the form ---------- */
+var gate=$('gate'),form=$('f'),opened=false;
+$('agree').addEventListener('change',function(){
+  if(!this.checked||opened)return;opened=true;
+  $('gateHint').textContent='Thank you. Opening the form…';
+  gate.classList.add('leave');
+  setTimeout(function(){
+    gate.hidden=true;form.hidden=false;form.classList.add('enter');
+    scrollTo({top:0,behavior:'auto'});fit();
+    var n=$('name');if(n)n.focus({preventScroll:true});
+  },matchMedia('(prefers-reduced-motion: reduce)').matches?0:450);
+});
+
 /* ---------- validation ---------- */
 var rules={
   name:function(v){return v.trim()?'':'Enter the customer name.'},
@@ -195,7 +217,6 @@ function check(id){
   p.textContent=m;el.setAttribute('aria-invalid',m?'true':'false');return!m;
 }
 Object.keys(rules).forEach(function(id){$(id).addEventListener('blur',function(){check(id)})});
-$('agree').addEventListener('change',function(){if($('agree').checked)$('agreeErr').textContent=''});
 
 /* ---------- submit ---------- */
 var msg=$('msg'),go=$('go');
@@ -203,9 +224,8 @@ $('f').addEventListener('submit',function(e){
   e.preventDefault();msg.textContent='';msg.className='msg';
   var ok=Object.keys(rules).map(check).every(Boolean);
   if(!$('date').value){ok=false}
-  if(!$('agree').checked){$('agreeErr').textContent='Please tick the box to accept the terms and conditions.';ok=false}
   if(!strokes.length){$('signErr').textContent='Please sign above.';ok=false}
-  if(!ok){var bad=d.querySelector('[aria-invalid="true"]');(bad||$('agree')).scrollIntoView({block:'center'});if(bad)bad.focus();return}
+  if(!ok){var bad=d.querySelector('[aria-invalid="true"]');(bad||$('go')).scrollIntoView({block:'center'});if(bad)bad.focus();return}
   go.disabled=true;go.textContent='Sending…';
   var body={date:$('date').value,vehicleNo:$('vehicleNo').value,name:$('name').value,address:$('address').value,
     duration:+$('duration').value,unit:$('unit').value,license:$('license').value,pickupTime:$('pickupTime').value,

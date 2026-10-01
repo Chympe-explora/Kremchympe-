@@ -67,34 +67,36 @@ a{color:inherit}
 @media(hover:hover){.fleet-btn:hover{background:#c3d9ea;transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.14)}}
 .tile{opacity:0;transform:translateY(14px);animation:tileIn .5s ease forwards}
 @keyframes tileIn{to{opacity:1;transform:none}}
-/* Bike viewer */
-.vw{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:max(.8rem,env(safe-area-inset-top)) .8rem max(.8rem,env(safe-area-inset-bottom));background:rgba(12,18,24,.62);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s .35s}
+/* Bike viewer: full screen */
+.vw{position:fixed;inset:0;z-index:60;background:#0b0f13;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s .35s}
 .vw.open{opacity:1;visibility:visible;transition:opacity .35s ease}
-.vw-card{position:relative;width:min(100%,370px);max-height:100%;overflow:hidden;border-radius:20px;background:#fff;box-shadow:0 24px 60px rgba(0,0,0,.35);transform:scale(.55) translateY(20px);opacity:0;transition:transform .55s cubic-bezier(.2,.85,.25,1),opacity .35s ease}
-.vw.open .vw-card{transform:none;opacity:1}
-.vw-media{position:relative;aspect-ratio:480/726;max-height:56dvh;width:100%;background:#000;touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:ew-resize}
-.vw-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
-.vw-x{position:absolute;z-index:3;top:.6rem;right:.6rem;width:2.3rem;height:2.3rem;border:0;border-radius:50%;background:rgba(255,255,255,.88);font:400 1.4rem/1 var(--sans);cursor:pointer;transition:transform .2s}
+.vw-card{position:absolute;inset:0;display:flex;flex-direction:column;background:#0b0f13;overflow:hidden;color:#fff;transform:scale(.6);border-radius:28px;opacity:0;transition:transform .55s cubic-bezier(.2,.85,.25,1),opacity .35s ease,border-radius .55s ease}
+.vw.open .vw-card{transform:none;opacity:1;border-radius:0}
+.vw-media{position:relative;flex:1 1 auto;min-height:0;background:#000;touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:ew-resize}
+.vw-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;pointer-events:none}
+.vw-x{position:absolute;z-index:3;top:max(.9rem,env(safe-area-inset-top));right:.9rem;width:2.6rem;height:2.6rem;border:0;border-radius:50%;background:rgba(255,255,255,.9);color:#111;font:400 1.6rem/1 var(--sans);cursor:pointer;transition:transform .2s}
 .vw-x:active{transform:scale(.92)}
-.vw-track{position:absolute;z-index:2;left:0;right:0;bottom:0;height:48px;touch-action:none;cursor:pointer;background:linear-gradient(transparent,rgba(0,0,0,.45))}
-.vw-rail{position:absolute;left:18px;right:18px;bottom:18px;height:4px;border-radius:4px;background:rgba(255,255,255,.38)}
-.vw-fill{position:absolute;inset:0;border-radius:4px;background:#fff;transform-origin:left;transform:scaleX(0)}
-.vw-knob{position:absolute;top:50%;left:0;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.45);transform:translate(-50%,-50%);transition:width .15s,height .15s}
-.vw-track.drag .vw-knob{width:24px;height:24px}
-.vw-info{padding:1rem 1.2rem 1.2rem;display:grid;gap:.75rem}
-.vw-info>*{opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s cubic-bezier(.22,.8,.22,1)}
+.vw-info{position:relative;z-index:2;flex:none;background:#0b0f13;padding:0 1.3rem max(1.2rem,env(safe-area-inset-bottom));display:grid;gap:.7rem}
+.vw-info::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:70px;background:linear-gradient(transparent,#0b0f13);pointer-events:none}
+.vw-info>*{opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s cubic-bezier(.22,.8,.22,1)}
 .vw.open .vw-info>*{opacity:1;transform:none}
-.vw.open .vw-info>:nth-child(1){transition-delay:.25s}.vw.open .vw-info>:nth-child(2){transition-delay:.33s}.vw.open .vw-info>:nth-child(3){transition-delay:.41s}.vw.open .vw-info>:nth-child(4){transition-delay:.49s}
-.vw-info h3{font:700 clamp(1.15rem,5vw,1.45rem)/1.15 var(--serif)}
-.vw-specs{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.25rem .9rem;font-size:.78rem;line-height:1.45}
-.vw-specs dt{color:#6b7c88}.vw-specs dd{margin:0;font-weight:700}
+.vw.open .vw-info>:nth-child(1){transition-delay:.25s}.vw.open .vw-info>:nth-child(2){transition-delay:.31s}.vw.open .vw-info>:nth-child(3){transition-delay:.37s}.vw.open .vw-info>:nth-child(4){transition-delay:.43s}
+.vw-track{position:relative;height:44px;touch-action:none;cursor:pointer;pointer-events:auto}
+.vw-rail{position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;border-radius:4px;background:rgba(255,255,255,.35)}
+.vw-fill{position:absolute;inset:0;border-radius:4px;background:#fff;transform-origin:left;transform:scaleX(0)}
+.vw-knob{position:absolute;top:50%;left:0;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.5);transform:translate(-50%,-50%);transition:width .15s,height .15s}
+.vw-track.drag .vw-knob{width:28px;height:28px}
+.vw-info h3{font:700 clamp(1.5rem,7vw,2.1rem)/1.1 var(--serif);text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.vw-specs{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.3rem 1rem;font-size:.82rem;line-height:1.45}
+.vw-specs dt{color:rgba(255,255,255,.65)}.vw-specs dd{margin:0;font-weight:700}
 .vw-row{display:flex;align-items:center;justify-content:space-between;gap:.8rem}
-.vw-hint{font-size:.66rem;color:#7a7a72;line-height:1.35}
-.vw-res{display:inline-block;padding:.7em 1.5em;border-radius:6px;background:var(--btn);color:var(--ink);font:400 .8rem/1 var(--serif);letter-spacing:.05em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:transform .2s,background .2s}
+.vw-hint{font-size:.68rem;color:rgba(255,255,255,.7);line-height:1.35}
+.vw-res{display:inline-block;pointer-events:auto;padding:.85em 1.8em;border-radius:6px;background:var(--btn);color:var(--ink);font:400 .85rem/1 var(--serif);letter-spacing:.05em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:transform .2s,background .2s}
 .vw-res:active{transform:scale(.96)}
 @media(hover:hover){.vw-res:hover{background:#c3d9ea}}
 html.lock,html.lock body{overflow:hidden}
-@media(max-height:620px){.vw-media{max-height:44dvh}}
+@media(min-aspect-ratio:1/1){.vw-card{inset:0;left:0;right:0;margin:0 auto;width:min(100%,520px)}}
+@media(max-height:620px){.vw-specs{display:none}}
 .tile{position:relative;aspect-ratio:1.3;overflow:hidden;background:#d6d6d6;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .route{position:relative;aspect-ratio:1.37;overflow:hidden;background:#bcc9d2;cursor:pointer}
 .tile video,.route video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease;pointer-events:none}
@@ -105,9 +107,9 @@ html.lock,html.lock body{overflow:hidden}
 .tile:focus-visible,.route:focus-visible{outline:3px solid #fff;outline-offset:-5px}
 /* Route tiles: tap to open the whole video at its real shape, tap again to shrink back */
 .route::after{content:"⤢";position:absolute;right:.5rem;bottom:.4rem;width:1.7rem;height:1.7rem;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.85);font-size:1rem;line-height:1;pointer-events:none}
-.route.open{grid-column:1/-1;justify-self:center;width:min(100%,calc(82vh*9/16));aspect-ratio:9/16;animation:pop .35s ease}
+.route.open{grid-column:1/-1;justify-self:center;width:min(100%,calc(82vh*var(--ar,.5625)));aspect-ratio:var(--ar,.5625);animation:fadeIn .4s ease}
 .route.open::after{content:"⤡"}
-.route.open video{object-fit:contain;background:#000;transform:none}
+.route.open video{object-fit:cover;object-position:50% 50%!important;transform:none}
 .route.open span{top:auto;bottom:2.6rem;transform:none}
 .route-grid.has-open .route:not(.open){display:none}
 .routes{background:var(--blue);padding-block:clamp(2.4rem,9vw,5rem) clamp(1.6rem,5.7vw,3.2rem)}
@@ -160,6 +162,7 @@ textarea.fb-in{resize:vertical;min-height:5.4rem}
 
 /* MOTION */
 @keyframes pop{from{opacity:.4;transform:scale(.96)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:.3}to{opacity:1}}
 @keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 @keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
 .hero-title,.logo{animation:up .9s .1s both}.hero-copy{animation:up 1s .3s both}
@@ -207,11 +210,9 @@ textarea.fb-in{resize:vertical;min-height:5.4rem}
 <div class="vw" id="vw" role="dialog" aria-modal="true" aria-label="Bike video and details" aria-hidden="true">
   <div class="vw-card" id="vwCard">
     <button type="button" class="vw-x" id="vwClose" aria-label="Close">&times;</button>
-    <div class="vw-media" id="vwMedia">
-      <video id="vwVideo" muted loop playsinline preload="auto" aria-hidden="true"></video>
-      <div class="vw-track" id="vwTrack" role="slider" tabindex="0" aria-label="Video position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="vw-rail"><i class="vw-fill" id="vwFill"></i><b class="vw-knob" id="vwKnob"></b></div></div>
-    </div>
+    <div class="vw-media" id="vwMedia"><video id="vwVideo" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
     <div class="vw-info">
+      <div class="vw-track" id="vwTrack" role="slider" tabindex="0" aria-label="Video position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="vw-rail"><i class="vw-fill" id="vwFill"></i><b class="vw-knob" id="vwKnob"></b></div></div>
       <h3 id="vwName"></h3>
       <dl class="vw-specs" id="vwSpecs"></dl>
       <div class="vw-row"><p class="vw-hint">Swipe the video or drag the slider to go back and forward.</p><a class="vw-res" id="vwRes" href="reserve.html">Reserve</a></div>
@@ -391,7 +392,7 @@ var FLEET=[
 
   /* ---- bike viewer ---- */
   var vw=$('vw'),vcard=$('vwCard'),vmedia=$('vwMedia'),vv=$('vwVideo'),vtrack=$('vwTrack'),vfill=$('vwFill'),vknob=$('vwKnob'),vclose=$('vwClose'),vsk=seeker(vv),vopen=false,vraf=0,lastTile=null;
-  attachScrub(vmedia,vv,vsk,'.vw-track');
+  attachScrub(vcard,vv,vsk,'.vw-track,.vw-x,.vw-res');
   function tick(){
     if(!vopen)return;
     var dur=vv.duration,p=dur&&isFinite(dur)?vv.currentTime/dur:0;
@@ -461,12 +462,15 @@ var FLEET=[
   /* ---- route videos: tap to open full size, tap again to close ---- */
   var grid=$('routeGrid');
   [].forEach.call(d.querySelectorAll('.route'),function(t){
-    watch(t.querySelector('video'));
+    var rv0=t.querySelector('video');
+    function ar(){if(rv0.videoWidth)t.style.setProperty('--ar',(rv0.videoWidth/rv0.videoHeight).toFixed(4))}
+    rv0.addEventListener('loadedmetadata',ar);ar();
+    watch(rv0);
     function toggle(){
       var open=t.classList.toggle('open');
       t.setAttribute('aria-expanded',open);t.setAttribute('aria-label',open?'Shrink video':'Open video full size');
       grid.classList.toggle('has-open',open);
-      if(open)t.scrollIntoView({block:'center',behavior:beh});
+      if(open){t.scrollIntoView({block:'center',behavior:beh});var pp=rv0.play();if(pp&&pp.catch)pp.catch(function(){})}
     }
     t.addEventListener('click',toggle);
     t.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}});
