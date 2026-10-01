@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Shining Bike Rentals | Shillong &amp; Jaintia Hills</title>
-<meta name="description" content="Rent a scooter or bike in Jowai, Shillong and across East Jaintia Hills, Meghalaya. Yamaha Aerox 155, Royal Enfield Hunter 350, KTM Duke 200.">
-<meta property="og:title" content="Shining Bike Rentals | Shillong &amp; Jaintia Hills">
-<meta property="og:description" content="Explore Meghalaya at your own pace.">
+<title>Krem Chympe — Destination Information</title>
+<meta name="description" content="Krem Chympe: cave exploration, waterfalls, forest trekking, camping and homestay in East Jaintia Hills, Meghalaya.">
+<meta property="og:title" content="Krem Chympe — Destination Information">
+<meta property="og:description" content="Explore Krem Chympe at your own pace.">
 <meta name="theme-color" content="#cfcfcf">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%8D%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +29,7 @@ a{color:inherit}
 .hero{touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .hero.scrubbing{cursor:ew-resize}
 .hero a{-webkit-user-drag:none}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;pointer-events:none}
 .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 58%;transition:opacity .35s ease}
 .hero video.fade{opacity:0}
 .hero-title{position:relative;z-index:2;text-align:center;font:300 clamp(1rem,3.7vw,2.1rem)/1.2 var(--sans);text-transform:uppercase;letter-spacing:.01em;padding:.15em .5em 0;text-shadow:0 1px 8px rgba(0,0,0,.25)}
@@ -43,7 +44,7 @@ a{color:inherit}
 .pill:active{transform:scale(.97)}
 
 /* Wide screens: bike video sits on the right at a sensible size, fading into the grey backdrop */
-@media(min-aspect-ratio:1/1){.hero video{left:auto;right:0;width:min(58vw,760px);object-fit:cover;object-position:50% 56%;-webkit-mask-image:linear-gradient(to right,transparent,#000 30%);mask-image:linear-gradient(to right,transparent,#000 30%)}}
+@media(min-aspect-ratio:1/1){.hero-img{left:auto;right:0;width:min(58vw,760px);-webkit-mask-image:linear-gradient(to right,transparent,#000 30%);mask-image:linear-gradient(to right,transparent,#000 30%)}.hero video{left:auto;right:0;width:min(58vw,760px);object-fit:cover;object-position:50% 56%;-webkit-mask-image:linear-gradient(to right,transparent,#000 30%);mask-image:linear-gradient(to right,transparent,#000 30%)}}
 
 /* SECTIONS */
 .sec{padding-inline:var(--gutter)}
@@ -158,7 +159,7 @@ textarea.fb-in{resize:vertical;min-height:5.4rem}
 .ig{display:inline-block;margin:.6rem 0;line-height:0}
 .ig svg{width:1.9rem;height:1.9rem;padding:4px;border-radius:7px;background:linear-gradient(45deg,#f9a63a,#d6249f,#6a4fd6);transition:transform .2s}
 .ig:hover svg{transform:scale(1.12)}
-.touch .note{margin-top:clamp(2rem,9vw,4rem);max-width:17em;font-size:clamp(.7rem,1.7vw,.9rem)}
+.touch .note{margin-top:clamp(2rem,9vw,4rem);max-width:26em;font-size:clamp(.7rem,1.7vw,.9rem)}
 
 /* MOTION */
 @keyframes pop{from{opacity:.4;transform:scale(.96)}to{opacity:1;transform:none}}
@@ -174,40 +175,40 @@ textarea.fb-in{resize:vertical;min-height:5.4rem}
 <body>
 
 <header class="hero" id="top">
-  <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="videos/hero-poster.jpg" aria-hidden="true"><source src="videos/hero.mp4" type="video/mp4"></video>
-  <h1 class="hero-title">Shillong &amp; Jaintia Hills Bike Rentals</h1>
+  <img id="heroImg" class="hero-img" src="images/krem-chympe-hero.jpg" alt="Krem Chympe cave and waterfall" onerror="this.style.display='none'">
+  <h1 class="hero-title">Krem Chympe — Destination Information</h1>
   <a class="logo" href="#top" aria-label="Shining Bike Rentals, back to top">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>
     <span>Shining Bike<br>Rentals</span>
   </a>
   <div class="hero-copy">
-    <p class="hero-h">EXPLORE MEGHALAYA<br>AT YOUR OWN PACE</p>
-    <a class="pill" href="reserve.html">Reserve now</a>
-    <a class="terms-link" href="terms.html">Terms &amp; Conditions</a>
+    <p class="hero-h">EXPLORE KREM CHYMPE<br>AT YOUR OWN PACE</p>
+    <a class="pill" href="reserve.html">Book now</a>
+    <a class="terms-link" href="terms.html">Cancellation Policy</a>
   </div>
 </header>
 
 <section class="sec journeys reveal">
-  <h2>Great Journeys Start with Great Rides</h2>
-  <p class="body-text">We provide reliable and comfortable car rental services in Jowai and across East Jaintia Hills. Whether you need an SCOOTY &amp; BIKE for the rough terrain to Krang Suri Falls or a sedan for a trip to Shillong, our well-maintained fleet and a memorable journey.</p>
+  <h2>A Natural Destination Like No Other</h2>
+  <p class="body-text">Krem Chympe is a natural destination offering cave exploration, waterfalls, underground water, forest trekking and local adventure experiences.<br><br>Local Guide: David Tariang, Brichyrnot village.<br>Languages: English, Hindi and local language.</p>
 </section>
 
 <section class="sec best reveal">
-  <h2>What We Do Best</h2>
-  <p>We offer a wide range of SCOOTY &amp; BIKE. Our services include local sightseeing in Jowai, Shillong etc, and custom multi-day tour across Meghalaya.</p>
+  <h2>Our Services</h2>
+  <p>We offer cave exploration, waterfall visits, forest trekking, 4×4 off-road travel, bamboo rafting, camping, homestay and local food experiences.</p>
 </section>
 
-<section class="fleet-wrap reveal" id="fleetWrap" aria-label="Our bikes. Tap a bike to see its video and details.">
+<section class="fleet-wrap reveal" id="fleetWrap" aria-label="Our experiences. Tap one to see its video.">
   <div class="fleet-clip" id="fleetClip">
     <div id="fleetInner">
       <div class="fleet" id="fleet"></div>
-      <p class="fleet-note" id="fleetNote">More bikes coming soon.</p>
+      <p class="fleet-note" id="fleetNote">More experiences coming soon.</p>
     </div>
   </div>
-  <div class="fleet-bar"><button type="button" class="fleet-btn" id="fleetBtn" aria-expanded="false" aria-controls="fleetClip"><span id="fleetBtnTxt">View all bikes</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div>
+  <div class="fleet-bar"><button type="button" class="fleet-btn" id="fleetBtn" aria-expanded="false" aria-controls="fleetClip"><span id="fleetBtnTxt">View all</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div>
 </section>
 
-<div class="vw" id="vw" role="dialog" aria-modal="true" aria-label="Bike video and details" aria-hidden="true">
+<div class="vw" id="vw" role="dialog" aria-modal="true" aria-label="Experience video and details" aria-hidden="true">
   <div class="vw-card" id="vwCard">
     <button type="button" class="vw-x" id="vwClose" aria-label="Close">&times;</button>
     <div class="vw-media" id="vwMedia"><video id="vwVideo" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
@@ -215,16 +216,16 @@ textarea.fb-in{resize:vertical;min-height:5.4rem}
       <div class="vw-track" id="vwTrack" role="slider" tabindex="0" aria-label="Video position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="vw-rail"><i class="vw-fill" id="vwFill"></i><b class="vw-knob" id="vwKnob"></b></div></div>
       <h3 id="vwName"></h3>
       <dl class="vw-specs" id="vwSpecs"></dl>
-      <div class="vw-row"><p class="vw-hint">Swipe the video or drag the slider to go back and forward.</p><a class="vw-res" id="vwRes" href="reserve.html">Reserve</a></div>
+      <div class="vw-row"><p class="vw-hint">Swipe the video or drag the slider to go back and forward.</p><a class="vw-res" id="vwRes" href="reserve.html">Book now</a></div>
     </div>
   </div>
 </div>
 
 <section class="sec routes">
-  <h2 class="reveal">Popular Routes We Cover</h2>
+  <h2 class="reveal">Explore Krem Chympe</h2>
   <div class="route-grid reveal" id="routeGrid">
-    <div class="route" role="button" tabindex="0" aria-expanded="false" aria-label="Open video full size"><video muted loop playsinline autoplay preload="metadata" poster="videos/route-dawki.jpg" aria-hidden="true" style="object-position:50% 69%"><source src="videos/route-dawki.mp4" type="video/mp4"></video><span>Jowai to Dawki &amp; Shnongpdeng</span></div>
-    <div class="route" role="button" tabindex="0" aria-expanded="false" aria-label="Open video full size"><video muted loop playsinline autoplay preload="metadata" poster="videos/route-guwahati.jpg" aria-hidden="true" style="object-position:50% 80%"><source src="videos/route-guwahati.mp4" type="video/mp4"></video><span>Jowai to Guwahati</span></div>
+    <div class="route" role="button" tabindex="0" aria-expanded="false" aria-label="Open video full size"><video muted loop playsinline autoplay preload="metadata" poster="videos/route-dawki.jpg" aria-hidden="true" style="object-position:50% 69%"><source src="videos/route-dawki.mp4" type="video/mp4"></video><span>Cave and Waterfall</span></div>
+    <div class="route" role="button" tabindex="0" aria-expanded="false" aria-label="Open video full size"><video muted loop playsinline autoplay preload="metadata" poster="videos/route-guwahati.jpg" aria-hidden="true" style="object-position:50% 80%"><source src="videos/route-guwahati.mp4" type="video/mp4"></video><span>Forest and River</span></div>
   </div>
 </section>
 
@@ -253,9 +254,9 @@ textarea.fb-in{resize:vertical;min-height:5.4rem}
   <h2 class="reveal">What Our Travelers Say</h2>
   <div class="rv-wrap">
     <div class="reviews" id="reviews" tabindex="0" aria-label="Traveler reviews. Swipe sideways to read more.">
-      <figure class="review static"><blockquote>The experienced and knew the roads to Krang Suri perfectly. The BIKE was clean and comfortable."</blockquote><cite>— Rahul S., Guwahati</cite></figure>
-      <figure class="review static"><blockquote>Booked a cab for our trip to Shillong. Very punctual and polite service. Highly recommended for Jowai.</blockquote><cite>— Anjali D., Kolkata</cite></figure>
-      <figure class="review static"><blockquote>Great experience renting a Scotty for our Meghalaya adventure. The booking process was smooth and easy.</blockquote><cite>— David M., UK</cite></figure>
+      <figure class="review static"><blockquote>"The cave exploration and bamboo rafting were incredible. David was an excellent guide who knew the terrain perfectly."</blockquote><cite>— Rahul S., Guwahati</cite></figure>
+      <figure class="review static"><blockquote>"Booked the Wilderness Expedition. The 4x4 off-roading and the river camp were the highlights."</blockquote><cite>— Anjali D., Kolkata</cite></figure>
+      <figure class="review static"><blockquote>"A truly raw and beautiful experience. The homestay was comfortable, and the local food was amazing."</blockquote><cite>— David M., UK</cite></figure>
     </div>
     <div class="rv-nav"><button type="button" id="rvPrev" aria-label="Previous reviews">&lsaquo;</button><button type="button" id="rvNext" aria-label="Next reviews">&rsaquo;</button></div>
   </div>
@@ -270,7 +271,7 @@ textarea.fb-in{resize:vertical;min-height:5.4rem}
     Email: <a href="mailto:shiningbikerental@gmail.com">shiningbikerental@gmail.com</a><br>
     Social: <a href="https://instagram.com/shiningcars" target="_blank" rel="noopener">@shiningcars</a>
   </address>
-  <p class="note">We provide 24/7 support. Experienced the terrains at your pace.</p>
+  <p class="note">Visitors must respect local communities, wildlife and the natural environment. All activities depend on weather and safety conditions.</p>
 </footer>
 
 <script>
@@ -279,12 +280,9 @@ textarea.fb-in{resize:vertical;min-height:5.4rem}
    The first 3 show in the row; the "View all bikes" button slides the rest open below.
    "info" = the details shown when a visitor taps the bike. Edit or add rows freely. */
 var FLEET=[
-  {name:'Yamaha Aerox 155',        src:'bike-aerox.mp4',  poster:'bike-aerox.jpg',
-   info:[['Type','Automatic scooter'],['Engine','155 cc, liquid-cooled'],['Power','about 15 PS'],['Gearbox','Automatic (CVT)']]},
-  {name:'Royal Enfield Hunter 350', src:'bike-hunter.mp4', poster:'bike-hunter.jpg',
-   info:[['Type','Roadster'],['Engine','349 cc, air-oil cooled'],['Power','about 20 PS'],['Gearbox','5-speed manual']]},
-  {name:'KTM Duke 200',            src:'bike-ktm.mp4',    poster:'bike-ktm.jpg',
-   info:[['Type','Naked sport'],['Engine','199.5 cc, liquid-cooled'],['Power','about 25 PS'],['Gearbox','6-speed manual']]}
+  {pkg:'private', name:'Private Tour',        src:'bike-aerox.mp4',  poster:'bike-aerox.jpg', info:[]},
+  {pkg:'camping', name:'Camping Package',      src:'bike-hunter.mp4', poster:'bike-hunter.jpg', info:[]},
+  {pkg:'expedition', name:'Wilderness Expedition', src:'bike-ktm.mp4', poster:'bike-ktm.jpg', info:[]}
 ];
 </script>
 <script>
@@ -370,9 +368,7 @@ var FLEET=[
   }
 
   /* ---- hero video: slide over it to scrub ---- */
-  var hv=$('heroVideo'),heroEl=$('top');
-  watch(hv);
-  attachScrub(heroEl,hv,seeker(hv));
+
 
   /* ---- fleet: first row + animated "view all" ---- */
   var fleet=$('fleet'),wrap=$('fleetWrap'),clip=$('fleetClip'),inner=$('fleetInner'),fbtn=$('fleetBtn'),fbtxt=$('fleetBtnTxt'),fnote=$('fleetNote'),PREVIEW=3,expanded=false;
@@ -383,7 +379,7 @@ var FLEET=[
   }
   function setExpanded(x){
     expanded=x;wrap.classList.toggle('open',x);fbtn.setAttribute('aria-expanded',x);
-    fbtxt.textContent=x?'Show less':'View all bikes'+(FLEET.length>PREVIEW?' ('+FLEET.length+')':'');
+    fbtxt.textContent=x?'Show less':'View all'+(FLEET.length>PREVIEW?' ('+FLEET.length+')':'');
     sizeClip();
     if(!x){var r=wrap.getBoundingClientRect();if(r.top<0)wrap.scrollIntoView({block:'start',behavior:beh})}
   }
@@ -415,8 +411,8 @@ var FLEET=[
     var sp=$('vwSpecs');sp.innerHTML='';
     (b.info||[]).forEach(function(r){var dt=d.createElement('dt'),dd=d.createElement('dd');dt.textContent=r[0];dd.textContent=r[1];sp.append(dt,dd)});
     sp.style.display=(b.info&&b.info.length)?'':'none';
-    $('vwRes').href='reserve.html?vehicle='+encodeURIComponent(b.name);        /* the booking form reads ?vehicle= and pre-fills it */
-    try{sessionStorage.setItem('shiningVehicle',b.name)}catch(_){}
+    var pk=b.pkg||'';$('vwRes').href='reserve.html?package='+encodeURIComponent(pk);        /* the booking flow loads this package */
+    try{sessionStorage.setItem('kcPackage',pk)}catch(_){}
     var r=tile.getBoundingClientRect();
     vcard.style.transformOrigin=(r.left+r.width/2)+'px '+(r.top+r.height/2)+'px';   /* grows out of the tile that was tapped */
     vw.setAttribute('aria-hidden','false');d.documentElement.classList.add('lock');

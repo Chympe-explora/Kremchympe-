@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Reserve | Shining Bike Rentals</title>
-<meta name="description" content="Reserve a scooter or bike in Shillong &amp; Jaintia Hills in a few quick steps.">
+<title>Book your trip | Krem Chympe Adventure &amp; Camping</title>
+<meta name="description" content="Book a Krem Chympe Private Tour, Camping Package or Wilderness Expedition in a few quick steps.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%8D%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,22 +37,6 @@ h1,h2,h3,p{margin:0}
 select.in{appearance:none;-webkit-appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23333' stroke-width='2'/%3E%3C/svg%3E") no-repeat right .9rem center;padding-right:2.4rem}
 .row{display:flex;gap:.6rem}
 .err{min-height:1.05rem;margin-top:.25rem;font-size:.8rem;color:var(--bad)}
-.cal{border:2px solid var(--nav);border-radius:22px;padding:.8rem .8rem 1rem;margin-bottom:1.2rem}
-.cal-h{display:flex;align-items:center;justify-content:space-between;border-bottom:1.5px solid var(--line);padding-bottom:.5rem;margin-bottom:.5rem}
-.cal-h button{background:none;border:0;width:2.2rem;height:2.2rem;border-radius:50%;font-size:1.3rem;cursor:pointer;color:var(--ink)}
-.cal-h button:disabled{opacity:.25;cursor:default}
-.cal-h span{font:500 1.15rem var(--sans)}
-.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.15rem;text-align:center}
-.grid .dow{font-size:.68rem;color:var(--soft);text-transform:uppercase;padding:.3rem 0}
-.grid button{aspect-ratio:1;border:0;background:none;border-radius:50%;font:600 .95rem var(--sans);color:var(--ink);cursor:pointer}
-.grid button:disabled{color:#b7c2cb;cursor:default;font-weight:400}
-.grid button.sel{background:var(--main);color:#fff}
-.grid button:not(:disabled):not(.sel):hover{background:var(--chip)}
-.grid .blank{visibility:hidden}
-.times{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-bottom:1rem}
-.times button{padding:.65rem 0;border:0;border-radius:10px;background:var(--chip);font:500 .88rem var(--sans);color:var(--ink);cursor:pointer}
-.times button.sel{background:var(--main);color:#fff}
-.times button:disabled{opacity:.35;cursor:default}
 .btns{display:flex;gap:.7rem;margin-top:1.4rem}
 .btn{flex:1;padding:.95rem 1rem;border-radius:999px;border:2.5px solid var(--main);font:600 1rem var(--sans);cursor:pointer;text-align:center;text-decoration:none;transition:background .2s,transform .15s}
 .btn.ghost{background:#fff;color:var(--ink)}
@@ -60,16 +44,7 @@ select.in{appearance:none;-webkit-appearance:none;background:#fff url("data:imag
 .btn.fill:hover{background:var(--main-d)}
 .btn:active{transform:scale(.98)}
 .btn:disabled{opacity:.6;cursor:wait}
-.pad{display:block;width:100%;height:170px;background:#fff;border:1.5px dashed var(--soft);border-radius:14px;touch-action:none;cursor:crosshair}
 .mini{background:none;border:0;padding:0;font:500 .85rem var(--sans);text-decoration:underline;cursor:pointer;color:var(--main-d)}
-.sig-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem}
-.sum{background:#fff;border-radius:22px;box-shadow:0 6px 22px rgba(23,57,79,.16);padding:1.2rem 1.2rem .6rem;margin-bottom:.4rem}
-.sum h3{font:700 1.05rem var(--sans);margin-bottom:.6rem}
-.sum dl{margin:0}
-.sum dt{font:600 .9rem var(--sans);margin-top:.7rem}
-.sum dd{margin:.1rem 0 0;font-size:.98rem;color:var(--soft);overflow-wrap:anywhere}
-.sum .two{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem}
-.sum img{display:block;margin:.35rem 0 .7rem;max-width:100%;height:70px;object-fit:contain;object-position:left}
 .msg{margin-top:.9rem;text-align:center;font-size:.9rem;min-height:1.2em}
 .msg.bad{color:var(--bad)}.msg a{font-weight:700;color:inherit}
 .done .h{font-size:1.7rem}
@@ -77,233 +52,317 @@ select.in{appearance:none;-webkit-appearance:none;background:#fff url("data:imag
 .done .id{display:block;margin:.2rem 0 1.2rem;font:700 1.3rem var(--sans);color:var(--ink)}
 .done .btn{display:block;margin-top:.7rem}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+textarea.in{resize:vertical;min-height:5rem}
+.pk{display:flex;align-items:center;gap:.6rem;background:var(--chip);border-radius:14px;padding:.6rem .8rem;margin-bottom:1.2rem}
+.pk b{flex:1;font-size:.95rem}.pk select{width:auto;max-width:55%;padding:.45rem 2rem .45rem .6rem;font-size:.9rem;border-radius:10px}
+.tag{font-size:.78rem;color:var(--soft);margin:-.1rem 0 1.1rem}
+.note{background:var(--chip);border-radius:14px;padding:.8rem 1rem;margin-bottom:1rem;font-size:.92rem;line-height:1.5}
+.note ul{margin:.3rem 0 0;padding-left:1.1rem}.note b{font-weight:600}
+.opt{display:flex;align-items:center;gap:.7rem;border:1.5px solid var(--line);border-radius:14px;padding:.8rem .9rem;margin-bottom:.6rem;cursor:pointer}
+.opt input{width:1.2rem;height:1.2rem;accent-color:var(--main);flex:none}
+.opt span{flex:1;font-weight:500}.opt em{font-style:normal;font-size:.85rem;color:var(--soft);white-space:nowrap}
+.opt.on{border-color:var(--main);background:#f2f8fc}
+.stp{display:flex;align-items:center;justify-content:center;gap:1.2rem;margin:.4rem 0 1.2rem}
+.stp button{width:2.8rem;height:2.8rem;border-radius:50%;border:2px solid var(--main);background:#fff;font:600 1.4rem var(--sans);cursor:pointer;color:var(--main-d)}
+.stp output{font:700 1.8rem var(--sans);min-width:2.5rem;text-align:center}
+table.inv{width:100%;border-collapse:collapse;font-size:.95rem}
+.inv td{padding:.6rem 0;border-bottom:1px solid var(--line);vertical-align:top}
+.inv td:last-child{text-align:right;white-space:nowrap;font-weight:600}.inv small{display:block;color:var(--soft);font-weight:400}
+.inv tr.t td{border-bottom:0;font:700 1.15rem var(--sans);padding-top:.9rem}
+.est{display:flex;justify-content:space-between;align-items:center;background:var(--chip);border-radius:14px;padding:1rem;font:600 1rem var(--sans)}.est b{font-size:1.4rem}
+.os{background:#fff;border-radius:18px;box-shadow:0 6px 22px rgba(23,57,79,.14);padding:1rem 1.1rem;margin-bottom:1.1rem}
+.os h3{font:700 1.02rem var(--sans);margin-bottom:.4rem}.os p{display:flex;justify-content:space-between;gap:1rem;padding:.25rem 0;font-size:.93rem}.os p span:first-child{color:var(--soft)}
+.tabs{display:flex;gap:.4rem;margin-bottom:.9rem}
+.tabs button{flex:1;padding:.6rem 0;border:0;border-radius:10px;background:var(--chip);font:600 .9rem var(--sans);cursor:pointer;color:var(--ink)}
+.tabs button.on{background:var(--main);color:#fff}
+.pane{display:none;text-align:center;margin-bottom:1rem}.pane.on{display:block}
+.pane img{width:200px;max-width:70%;border-radius:12px;border:1px solid var(--line)}
+.pane .qrmiss{display:none;color:var(--soft);font-size:.9rem}
+.kv{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:1px solid var(--line);text-align:left;font-size:.95rem}.kv span:first-child{color:var(--soft)}.kv span:last-child{font-weight:600;overflow-wrap:anywhere;text-align:right}
+.bal{display:flex;justify-content:space-between;font:600 1rem var(--sans);padding:.3rem 0}.bal b{font-size:1.1rem}
+.chk{display:flex;gap:.6rem;align-items:flex-start;font-size:.92rem;line-height:1.4;margin:.4rem 0}.chk input{width:1.15rem;height:1.15rem;margin-top:.1rem;accent-color:var(--main);flex:none}.chk a{color:var(--main-d);font-weight:600}
+.prev{margin-top:.7rem;font-size:.9rem;color:var(--soft);overflow-wrap:anywhere}.prev img{display:block;max-width:100%;max-height:220px;margin-top:.4rem;border-radius:10px;border:1px solid var(--line)}
+.pick{display:grid;gap:.7rem}.pick button{padding:1rem;border-radius:16px;border:2px solid var(--main);background:#fff;text-align:left;font:600 1.05rem var(--sans);cursor:pointer}.pick small{display:block;font-weight:400;color:var(--soft);margin-top:.2rem}
 </style>
 </head>
 <body>
-<nav class="nav"><a href="book.html">&larr; Home</a><span class="brand">Shining Bike Rentals</span></nav>
+<nav class="nav"><a href="book.html">&larr; Home</a><span class="brand">Krem Chympe</span></nav>
 <main class="app" id="app">
+<div id="loading" class="msg">Loading…</div>
+<div id="chooser" hidden>
+  <h1 class="h">Choose your package</h1>
+  <div class="pick" id="pickList"></div>
+</div>
+<div id="flow" hidden>
 <div class="steps" id="steps" aria-hidden="true"><i>1</i><b></b><i>2</i><b></b><i>3</i><b></b><i>4</i><b></b><i>5</i></div>
+<div class="pk"><b id="pkName"></b><select class="in" id="pkSel" aria-label="Change package"></select></div>
+<p class="tag" id="pkTag"></p>
 
 <form id="f" novalidate>
-  <!-- 1 -->
+  <!-- 1 DETAILS -->
   <section class="step show" data-step="1">
     <h1 class="h">Your details</h1>
-    <div class="f"><label for="name">Name of the customer</label><input class="in" id="name" maxlength="80" autocomplete="name"><p class="err"></p></div>
-    <div class="f"><label for="phone">Phone number</label><input class="in" id="phone" type="tel" inputmode="tel" maxlength="20" autocomplete="tel"><p class="err"></p></div>
-    <div class="f"><label for="address">Permanent address</label><input class="in" id="address" maxlength="200" autocomplete="street-address"><p class="err"></p></div>
-    <div class="f"><label for="license">Driving licence no.</label><input class="in" id="license" maxlength="30" autocomplete="off"><p class="err"></p></div>
+    <div class="f"><label for="name">Name</label><input class="in" id="name" maxlength="80" autocomplete="name"><p class="err"></p></div>
+    <div class="f"><label for="whatsapp">WhatsApp number</label><input class="in" id="whatsapp" type="tel" inputmode="tel" maxlength="20" autocomplete="tel"><p class="err"></p></div>
+    <div class="f"><label for="date" id="dateLab">Date</label><input class="in" id="date" type="date"><p class="err"></p></div>
+    <div class="row">
+      <div class="f" style="flex:1"><label for="people">Number of people</label><input class="in" id="people" type="number" inputmode="numeric" min="1" max="50"><p class="err"></p></div>
+      <div class="f" style="flex:1" id="childWrap"><label for="children">Children</label><input class="in" id="children" type="number" inputmode="numeric" min="0" max="50"><p class="err"></p></div>
+    </div>
+    <div class="f"><label for="request">Special request (optional)</label><textarea class="in" id="request" maxlength="500"></textarea></div>
+    <div class="note" id="notes"></div>
     <div class="btns"><a class="btn ghost" href="book.html">Back</a><button type="button" class="btn fill" data-next>Next page</button></div>
   </section>
 
-  <!-- 2 -->
+  <!-- 2 OPTIONS -->
   <section class="step" data-step="2">
-    <h2 class="h">Your ride</h2>
-    <div class="f"><label for="bike">Bike model</label>
-      <select class="in" id="bike"><option value="">Select a bike</option><option>Yamaha Aerox 155</option><option>Royal Enfield Hunter 350</option><option>KTM Duke 200</option></select><p class="err"></p></div>
-    <div class="f"><label for="vehicleNo">Vehicle no. (optional)</label><input class="in" id="vehicleNo" maxlength="20" autocomplete="off" placeholder="if known"></div>
-    <div class="f"><label for="destination">Destination</label><input class="in" id="destination" maxlength="100"><p class="err"></p></div>
-    <div class="f"><label for="duration">Duration</label>
-      <div class="row"><input class="in" id="duration" type="number" inputmode="numeric" min="1" max="99"><select class="in" id="unit" aria-label="Hours or days" style="width:6.2rem;flex:none"><option>Hrs</option><option>Day</option></select></div><p class="err"></p></div>
+    <h2 class="h" id="optH">Your options</h2>
+    <div id="optBox"></div>
     <div class="btns"><button type="button" class="btn ghost" data-back>Back</button><button type="button" class="btn fill" data-next>Next page</button></div>
   </section>
 
-  <!-- 3 -->
+  <!-- 3 PRICING -->
   <section class="step" data-step="3">
-    <h2 class="h">Please select a date and time</h2>
-    <div class="cal">
-      <div class="cal-h"><button type="button" id="prev" aria-label="Previous month">&#8249;</button><span id="mon"></span><button type="button" id="nextm" aria-label="Next month">&#8250;</button></div>
-      <div class="grid" id="grid"></div>
-    </div>
-    <p class="err" id="dateErr"></p>
-    <div class="lab" style="font:600 .92rem var(--sans);margin-bottom:.5rem">Pick up time</div>
-    <div class="times" id="times"></div>
-    <p class="err" id="pickErr" style="margin-top:-.6rem"></p>
-    <div class="f"><label for="dropTime">Drop time</label><input class="in" id="dropTime" type="time"><p class="err"></p></div>
+    <h2 class="h">Pricing</h2>
+    <table class="inv" id="inv"></table>
     <div class="btns"><button type="button" class="btn ghost" data-back>Back</button><button type="button" class="btn fill" data-next>Next page</button></div>
   </section>
 
-  <!-- 4 -->
+  <!-- 4 PAYMENT -->
   <section class="step" data-step="4">
-    <h2 class="h">Customer signature</h2>
-    <div class="sig-h"><span style="font:600 .92rem var(--sans)">Sign with your finger</span><button type="button" class="mini" id="clear">Clear</button></div>
-    <canvas class="pad" id="pad" aria-label="Sign here with your finger or mouse"></canvas>
-    <p class="err" id="signErr"></p>
+    <h2 class="h">Payment</h2>
+    <div class="os" id="os"></div>
+    <div class="tabs" role="tablist"><button type="button" data-tab="qr" class="on">QR</button><button type="button" data-tab="upi">UPI</button><button type="button" data-tab="bank">Bank transfer</button></div>
+    <div class="pane on" id="p-qr"><img id="qrImg" alt="Payment QR code"><p class="qrmiss" id="qrMiss">QR code not available. Please use UPI or bank transfer.</p></div>
+    <div class="pane" id="p-upi"><div class="kv"><span>UPI ID</span><span id="upiId"></span></div><div class="kv"><span>Payee</span><span id="upiPayee"></span></div><a class="btn fill" id="upiLink" style="display:block;margin-top:.9rem">Pay with UPI app</a></div>
+    <div class="pane" id="p-bank"></div>
+    <div class="f"><label for="advance">Advance payment (₹)</label><input class="in" id="advance" type="number" inputmode="numeric" min="0"><p class="err"></p></div>
+    <div class="bal"><span>Balance to pay later</span><b id="bal">₹0</b></div>
     <div class="btns"><button type="button" class="btn ghost" data-back>Back</button><button type="button" class="btn fill" data-next>Next page</button></div>
   </section>
 
-  <!-- 5 -->
+  <!-- 5 UPLOAD & SUBMIT -->
   <section class="step" data-step="5">
-    <h2 class="h">Almost there!</h2>
-    <div class="sum">
-      <h3>Summary</h3>
-      <dl>
-        <dt>Name of the customer</dt><dd id="sName"></dd>
-        <div class="two"><div><dt>Date</dt><dd id="sDate"></dd></div><div><dt>Pick up &middot; Drop</dt><dd id="sTime"></dd></div></div>
-        <div class="two"><div><dt>Bike</dt><dd id="sBike"></dd></div><div><dt>Duration</dt><dd id="sDur"></dd></div></div>
-        <dt>Destination</dt><dd id="sDest"></dd>
-        <dt>Phone</dt><dd id="sPhone"></dd>
-        <dt>Signature</dt><dd><img id="sSig" alt="Your signature"></dd>
-      </dl>
-    </div>
-    <div class="btns" style="flex-direction:column"><button class="btn fill" id="go" type="submit">Submit reservation</button><button type="button" class="btn ghost" data-back>Back</button></div>
+    <h2 class="h">Upload receipt &amp; submit</h2>
+    <div class="f"><label for="receipt">Payment receipt or screenshot (image or PDF)</label><input class="in" id="receipt" type="file" accept="image/*,application/pdf"><p class="err" id="rcErr"></p><div class="prev" id="rcPrev"></div></div>
+    <label class="chk"><input type="checkbox" id="agree"><span>I have read and accept the <a href="terms.html" target="_blank" rel="noopener">Cancellation Policy</a>.</span></label>
+    <p class="err" id="agErr"></p>
+    <div class="btns" style="flex-direction:column"><button class="btn fill" id="go" type="submit">Submit booking</button><button type="button" class="btn ghost" data-back>Back</button></div>
     <p class="msg" id="msg" role="status" aria-live="polite"></p>
   </section>
 </form>
+</div>
 </main>
 
 <script>
 (function(){
 var d=document,$=function(i){return d.getElementById(i)};
-var PHONE='91 8787679579', TEL='+918787679579';
+var PHONE='91 8787679579',TEL='+918787679579';
+var CFG=null,S={pkg:'',sel:{},method:'qr',receipt:null,page:1};
+function esc(x){return String(x).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function inr(n){return '₹'+Number(n).toLocaleString('en-IN')}
 function iso(dt){return new Date(dt.getTime()-dt.getTimezoneOffset()*60000).toISOString().slice(0,10)}
-var now=new Date(),todayStr=iso(now),chosenDate=todayStr,chosenPick='',view=new Date(now.getFullYear(),now.getMonth(),1);
-var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
-function t12(t){var p=t.split(':'),h=+p[0];return(h%12||12)+':'+p[1]+' '+(h<12?'AM':'PM')}
+function P(){return CFG.packages[S.pkg]}
+function num(id){var v=parseInt($(id).value,10);return isNaN(v)?0:v}
 
-/* ---------- bike pre-chosen on the home page (reserve.html?vehicle=KTM%20Duke%20200) ---------- */
-(function(){
-  var v='';try{v=new URLSearchParams(location.search).get('vehicle')||''}catch(e){}
-  v=v.trim();if(!v)return;
-  var sel=$('bike'),want=v.toLowerCase(),hit=null;
-  [].forEach.call(sel.options,function(o){if(!hit&&o.value&&o.textContent.trim().toLowerCase()===want)hit=o});
-  if(!hit){hit=new Option(v.slice(0,60),v.slice(0,60));sel.add(hit)}
-  sel.value=hit.value;
-})();
-
-/* ---------- calendar ---------- */
-function drawCal(){
-  var y=view.getFullYear(),m=view.getMonth(),first=(new Date(y,m,1).getDay()+6)%7,days=new Date(y,m+1,0).getDate(),h='';
-  ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(function(n){h+='<div class="dow">'+n+'</div>'});
-  for(var i=0;i<first;i++)h+='<button class="blank" tabindex="-1" aria-hidden="true"></button>';
-  for(var k=1;k<=days;k++){
-    var s=iso(new Date(y,m,k));
-    h+='<button type="button" data-d="'+s+'"'+(s<todayStr?' disabled':'')+(s===chosenDate?' class="sel"':'')+'>'+k+'</button>';
-  }
-  $('grid').innerHTML=h;$('mon').textContent=MONTHS[m]+' '+y;
-  $('prev').disabled=(y===now.getFullYear()&&m===now.getMonth());
-}
-$('grid').addEventListener('click',function(e){var b=e.target.closest('button[data-d]');if(!b||b.disabled)return;chosenDate=b.dataset.d;$('dateErr').textContent='';drawCal();drawTimes()});
-$('prev').addEventListener('click',function(){view=new Date(view.getFullYear(),view.getMonth()-1,1);drawCal()});
-$('nextm').addEventListener('click',function(){view=new Date(view.getFullYear(),view.getMonth()+1,1);drawCal()});
-
-/* ---------- pick up times (shop runs 8 AM to 8 PM) ---------- */
-function drawTimes(){
-  var h='',nowMin=now.getHours()*60+now.getMinutes();
-  for(var hr=8;hr<=20;hr++){
-    var t=(hr<10?'0':'')+hr+':00',past=(chosenDate===todayStr&&hr*60<nowMin);
-    if(past&&chosenPick===t)chosenPick='';
-    h+='<button type="button" data-t="'+t+'"'+(past?' disabled':'')+(t===chosenPick?' class="sel"':'')+'>'+t12(t)+'</button>';
-  }
-  $('times').innerHTML=h;
-}
-$('times').addEventListener('click',function(e){var b=e.target.closest('button[data-t]');if(!b||b.disabled)return;chosenPick=b.dataset.t;$('pickErr').textContent='';drawTimes()});
-drawCal();drawTimes();
-
-/* ---------- signature pad (strokes kept as 0-1 coordinates so it survives resizes) ---------- */
-var pad=$('pad'),ctx=pad.getContext('2d'),strokes=[],cur=null,W=0,H=0;
-function fit(){
-  var r=pad.getBoundingClientRect(),dpr=window.devicePixelRatio||1;
-  if(!r.width||(Math.round(r.width)===W&&Math.round(r.height)===H))return;
-  W=Math.round(r.width);H=Math.round(r.height);pad.width=W*dpr;pad.height=H*dpr;
-  ctx.setTransform(dpr,0,0,dpr,0,0);draw(ctx,W,H);
-}
-function draw(c,w,h){
-  c.clearRect(0,0,w,h);c.lineWidth=2.4;c.lineCap='round';c.lineJoin='round';c.strokeStyle='#111';
-  strokes.forEach(function(s){
-    c.beginPath();
-    s.forEach(function(p,i){var x=p[0]*w,y=p[1]*h;if(i===0){c.moveTo(x,y);c.lineTo(x+.01,y)}else c.lineTo(x,y)});
-    c.stroke();
+/* ---------- pricing (same rules as the server in functions/api/book.js) ---------- */
+function calc(){
+  var p=P(),people=Math.max(1,num('people')),kids=p.childPrice==null?0:num('children'),lines=[];
+  lines.push({l:'Adults',x:people+' × '+inr(p.adultPrice),a:people*p.adultPrice});
+  if(kids>0)lines.push({l:'Children',x:kids+' × '+inr(p.childPrice),a:kids*p.childPrice});
+  p.options.forEach(function(o){
+    if(!S.sel[o.id])return;
+    var head=people+kids;
+    lines.push(o.unit==='person'?{l:o.label,x:head+' × '+inr(o.price),a:head*o.price}:{l:o.label,x:'Flat rate',a:o.price});
   });
+  var t=0;lines.forEach(function(r){t+=r.a});
+  return{lines:lines,total:t,people:people,kids:kids};
 }
-function pt(e){var r=pad.getBoundingClientRect();return[(e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height]}
-pad.addEventListener('pointerdown',function(e){e.preventDefault();pad.setPointerCapture(e.pointerId);cur=[pt(e)];strokes.push(cur);draw(ctx,W,H);$('signErr').textContent=''});
-pad.addEventListener('pointermove',function(e){if(!cur)return;e.preventDefault();cur.push(pt(e));draw(ctx,W,H)});
-['pointerup','pointercancel','pointerleave'].forEach(function(n){pad.addEventListener(n,function(){cur=null})});
-$('clear').addEventListener('click',function(){strokes=[];cur=null;draw(ctx,W,H)});
-window.addEventListener('resize',fit);
-function signatureData(){
-  var c=d.createElement('canvas');c.width=600;c.height=Math.round(600*H/W);var x=c.getContext('2d');
-  draw(x,c.width,c.height);x.globalCompositeOperation='destination-over';x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);
-  return c.toDataURL('image/jpeg',.7);
+
+/* ---------- render everything for the current package ---------- */
+function minDate(){var m=new Date();m.setDate(m.getDate()+P().minDaysAhead);return iso(m)}
+function renderPackage(){
+  var p=P();
+  $('pkName').textContent=p.name;$('pkTag').textContent=p.tagline;
+  $('pkSel').value=S.pkg;
+  $('date').min=minDate();
+  $('dateLab').textContent=S.pkg==='expedition'?'Expedition date':(S.pkg==='camping'?'Check-in date':'Tour date');
+  var ch=p.childPrice!=null;$('childWrap').style.display=ch?'':'none';if(!ch)$('children').value='0';
+  var n='<ul>'+p.notes.map(function(x){return'<li>'+esc(x)+'</li>'}).join('')+'</ul>';
+  if(ch)n='<b>Children pricing:</b> '+inr(p.childPrice)+' per child. '+esc(p.childNote)+n;
+  if(p.inclusions)n='<b>Expedition inclusions</b><ul>'+p.inclusions.map(function(x){return'<li>'+esc(x)+'</li>'}).join('')+'</ul><b>Price:</b> '+inr(p.adultPrice)+' per person<ul>'+p.notes.map(function(x){return'<li>'+esc(x)+'</li>'}).join('')+'</ul>';
+  $('notes').innerHTML=n;
+  drawOptions();drawPricing();
+  [].forEach.call(d.querySelectorAll('.err'),function(e){e.textContent=''});
+}
+function drawOptions(){
+  var p=P(),box=$('optBox');
+  if(S.pkg==='expedition'){
+    $('optH').textContent='Group size';
+    var c=calc();
+    box.innerHTML='<div class="stp"><button type="button" data-pp="-1" aria-label="Fewer people">−</button><output id="ppOut">'+c.people+'</output><button type="button" data-pp="1" aria-label="More people">+</button></div>'+
+      '<div class="est"><span>Estimated total ('+c.people+' × '+inr(p.adultPrice)+')</span><b id="estT">'+inr(c.total)+'</b></div>';
+    return;
+  }
+  $('optH').textContent=p.name+' options';
+  box.innerHTML=p.options.map(function(o){
+    return'<label class="opt'+(S.sel[o.id]?' on':'')+'"><input type="checkbox" data-opt="'+esc(o.id)+'"'+(S.sel[o.id]?' checked':'')+'><span>'+esc(o.label)+'</span><em>'+inr(o.price)+(o.unit==='person'?' / person':' flat')+'</em></label>';
+  }).join('');
+}
+function drawPricing(){
+  var c=calc(),h='';
+  c.lines.forEach(function(r){h+='<tr><td>'+esc(r.l)+'<small>'+esc(r.x)+'</small></td><td>'+inr(r.a)+'</td></tr>'});
+  h+='<tr class="t"><td>Total</td><td>'+inr(c.total)+'</td></tr>';
+  $('inv').innerHTML=h;
+}
+function drawPayment(){
+  var c=calc(),p=P(),pay=CFG.payment,dt=$('date').value;
+  $('os').innerHTML='<h3>Order summary</h3><p><span>Package</span><span>'+esc(p.name)+'</span></p><p><span>Date</span><span>'+esc(dt.split('-').reverse().join('.'))+'</span></p><p><span>Guests</span><span>'+c.people+(c.kids?' + '+c.kids+' child'+(c.kids>1?'ren':''):'')+'</span></p><p><span>Total</span><span><b>'+inr(c.total)+'</b></span></p>';
+  var min=Math.min(CFG.minAdvance,c.total);
+  $('advance').min=min;$('advance').max=c.total;
+  if(!$('advance').value||num('advance')<min)$('advance').value=min;
+  if(num('advance')>c.total)$('advance').value=c.total;
+  $('upiId').textContent=pay.upiId;$('upiPayee').textContent=pay.payeeName;
+  updBal();
+  var b=pay.bank;$('p-bank').innerHTML=[['Account name',b.accountName],['Account number',b.accountNumber],['IFSC',b.ifsc],['Bank',b.bankName],['Branch',b.branch]].map(function(r){return'<div class="kv"><span>'+r[0]+'</span><span>'+esc(r[1])+'</span></div>'}).join('');
+}
+function updBal(){
+  var c=calc(),a=num('advance');
+  $('bal').textContent=inr(Math.max(0,c.total-a));
+  $('upiLink').href='upi://pay?pa='+encodeURIComponent(CFG.payment.upiId)+'&pn='+encodeURIComponent(CFG.payment.payeeName)+'&am='+a+'&cu=INR&tn='+encodeURIComponent(P().name+' advance');
+}
+
+/* ---------- switching package (home-page link or the selector on top) ---------- */
+function setPackage(k){
+  if(!CFG.packages[k])return;
+  var changed=S.pkg&&S.pkg!==k;
+  S.pkg=k;try{sessionStorage.setItem('kcPackage',k)}catch(e){}
+  try{history.replaceState(null,'','reserve.html?package='+k)}catch(e){}
+  if(changed){S.sel={};$('advance').value='';S.receipt=null;$('receipt').value='';$('rcPrev').innerHTML=''}
+  renderPackage();
+}
+function fromName(v){
+  v=String(v||'').trim().toLowerCase();if(!v)return'';
+  if(CFG.packages[v])return v;
+  var hit='';Object.keys(CFG.packages).forEach(function(k){if(CFG.packages[k].name.toLowerCase()===v)hit=k});
+  return hit;
 }
 
 /* ---------- validation ---------- */
 var rules={
-  name:function(v){return v.trim()?'':'Enter the customer name.'},
-  phone:function(v){return/^\+?[0-9\s-]{7,15}$/.test(v.trim())?'':'Enter a valid phone number.'},
-  address:function(v){return v.trim()?'':'Enter the permanent address.'},
-  license:function(v){return v.trim().length>=4?'':'Enter the driving licence number.'},
-  bike:function(v){return v?'':'Choose a bike.'},
-  destination:function(v){return v.trim()?'':'Enter the destination.'},
-  duration:function(v){return(+v>=1&&+v<=99)?'':'Enter the duration (1 to 99).'},
-  dropTime:function(v){return v?'':'Choose the drop time.'}
+  name:function(v){return v.trim()?'':'Enter your name.'},
+  whatsapp:function(v){return/^\+?[0-9\s-]{7,15}$/.test(v.trim())?'':'Enter a valid WhatsApp number.'},
+  date:function(v){return !v?'Choose a date.':(v<minDate()?(S.pkg==='expedition'?'Expedition bookings must be made at least 3 days ahead.':'Choose a future date.'):'')},
+  people:function(v){return(+v>=1&&+v<=50)?'':'Enter 1 to 50 people.'},
+  children:function(v){return(v===''||(+v>=0&&+v<=50))?'':'Enter 0 to 50 children.'},
+  advance:function(v){var c=calc(),min=Math.min(CFG.minAdvance,c.total),a=+v;return(a>=min&&a<=c.total)?'':'Advance must be between '+inr(min)+' and '+inr(c.total)+'.'}
 };
-function check(id){
-  var el=$(id),m=rules[id](el.value),p=el.closest('.f').querySelector('.err');
-  p.textContent=m;el.setAttribute('aria-invalid',m?'true':'false');return!m;
-}
+function check(id){var el=$(id),m=rules[id](el.value),p=el.closest('.f').querySelector('.err');p.textContent=m;el.setAttribute('aria-invalid',m?'true':'false');return!m}
 Object.keys(rules).forEach(function(id){$(id).addEventListener('blur',function(){check(id)})});
-var stepRules={1:['name','phone','address','license'],2:['bike','destination','duration'],3:['dropTime']};
 function valid(n){
-  var ok=(stepRules[n]||[]).map(check).every(Boolean);
-  if(n===3){
-    if(!chosenDate){$('dateErr').textContent='Choose a date.';ok=false}
-    if(!chosenPick){$('pickErr').textContent='Choose a pick up time.';ok=false}
+  var ids={1:['name','whatsapp','date','people'].concat(P().childPrice!=null?['children']:[]),4:['advance']}[n]||[];
+  var ok=ids.map(check).every(Boolean);
+  if(n===5){
+    if(!S.receipt){$('rcErr').textContent='Please upload your payment receipt.';ok=false}
+    if(!$('agree').checked){$('agErr').textContent='Please accept the Cancellation Policy.';ok=false}
   }
-  if(n===4&&!strokes.length){$('signErr').textContent='Please sign above.';ok=false}
   if(!ok){var bad=d.querySelector('.step.show [aria-invalid="true"]');if(bad){bad.scrollIntoView({block:'center'});bad.focus()}}
   return ok;
 }
 
 /* ---------- steps ---------- */
-var cur_=1;
 function show(n){
-  cur_=n;
+  S.page=n;
   [].forEach.call(d.querySelectorAll('.step'),function(s){s.classList.toggle('show',+s.dataset.step===n)});
   [].forEach.call($('steps').querySelectorAll('i'),function(i,k){i.classList.toggle('on',k+1===n)});
-  if(n===4)fit();
-  if(n===5){
-    $('sName').textContent=$('name').value.trim();
-    $('sDate').textContent=chosenDate.split('-').reverse().join('.');
-    $('sTime').textContent=t12(chosenPick)+' · '+t12($('dropTime').value);
-    $('sBike').textContent=$('bike').value;
-    $('sDur').textContent=$('duration').value+' '+$('unit').value;
-    $('sDest').textContent=$('destination').value.trim();
-    $('sPhone').textContent=$('phone').value.trim();
-    $('sSig').src=signatureData();
-  }
+  if(n===2)drawOptions();if(n===3)drawPricing();if(n===4)drawPayment();
   scrollTo({top:0,behavior:'auto'});
 }
 d.addEventListener('click',function(e){
-  if(e.target.closest('[data-next]')){if(valid(cur_))show(cur_+1)}
-  else if(e.target.closest('[data-back]')){show(cur_-1)}
+  var t;
+  if(e.target.closest('[data-next]')){if(valid(S.page))show(S.page+1)}
+  else if(e.target.closest('[data-back]')){show(S.page-1)}
+  else if((t=e.target.closest('[data-pp]'))){var v=Math.min(50,Math.max(1,num('people')+(+t.dataset.pp)));$('people').value=v;drawOptions()}
+  else if((t=e.target.closest('[data-tab]'))){
+    S.method=t.dataset.tab;
+    [].forEach.call(d.querySelectorAll('[data-tab]'),function(b){b.classList.toggle('on',b===t)});
+    ['qr','upi','bank'].forEach(function(k){$('p-'+k).classList.toggle('on',k===S.method)});
+  }
+});
+$('optBox').addEventListener('change',function(e){
+  var c=e.target.closest('[data-opt]');if(!c)return;
+  S.sel[c.dataset.opt]=c.checked;c.closest('.opt').classList.toggle('on',c.checked);
+});
+$('pkSel').addEventListener('change',function(){setPackage(this.value)});
+$('advance').addEventListener('input',updBal);
+$('people').addEventListener('input',function(){if(S.page===2)drawOptions()});
+
+/* ---------- receipt (images are shrunk before upload) ---------- */
+$('receipt').addEventListener('change',function(){
+  var f=this.files[0],er=$('rcErr'),pv=$('rcPrev');er.textContent='';pv.innerHTML='';S.receipt=null;
+  if(!f)return;
+  var rd=new FileReader();
+  if(f.type==='application/pdf'){
+    if(f.size>1500000){er.textContent='PDF is too large (max 1.5 MB). Please upload a screenshot instead.';return}
+    rd.onload=function(){S.receipt=rd.result;pv.textContent='Selected: '+f.name};rd.readAsDataURL(f);return;
+  }
+  if(!/^image\//.test(f.type)){er.textContent='Please choose an image or a PDF.';return}
+  rd.onload=function(){
+    var im=new Image();
+    im.onload=function(){
+      var m=1400,r=Math.min(1,m/Math.max(im.width,im.height)),c=d.createElement('canvas');
+      c.width=Math.round(im.width*r);c.height=Math.round(im.height*r);
+      var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);
+      S.receipt=c.toDataURL('image/jpeg',.8);
+      pv.innerHTML='Selected: '+esc(f.name)+'<img alt="Receipt preview" src="'+S.receipt+'">';
+    };
+    im.onerror=function(){er.textContent='Could not read that image.'};
+    im.src=rd.result;
+  };
+  rd.readAsDataURL(f);
 });
 
 /* ---------- submit ---------- */
-var msg=$('msg'),go=$('go');
 $('f').addEventListener('submit',function(e){
-  e.preventDefault();msg.textContent='';msg.className='msg';
+  e.preventDefault();
+  if(!valid(5))return;
+  var msg=$('msg'),go=$('go');msg.textContent='';msg.className='msg';
   go.disabled=true;go.textContent='Sending…';
-  var body={date:chosenDate,vehicleNo:$('vehicleNo').value,name:$('name').value,address:$('address').value,
-    duration:+$('duration').value,unit:$('unit').value,license:$('license').value,pickupTime:chosenPick,
-    dropTime:$('dropTime').value,phone:$('phone').value,destination:$('destination').value,bike:$('bike').value,
-    agreed:true,signature:signatureData()};
+  var opts=P().options.filter(function(o){return S.sel[o.id]}).map(function(o){return o.id});
+  var body={package:S.pkg,name:$('name').value,whatsapp:$('whatsapp').value,date:$('date').value,request:$('request').value,
+    people:num('people'),children:P().childPrice!=null?num('children'):0,options:opts,advance:num('advance'),
+    payMethod:S.method,agreed:true,receipt:S.receipt};
   fetch('api/book',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
     .then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(!r.ok||!j.success)throw new Error(j.error||'x');return j})})
     .then(function(j){
-      $('steps').style.display='none';
-      $('app').innerHTML='<div class="done"><h1 class="h">We have received your booking!</h1><p>Thank you for booking with Shining Bike Rentals. We will call you shortly to confirm.</p><p>Your booking ID<span class="id">'+j.id+'</span></p><a class="btn ghost" href="tel:'+TEL+'">Call '+PHONE+'</a><a class="btn fill" href="book.html">Back to main page</a></div>';
+      $('app').innerHTML='<div class="done"><h1 class="h">We have received your booking!</h1><p>Thank you for booking the '+esc(P().name)+'. We will verify your payment and confirm on WhatsApp shortly.</p><p>Your booking ID<span class="id">'+esc(j.id)+'</span></p><a class="btn ghost" href="tel:'+TEL+'">Call '+PHONE+'</a><a class="btn fill" href="book.html">Back to main page</a></div>';
       scrollTo(0,0);
     })
     .catch(function(err){
       msg.className='msg bad';
-      msg.innerHTML=(err.message&&err.message!=='x'?err.message+' ':'Could not send your reservation. ')+'Please try again or call <a href="tel:'+TEL+'">'+PHONE+'</a>.';
-      go.disabled=false;go.textContent='Submit reservation';
+      msg.innerHTML=(err.message&&err.message!=='x'?esc(err.message)+' ':'Could not send your booking. ')+'Please try again or call <a href="tel:'+TEL+'">'+PHONE+'</a>.';
+      go.disabled=false;go.textContent='Submit booking';
     });
 });
-show(1);
+
+/* ---------- start ---------- */
+fetch('pricing.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+  CFG=j;
+  $('pkSel').innerHTML=Object.keys(CFG.packages).map(function(k){return'<option value="'+k+'">'+esc(CFG.packages[k].name)+'</option>'}).join('');
+  $('qrImg').src=CFG.payment.qrImage;
+  $('qrImg').onerror=function(){this.style.display='none';$('qrMiss').style.display='block'};
+  var q='';try{var u=new URLSearchParams(location.search);q=u.get('package')||u.get('vehicle')||sessionStorage.getItem('kcPackage')||''}catch(e){}
+  var k=fromName(q);
+  $('loading').hidden=true;
+  if(k){$('flow').hidden=false;setPackage(k);show(1)}
+  else{
+    $('chooser').hidden=false;
+    $('pickList').innerHTML=Object.keys(CFG.packages).map(function(x){return'<button type="button" data-pickpkg="'+x+'">'+esc(CFG.packages[x].name)+'<small>'+esc(CFG.packages[x].tagline)+'</small></button>'}).join('');
+    $('pickList').addEventListener('click',function(e){var b=e.target.closest('[data-pickpkg]');if(!b)return;$('chooser').hidden=true;$('flow').hidden=false;setPackage(b.dataset.pickpkg);show(1)});
+  }
+}).catch(function(){$('loading').className='msg bad';$('loading').innerHTML='Could not load the booking form. Please refresh or call <a href="tel:'+TEL+'">'+PHONE+'</a>.'});
 })();
 </script>
 </body>
 </html>
-

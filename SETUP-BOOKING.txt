@@ -1,0 +1,4 @@
+BEFORE GOING LIVE
+1. Edit pricing.json: replace the placeholder prices, UPI ID, bank details (single source for the page AND the server).
+2. Put your payment QR image at images/payment-qr.png
+3. Home page cards (book.html FLEET list) each carry pkg:'private' | 'camping' | 'expedition'.
