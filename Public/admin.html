@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Bookings | Shining Bike Rentals</title>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;padding:1rem;font-family:'Courier Prime','Courier New',monospace;background:#dce8f0;color:#111}
+h1{margin:0;font:700 clamp(1.7rem,5vw,2.4rem)/1.1 'Playfair Display',Georgia,serif}
+.hidden{display:none!important}
+.pill{background:#d3e3ef;border:0;border-radius:.6rem;padding:.55rem 1rem;font:700 .85rem 'Playfair Display',Georgia,serif;cursor:pointer;transition:background .2s}
+.pill:hover{background:#c3d9ea}
+#login{max-width:24rem;margin:6rem auto 0;background:#fff;border-radius:1.5rem;padding:2rem}
+#login input{display:block;width:100%;margin:.4rem 0 1rem;padding:.75rem;border:1px solid #ccc;border-radius:.75rem;font:inherit}
+#login .pill{width:100%}
+.err{min-height:1.2em;margin:.8rem 0 0;font-size:.85rem;color:#7a1d1d}
+#dash{max-width:72rem;margin:0 auto}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:.75rem;margin-bottom:1rem}
+.bar div{display:flex;gap:.5rem}
+#msg{min-height:1.3em;font-size:.85rem;margin:0 0 .6rem}
+.wrap{background:#fff;border-radius:1.5rem;overflow-x:auto}
+table{width:100%;min-width:780px;border-collapse:collapse}
+th,td{padding:.75rem;text-align:left;vertical-align:top;font-size:.8rem}
+th{font:700 .85rem 'Playfair Display',Georgia,serif;white-space:nowrap}
+tbody tr{border-top:1px solid #e5e5e5}
+select{padding:.3rem;border:1px solid #ccc;border-radius:.5rem;font:inherit}
+</style>
+</head>
+<body>
+<main id="login">
+  <h1>Admin login</h1>
+  <form id="loginForm">
+    <label for="pw" style="display:block;margin-top:1.2rem;font-size:.9rem">Password</label>
+    <input id="pw" type="password" autocomplete="current-password" required>
+    <button class="pill" type="submit">Sign in</button>
+    <p id="loginErr" class="err"></p>
+  </form>
+</main>
+<main id="dash" class="hidden">
+  <div class="bar"><h1>Bookings</h1><div><button id="refresh" class="pill">Refresh</button><button id="logout" class="pill">Sign out</button></div></div>
+  <p id="msg" role="status"></p>
+  <div class="wrap"><table>
+    <thead><tr><th>ID</th><th>Name</th><th>Phone</th><th>Bike</th><th>Dates</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+</main>
+<script>
+var STATUSES=['Pending','Confirmed','Completed','Cancelled'];
+var $=function(i){return document.getElementById(i)};
+var getToken=function(){return sessionStorage.getItem('adminToken')};
+
+// Authenticated fetch. A 401 returns the user to the login box.
+async function api(path,opts){
+  opts=opts||{};
+  var res=await fetch('/api/admin'+path,Object.assign({},opts,{headers:{'Content-Type':'application/json',Authorization:'Bearer '+getToken()}}));
+  if(res.status===401){logout('Wrong password.');throw new Error('Unauthorized')}
+  if(!res.ok)throw new Error((await res.json().catch(function(){return{}})).error||'Request failed');
+  return res.json();
+}
+function logout(err){
+  sessionStorage.removeItem('adminToken');
+  $('dash').classList.add('hidden');$('login').classList.remove('hidden');$('loginErr').textContent=err||'';
+}
+function say(t){$('msg').textContent=t}
+function cell(tr,t){var td=tr.insertCell();td.textContent=t;return td}
+
+// Rows are built with textContent so booking data can never inject HTML.
+function render(list){
+  var tb=$('rows');tb.innerHTML='';
+  if(!list.length){cell(tb.insertRow(),'No bookings yet.').colSpan=7;return}
+  list.forEach(function(b){
+    var tr=tb.insertRow();
+    cell(tr,b.id);
+    cell(tr,b.name).append(document.createElement('br'),b.email);
+    cell(tr,b.phone);
+    cell(tr,b.bike).append(document.createElement('br'),b.location);
+    var dt=cell(tr,b.pickupDate+' → '+b.returnDate);
+    if(b.message)dt.append(document.createElement('br'),'“'+b.message+'”');
+    var sel=document.createElement('select');
+    STATUSES.forEach(function(s){sel.add(new Option(s,s,false,s===b.status))});
+    sel.onchange=async function(){
+      try{await api('/bookings/'+encodeURIComponent(b.id),{method:'PUT',body:JSON.stringify({status:sel.value})});say(b.id+' set to '+sel.value+'.')}
+      catch(e){say(e.message);load()}
+    };
+    cell(tr,'').append(sel);
+    var del=document.createElement('button');del.textContent='Delete';del.className='pill';
+    del.onclick=async function(){
+      if(!confirm('Delete booking '+b.id+'? This cannot be undone.'))return;
+      try{await api('/bookings/'+encodeURIComponent(b.id),{method:'DELETE'});say(b.id+' deleted.');load()}
+      catch(e){say(e.message)}
+    };
+    cell(tr,'').append(del);
+  });
+}
+async function load(){
+  say('Loading…');
+  try{render(await api('/bookings'));say('')}
+  catch(e){if(e.message!=='Unauthorized')say(e.message)}
+}
+function showDash(){$('login').classList.add('hidden');$('dash').classList.remove('hidden');load()}
+$('loginForm').addEventListener('submit',function(e){
+  e.preventDefault();sessionStorage.setItem('adminToken',$('pw').value);$('pw').value='';$('loginErr').textContent='';showDash();
+});
+$('refresh').onclick=load;
+$('logout').onclick=function(){logout()};
+if(getToken())showDash();
+</script>
+</body>
+</html>
