@@ -2,6 +2,8 @@
 //   GET    /api/admin/bookings        list all
 //   PUT    /api/admin/bookings/:id    update status
 //   DELETE /api/admin/bookings/:id    delete
+//   GET    /api/admin/feedback        list all reviews
+//   DELETE /api/admin/feedback/:id    remove a review
 // All require:  Authorization: Bearer <ADMIN_PASSWORD>
 
 const STATUSES = ["Pending", "Confirmed", "Completed", "Cancelled"];
@@ -41,8 +43,20 @@ export async function onRequest({ request, env, params }) {
   if (!authorized(request, env)) return json({ error: "Unauthorized" }, 401);
 
   const [resource, id] = [].concat(params.path || []);
-  if (resource !== "bookings") return json({ error: "Not found" }, 404);
   const kv = env.BOOKINGS_KV;
+
+  // Reviews (public comments): list them all, or remove one.
+  if (resource === "feedback") {
+    const all = (await kv.get("REVIEWS", "json")) || [];
+    if (request.method === "GET" && !id) return json(all);
+    if (request.method === "DELETE" && id) {
+      await kv.put("REVIEWS", JSON.stringify(all.filter((r) => r.id !== id)));
+      return json({ success: true });
+    }
+    return json({ error: "Method not allowed" }, 405);
+  }
+
+  if (resource !== "bookings") return json({ error: "Not found" }, 404);
 
   if (request.method === "GET" && !id) return json(await listBookings(kv));
 
