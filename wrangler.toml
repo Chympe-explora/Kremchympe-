@@ -1,0 +1,13 @@
+# Cloudflare Pages project (frontend in /public, API in /functions)
+name = "shining-bike-rentals"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "public"
+
+# KV namespace for booking records.
+# Replace the id with the one from: npx wrangler kv namespace create BOOKINGS_KV
+[[kv_namespaces]]
+binding = "BOOKINGS_KV"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+# Secrets (TELEGRAM_TOKEN, TELEGRAM_CHAT_ID, ADMIN_PASSWORD) are NOT stored here.
+# Add them in the dashboard or with: npx wrangler pages secret put NAME
