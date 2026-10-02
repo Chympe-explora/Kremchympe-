@@ -157,7 +157,7 @@ table.inv{width:100%;border-collapse:collapse;font-size:.95rem}
   <!-- 5 UPLOAD & SUBMIT -->
   <section class="step" data-step="5">
     <h2 class="h" data-t="booking.page5Heading"></h2>
-    <div class="f"><label for="receipt" data-t="booking.receiptLabel"></label><input class="in" id="receipt" type="file" accept="image/*,application/pdf"><p class="err" id="rcErr"></p><div class="prev" id="rcPrev"></div></div>
+    <div class="f" id="rcBox"><label for="receipt" data-t="booking.receiptLabel"></label><input class="in" id="receipt" type="file" accept="image/*,application/pdf"><p class="err" id="rcErr"></p><div class="prev" id="rcPrev"></div></div>
     <label class="chk"><input type="checkbox" id="agree"><span><span data-t="booking.agreeBefore"></span> <a href="terms.html" target="_blank" rel="noopener" data-t="booking.agreeLink"></a><span data-t="booking.agreeAfter"></span></span></label>
     <p class="err" id="agErr"></p>
     <input id="hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0"><div class="btns" style="flex-direction:column"><button class="btn fill" id="go" type="submit" data-t="booking.submit"></button><button type="button" class="btn ghost" data-back data-t="booking.back"></button></div>
@@ -309,7 +309,7 @@ function valid(n){
     if(bad2.length){var e2=$('optErr');if(e2)e2.textContent=T('booking.errItems',{list:bad2.map(oLabel).join(', ')});ok=false}
   }
   if(n===5){
-    if(!S.receipt){$('rcErr').textContent=T('booking.errReceipt');ok=false}
+    if(!WAMODE&&!S.receipt){$('rcErr').textContent=T('booking.errReceipt');ok=false}
     if(!$('agree').checked){$('agErr').textContent=T('booking.errAgree');ok=false}
   }
   if(!ok){var bad=d.querySelector('.step.show [aria-invalid="true"]');if(bad){bad.scrollIntoView({block:'center'});bad.focus()}}
@@ -392,7 +392,8 @@ function buildMessage(c,adv){
     '','Cancellation policy accepted: Yes');
   return L.join('\n');
 }
-function getConfig(){
+var WAMODE=false;
+function applyMode(cfg){WAMODE=cfg.mode==='whatsapp'&&!!cfg.whatsapp;var b=$('rcBox');if(b)b.style.display=WAMODE?'none':'';if(WAMODE){S.receipt=null;$('rcErr').textContent=''}}function getConfig(){
   if(!BACKEND)return Promise.resolve({mode:'group',whatsapp:''});
   return fetch(BACKEND+'/api/siteb/config',{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){return{mode:j.mode==='whatsapp'?'whatsapp':'group',whatsapp:String(j.whatsapp||'').replace(/\D/g,'')}}).catch(function(){return{mode:'group',whatsapp:''}});
 }
