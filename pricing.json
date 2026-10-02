@@ -1,12 +1,12 @@
 {
-  "_README": "EDIT PRICES HERE (amounts in INR). The booking page, the home page and the server all read this file, so change a number and everything follows: totals, 'From ₹…', advance limits, and sentences that use {minAdvance}/{child}/{days}. minAdvance = smallest advance a visitor can pay. maxPeople = most adults (and most children) in one booking. Per package: adultPrice, childPrice (null = no children field), minDaysAhead (0 = any future date; 3 = must book 3+ days ahead). Option: price + unit ('person' = price x all guests, 'group' = flat). Option with 'items' = each item priced x quantity. Option with \"requires\":\"camping\" only shows when that option is ticked. A package with an empty options list becomes a fixed per-person package with a group-size selector. To add a package: copy one block, give it a new key, and add its words in site-text.js (packages section) and a card in FLEET in book.html. After editing, redeploy: the server uses the same file. PLACEHOLDER PRICES: replace with your real ones.",
-  "minAdvance": 1000,
+  "_README": "EDIT PRICES HERE (amounts in INR). The booking page, the home page and the server all read this file, so change a number and everything follows: totals, 'From ₹…', advance limits, and sentences that use {minAdvance}/{child}/{days}. minAdvance = smallest advance a visitor can pay. maxPeople = most adults (and most children) in one booking. Per package: adultPrice, childPrice (null = no children field), minDaysAhead (0 = any future date; 3 = must book 3+ days ahead). Option: price + unit ('person' = price x all guests, 'group' = flat). Option with 'items' = each item priced x quantity. Option with \"requires\":\"camping\" only shows when that option is ticked. A package with an empty options list becomes a fixed per-person package with a group-size selector. To add a package: copy one block, give it a new key, and add its words in site-text.js (packages section) and a card in FLEET in book.html. After editing, redeploy: the server uses the same file. PLACEHOLDER PRICES: replace with your real ones. UPDATED to match Website A: Krem Chympe Tour is fully customisable (no base price, add what you need); Krem Chympe Camping is per person plus add-ons; Wilderness Expedition is per person (max 5). Option flags: mandatory:true = always included and cannot be unticked; items with mult:'person' are charged x number of guests; custom:true = the home page pop-up shows 'Fully customisable' instead of a price.",
+  "minAdvance": 500,
   "maxPeople": 50,
   "packages": {
     "private": {
-      "name": "Private Tour",
-      "adultPrice": 1500,
-      "childPrice": 750,
+      "name": "Krem Chympe Tour",
+      "adultPrice": 0,
+      "childPrice": null,
       "minDaysAhead": 0,
       "options": [
         {
@@ -18,13 +18,14 @@
         {
           "id": "guide",
           "label": "Local Guide",
-          "price": 1000,
-          "unit": "group"
+          "price": 1500,
+          "unit": "group",
+          "mandatory": true
         },
         {
           "id": "activities",
-          "label": "Adventure Activities",
-          "price": 500,
+          "label": "Adventure Activities & Facilities",
+          "price": 1500,
           "unit": "person"
         },
         {
@@ -36,136 +37,204 @@
             {
               "id": "veg",
               "label": "Veg Thali",
-              "price": 200
+              "price": 380
             },
             {
               "id": "chicken",
               "label": "Chicken Thali",
-              "price": 300
+              "price": 380
             },
             {
               "id": "pork",
               "label": "Pork Thali",
-              "price": 300
+              "price": 380
             }
           ]
         },
         {
           "id": "camping",
           "label": "Camping",
-          "price": 400,
-          "unit": "person"
+          "price": 0,
+          "unit": "group"
         },
         {
           "id": "tent",
-          "label": "Tent Rental",
-          "price": 600,
+          "label": "Camping Tent Rental",
+          "price": 0,
           "unit": "group",
+          "items": [
+            {
+              "id": "tent",
+              "label": "Tent (sleeps 2)",
+              "price": 1000
+            }
+          ],
           "requires": "camping"
         },
         {
           "id": "meals",
-          "label": "Meals",
-          "price": 350,
-          "unit": "person"
+          "label": "Camping Meals",
+          "price": 380,
+          "unit": "person",
+          "requires": "camping"
         },
         {
           "id": "overnight",
           "label": "Overnight Guide",
-          "price": 800,
+          "price": 2000,
           "unit": "group",
+          "mandatory": true,
           "requires": "camping"
         },
         {
           "id": "bamboo",
-          "label": "Bamboo Dishes",
+          "label": "Traditional Bamboo Dishes",
           "price": 0,
           "unit": "person",
-          "requires": "camping",
           "items": [
             {
-              "id": "bchicken",
-              "label": "Bamboo Chicken",
-              "price": 450
+              "id": "bchicken5",
+              "label": "Bamboo Chicken (500g)",
+              "price": 699
             },
             {
-              "id": "bpork",
-              "label": "Bamboo Pork",
-              "price": 450
+              "id": "bchicken1",
+              "label": "Bamboo Chicken (1kg)",
+              "price": 890
+            },
+            {
+              "id": "bpork5",
+              "label": "Bamboo Pork (500g)",
+              "price": 799
+            },
+            {
+              "id": "bpork1",
+              "label": "Bamboo Pork (1kg)",
+              "price": 1000
+            },
+            {
+              "id": "bbelly5",
+              "label": "Roasted Pork Belly Salad (500g)",
+              "price": 599
+            },
+            {
+              "id": "bbelly1",
+              "label": "Roasted Pork Belly Salad (1kg)",
+              "price": 900
             },
             {
               "id": "bfish",
-              "label": "Bamboo Fish",
-              "price": 400
+              "label": "Boiled Fish (Zero Oil)",
+              "price": 250
             },
             {
               "id": "bveg",
-              "label": "Bamboo Veg",
+              "label": "Veg Bamboo Sabji",
               "price": 300
             },
             {
-              "id": "brice",
-              "label": "Bamboo Rice",
-              "price": 200
+              "id": "begg",
+              "label": "Boiled Egg",
+              "price": 20
+            },
+            {
+              "id": "bchai",
+              "label": "Bamboo Chai",
+              "price": 20
             }
-          ]
+          ],
+          "requires": "camping"
         }
-      ]
+      ],
+      "custom": true
     },
     "camping": {
-      "name": "Camping Package",
+      "name": "Krem Chympe Camping",
       "adultPrice": 1000,
       "childPrice": 500,
       "minDaysAhead": 0,
       "options": [
         {
           "id": "tent",
-          "label": "Tent Rental",
-          "price": 600,
-          "unit": "group"
+          "label": "Camping Tent Rental",
+          "price": 0,
+          "unit": "group",
+          "items": [
+            {
+              "id": "tent",
+              "label": "Tent (sleeps 2)",
+              "price": 1000
+            }
+          ]
         },
         {
           "id": "meals",
-          "label": "Meals",
-          "price": 350,
+          "label": "Camping Meals",
+          "price": 380,
           "unit": "person"
         },
         {
           "id": "overnight",
           "label": "Overnight Guide",
-          "price": 800,
-          "unit": "group"
+          "price": 2000,
+          "unit": "group",
+          "mandatory": true
         },
         {
           "id": "bamboo",
-          "label": "Bamboo Dishes",
+          "label": "Traditional Bamboo Dishes",
           "price": 0,
           "unit": "person",
           "items": [
             {
-              "id": "bchicken",
-              "label": "Bamboo Chicken",
-              "price": 450
+              "id": "bchicken5",
+              "label": "Bamboo Chicken (500g)",
+              "price": 699
             },
             {
-              "id": "bpork",
-              "label": "Bamboo Pork",
-              "price": 450
+              "id": "bchicken1",
+              "label": "Bamboo Chicken (1kg)",
+              "price": 890
+            },
+            {
+              "id": "bpork5",
+              "label": "Bamboo Pork (500g)",
+              "price": 799
+            },
+            {
+              "id": "bpork1",
+              "label": "Bamboo Pork (1kg)",
+              "price": 1000
+            },
+            {
+              "id": "bbelly5",
+              "label": "Roasted Pork Belly Salad (500g)",
+              "price": 599
+            },
+            {
+              "id": "bbelly1",
+              "label": "Roasted Pork Belly Salad (1kg)",
+              "price": 900
             },
             {
               "id": "bfish",
-              "label": "Bamboo Fish",
-              "price": 400
+              "label": "Boiled Fish (Zero Oil)",
+              "price": 250
             },
             {
               "id": "bveg",
-              "label": "Bamboo Veg",
+              "label": "Veg Bamboo Sabji",
               "price": 300
             },
             {
-              "id": "brice",
-              "label": "Bamboo Rice",
-              "price": 200
+              "id": "begg",
+              "label": "Boiled Egg",
+              "price": 20
+            },
+            {
+              "id": "bchai",
+              "label": "Bamboo Chai",
+              "price": 20
             }
           ]
         }
@@ -173,10 +242,26 @@
     },
     "expedition": {
       "name": "Wilderness Expedition",
-      "adultPrice": 3500,
+      "adultPrice": 4999,
       "childPrice": null,
       "minDaysAhead": 3,
-      "options": []
+      "maxPeople": 5,
+      "options": [
+        {
+          "id": "extraday",
+          "label": "Additional days (optional)",
+          "price": 0,
+          "unit": "person",
+          "items": [
+            {
+              "id": "day",
+              "label": "Extra day",
+              "price": 1000,
+              "mult": "person"
+            }
+          ]
+        }
+      ]
     }
   }
 }

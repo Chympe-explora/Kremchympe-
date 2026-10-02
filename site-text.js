@@ -85,6 +85,7 @@ home: {
   popupBook: "Book now",
   popupHighlights: "Highlights",
   priceFrom: "From {price} / person",
+  priceCustom: "Fully customisable",
 
   /* --- Whole-page background + round picture selector (top of the page) ---
      Every item below = one round picture AND one full-page background. Add more any time, the round pictures slide.
@@ -191,99 +192,107 @@ home: {
 packages: {
 
   private: {
-    name: "Private Tour",
-    tagline: "A private guided day in Krem Chympe, just for your group.",
+    name: "Krem Chympe Tour",
+    tagline: "A private guided day at Krem Chympe, built your way.",
     dateLabel: "Tour date",
-    optionsHeading: "Private Tour options",
-    childNote: "Children are under 12 years old.",
+    optionsHeading: "Build your tour",
+    childNote: "",
     notes: [
-      "Private tour for your own group only.",
-      "Pick any extras you like on the next page."
+      "Fully customisable: a local guide is required, everything else is optional.",
+      "Tap an item to read what it includes, then tick what you want."
     ],
-    /* Details shown in the pop-up on the home page (edit freely).
-       description = a short paragraph    info = rows of  ["Label", "Value"]    highlights = small tags
-       The price line (From ₹...) is read automatically from pricing.json. */
-    description: "A private guided day at Krem Chympe, just for your group. Explore the cave and waterfalls and trek the forest at your own pace, with no other groups and no rush. On the next page you can add a 4×4 jeep, lunch, adventure activities or an overnight camping stay.",
+    description: "A private guided day at Krem Chympe, just for your group. Best for families, friends and small groups who want to explore the cave and waterfalls at their own pace, with no other groups and no rush. You choose what to add: a 4×4 jeep, adventure activities, lunch, or an overnight camping stay with bamboo-cooked dishes. Every booking includes a local guide.",
     info: [
-      ["Type", "Private guided day tour"],
-      ["Group", "Your own group only"],
-      ["Guide", "Local guide, David Tariang (Brichyrnot village)"],
-      ["Languages", "English, Hindi, local language"],
-      ["Children", "Under 12: {child} each"],
+      ["Best for", "Families, friends and small groups who want a private, flexible day"],
+      ["Includes", "Local guide (required), your own group only, forest trek to the cave and waterfall"],
+      ["Activities", "700m cave exploration, bamboo rafting, cave and waterfall swimming, cave cliff jumping, Khaddum (Chympe) waterfall visit (optional add-on)"],
+      ["Facilities", "Life jacket, basic first aid, entry fee (with activities); optional 4×4 jeep, lunch thalis, camping tents and bamboo dishes"],
+      ["Conditions", "Without the jeep the trek is about 20 km round trip. If weather or safety stops an activity, only the entry fee and life jacket are charged. Camping needs an overnight guide. Booking is confirmed after the advance."],
+      ["Language", "English, Hindi, local language"],
       ["Location", "Krem Chympe, East Jaintia Hills, Meghalaya"]
     ],
-    highlightsLabel: "Highlights and add-ons",
-    highlights: ["Cave exploration", "Waterfalls", "Forest trekking", "4×4 jeep (add-on)", "Lunch (add-on)", "Adventure activities (add-on)", "Camping (add-on)"],
-    /* Names of the extras (Page 2). Keep the short names on the left (jeep, guide...) as they are. */
+    highlightsLabel: "Choose what you want",
+    highlights: ["Local guide (required)", "4×4 jeep (optional)", "Adventure activities (optional)", "Lunch thalis (optional)", "Camping with bamboo dishes (optional)"],
     options: {
-      jeep:       { label: "4×4 Jeep" },
-      guide:      { label: "Local Guide" },
-      activities: { label: "Adventure Activities" },
-      lunch:      { label: "Lunch", items: { veg: "Veg Thali", chicken: "Chicken Thali", pork: "Pork Thali" } },
-      camping:    { label: "Camping", details: "Camping details: overnight stay in the wild. Add tent, guide and bamboo dishes below." },
-      tent:       { label: "Tent Rental" },
-      meals:      { label: "Meals" },
-      overnight:  { label: "Overnight Guide" },
-      bamboo:     { label: "Bamboo Dishes", items: { bchicken: "Bamboo Chicken", bpork: "Bamboo Pork", bfish: "Bamboo Fish", bveg: "Bamboo Veg", brice: "Bamboo Rice" } }
+      jeep: { label: "4×4 Jeep", details: "A 4×4 jeep takes your group along the forest track. It is charged per group, not per person.", note: "Without the 4×4 jeep, the trekking distance is about 20 km (round trip)." },
+      guide: { label: "Local Guide", details: "A local guide is required for all visitors because this is an offbeat destination. The guide keeps you safe through every activity.", note: "The guide is charged per group, not per person." },
+      activities: {
+        label: "Adventure Activities & Facilities",
+        details: "The full adventure day, priced per person.",
+        includes: ["Guide", "Life jacket", "Basic first aid", "Entry fee included", "Scenic forest drive and forest trek", "Bridge viewpoint", "Private bamboo rafting", "700m cave exploration", "Cave cliff jumping", "Cave swimming", "Khaddum (Chympe) waterfall visit", "Waterfall swimming"],
+        note: "If activities cannot run because of weather or safety, only the entry fee and life jacket fee are charged."
+      },
+      lunch: { label: "Lunch", details: "Pick your thalis and the quantity of each. Includes chutney and pickle.", note: "All thali variants are priced the same.", items: { veg: "Veg Thali", chicken: "Chicken Thali", pork: "Pork Thali" } },
+      camping: { label: "Camping", details: "Overnight camping stay at the campsite. Tick this to add a tent, camping meals, an overnight guide and bamboo dishes below." },
+      tent: { label: "Camping Tent Rental", details: "Choose the number of tents.", includes: ["Blanket", "Pillows", "Camping chairs"], note: "One tent comfortably fits 2 people. Priced per tent.", items: { tent: "Tent (sleeps 2)" } },
+      meals: { label: "Camping Meals", details: "Dinner: veg thali. Breakfast: 2 servings of Maggi.", note: "Vegetarian meals only." },
+      overnight: { label: "Overnight Guide", details: "Required for all camping bookings because the campsite is far from the nearest village. The guide also prepares your dinner and breakfast.", note: "Camping without a guide is not allowed." },
+      bamboo: { label: "Traditional Bamboo Dishes", details: "Zero-oil bamboo-cooked dishes, available only with camping because they need extra preparation time and fresh ingredients.", items: { bchicken5: "Bamboo Chicken (500g)", bchicken1: "Bamboo Chicken (1kg)", bpork5: "Bamboo Pork (500g)", bpork1: "Bamboo Pork (1kg)", bbelly5: "Roasted Pork Belly Salad (500g)", bbelly1: "Roasted Pork Belly Salad (1kg)", bfish: "Boiled Fish (Zero Oil)", bveg: "Veg Bamboo Sabji", begg: "Boiled Egg", bchai: "Bamboo Chai" } }
     }
   },
 
   camping: {
-    name: "Camping Package",
+    name: "Krem Chympe Camping",
     tagline: "Stay overnight in the wild at Krem Chympe.",
     dateLabel: "Check-in date",
-    optionsHeading: "Camping Package options",
+    optionsHeading: "Camping add-ons",
     childNote: "Children are under 12 years old.",
     notes: [
-      "Overnight camping stay.",
-      "Choose tent, meals and guide on the next page."
+      "Price is per person; add a tent, meals and bamboo dishes below.",
+      "An overnight guide is required for all camping."
     ],
-    description: "Spend a night in the wild at Krem Chympe. Pick your tent, meals, bamboo dishes and an overnight guide on the next page, then choose your check-in date.",
+    description: "An overnight camping stay in the wild at Krem Chympe. Best for friends, couples and families who want to sleep under the stars beside the forest and enjoy traditional bamboo-cooked food. The price is per person, and you pick your tents, meals and bamboo dishes on the next page. An overnight guide is always included for your safety.",
     info: [
-      ["Type", "Overnight camping stay"],
-      ["Guide", "Local guide, David Tariang (Brichyrnot village)"],
-      ["Languages", "English, Hindi, local language"],
-      ["Children", "Under 12: {child} each"],
+      ["Best for", "Friends, couples and families who want a night in the wild"],
+      ["Includes", "Campsite stay for each person and an overnight guide (required)"],
+      ["Activities", "Campfire evening, forest surroundings, bamboo-cooked dinner (optional)"],
+      ["Facilities", "Tents with blanket, pillows and camping chairs (1 tent fits 2 people), camping meals, bamboo dishes"],
+      ["Conditions", "Overnight guide is required, camping meals are vegetarian only, bamboo dishes are available only with camping. Children under 12 pay the child price. Booking is confirmed after the advance."],
+      ["Language", "English, Hindi, local language"],
       ["Location", "Krem Chympe, East Jaintia Hills, Meghalaya"]
     ],
     highlightsLabel: "Choose on the next page",
-    highlights: ["Tent rental", "Meals", "Overnight guide", "Bamboo dishes"],
+    highlights: ["Tent rental", "Camping meals", "Overnight guide (required)", "Bamboo dishes"],
     options: {
-      tent:      { label: "Tent Rental" },
-      meals:     { label: "Meals" },
-      overnight: { label: "Overnight Guide" },
-      bamboo:    { label: "Bamboo Dishes", items: { bchicken: "Bamboo Chicken", bpork: "Bamboo Pork", bfish: "Bamboo Fish", bveg: "Bamboo Veg", brice: "Bamboo Rice" } }
+      tent: { label: "Camping Tent Rental", details: "Choose the number of tents.", includes: ["Blanket", "Pillows", "Camping chairs"], note: "One tent comfortably fits 2 people. Priced per tent.", items: { tent: "Tent (sleeps 2)" } },
+      meals: { label: "Camping Meals", details: "Dinner: veg thali. Breakfast: 2 servings of Maggi.", note: "Vegetarian meals only." },
+      overnight: { label: "Overnight Guide", details: "Required for all camping bookings because the campsite is far from the nearest village. The guide also prepares your dinner and breakfast.", note: "Camping without a guide is not allowed." },
+      bamboo: { label: "Traditional Bamboo Dishes", details: "Zero-oil bamboo-cooked dishes, available only with camping because they need extra preparation time and fresh ingredients.", items: { bchicken5: "Bamboo Chicken (500g)", bchicken1: "Bamboo Chicken (1kg)", bpork5: "Bamboo Pork (500g)", bpork1: "Bamboo Pork (1kg)", bbelly5: "Roasted Pork Belly Salad (500g)", bbelly1: "Roasted Pork Belly Salad (1kg)", bfish: "Boiled Fish (Zero Oil)", bveg: "Veg Bamboo Sabji", begg: "Boiled Egg", bchai: "Bamboo Chai" } }
     }
   },
 
   expedition: {
     name: "Wilderness Expedition",
-    tagline: "The full multi-day expedition, everything included.",
+    tagline: "The complete six-day wilderness expedition, guide-led.",
     dateLabel: "Expedition date",
-    optionsHeading: "Group size",
+    optionsHeading: "Expedition extras",
     notes: [
-      "Fixed price per person, all inclusions below are covered.",
+      "Price is per person. Maximum {maxPeople} people per booking.",
       "Advance must be paid at least {days} days before the expedition.",
       "Cancel at least 7 days before the expedition date."
     ],
     inclusions: [
-      "4×4 Jeep transfers",
-      "Local expert guide",
-      "Adventure activities",
-      "Camping and tent",
-      "All meals",
-      "Bamboo dishes"
+      "Guided expedition (guide-led route management)",
+      "4×4 transfer, Brichyrnot to Khaddum",
+      "5 nights wilderness camping and camping equipment",
+      "Meals and drinking water",
+      "Waterfall exploration and jungle trekking",
+      "First-aid support and expedition navigation"
     ],
-    description: "The full multi-day expedition with everything included: 4×4 jeep transfers, an expert local guide, adventure activities, camping and all meals, all for one fixed price per person.",
+    description: "A six-day guided wilderness expedition for people who want to go deep into the Meghalaya wilderness. Best for fit, adventurous travellers and small groups of up to 5. The price is per person and covers the guide, 4×4 transfer, five nights of camping with equipment, meals, drinking water and first-aid support.",
     info: [
-      ["Type", "Multi-day expedition"],
-      ["Price", "Fixed per person, all inclusions covered"],
-      ["Booking", "Pay advance at least {days} days before"],
-      ["Cancel", "At least 7 days before the date"],
+      ["Best for", "Fit, adventurous travellers and small groups"],
+      ["Includes", "Guide-led route, 4×4 transfer Brichyrnot to Khaddum, 5 nights camping with equipment, meals, drinking water"],
+      ["Activities", "Waterfall exploration, jungle trekking, expedition navigation"],
+      ["Facilities", "Camping equipment, first-aid support, drinking water"],
+      ["Conditions", "Max 5 people per booking. Advance at least {days} days before. Cancel at least 7 days before. Route and itinerary can change with weather, water levels, terrain or safety."],
+      ["Extra days", "Optional: ₹1,000 per person per day"],
       ["Location", "Krem Chympe, East Jaintia Hills, Meghalaya"]
     ],
     highlightsLabel: "Everything included",
-    options: {}
+    options: {
+      extraday: { label: "Additional days (optional)", details: "Extend your expedition beyond the standard 6 days, subject to conditions and availability.", note: "Charged per person per day.", items: { day: "Extra day" } }
+    }
   }
 },
 
@@ -309,7 +318,7 @@ payment: {
    ===================================================================== */
 booking: {
   pageTitle: "Book your trip | Krem Chympe Adventure & Camping",
-  metaDescription: "Book a Krem Chympe Private Tour, Camping Package or Wilderness Expedition in a few quick steps.",
+  metaDescription: "Book a Krem Chympe Tour, Krem Chympe Camping or the Wilderness Expedition in a few quick steps.",
   homeLink: "← Home",
   brand: "Krem Chympe",
   loading: "Loading…",
@@ -336,6 +345,9 @@ booking: {
   perPerson: "/ person",
   flatPrice: "flat",
   chooseItems: "choose items",
+  required: "required",
+  includesLabel: "Includes:",
+  detailsAria: "Show or hide details for {name}",
   eachPrice: "{price} each",
   fewerAria: "Fewer {name}",
   moreAria: "More {name}",

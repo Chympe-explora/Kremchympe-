@@ -673,7 +673,7 @@ var FLEET=[
   var fleet=$('fleet');
   var PRICES=null;                    /* prices come from pricing.json so they are never typed twice */
   loadPricing().then(function(j){PRICES=j.packages||null}).catch(function(){});
-  function XT(pkg,x){var q=(PRICES&&PRICES[pkg])||{};return fmtText(x,{days:q.minDaysAhead||0,child:q.childPrice==null?'':inr(q.childPrice),adult:inr(q.adultPrice||0)})}
+  function XT(pkg,x){var q=(PRICES&&PRICES[pkg])||{};return fmtText(x,{days:q.minDaysAhead||0,child:q.childPrice==null?'':inr(q.childPrice),adult:inr(q.adultPrice||0),maxPeople:q.maxPeople||50})}
 
   /* ---- bike viewer ---- */
   var vbg=$('vwBg'),vw=$('vw'),vcard=$('vwCard'),vmedia=$('vwMedia'),vv=$('vwVideo'),vtrack=$('vwTrack'),vfill=$('vwFill'),vknob=$('vwKnob'),vclose=$('vwClose'),vsk=seeker(vv),vopen=false,vraf=0,lastTile=null;
@@ -705,7 +705,7 @@ var FLEET=[
     var hl=p.highlights||p.inclusions||[],ul=$('vwHl');ul.innerHTML='';
     hl.forEach(function(t){var li=d.createElement('li');li.textContent=XT(b.pkg,t);ul.append(li)});
     fill('vwHlHead',hl.length?(p.highlightsLabel||T('home.popupHighlights')):'');ul.style.display=hl.length?'':'none';
-    var pr=PRICES&&PRICES[b.pkg];fill('vwPrice',pr&&pr.adultPrice?T('home.priceFrom',{price:inr(pr.adultPrice)}):'');
+    var pr=PRICES&&PRICES[b.pkg];fill('vwPrice',pr?(pr.custom?T('home.priceCustom'):(pr.adultPrice?T('home.priceFrom',{price:inr(pr.adultPrice)}):'')):'');
     $('vwScroll').scrollTop=0;
     var pk=b.pkg||'';$('vwRes').href='reserve.html?package='+encodeURIComponent(pk);        /* the booking flow loads this package */
     try{sessionStorage.setItem('kcPackage',pk)}catch(_){}
