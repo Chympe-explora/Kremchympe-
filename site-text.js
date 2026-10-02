@@ -47,12 +47,12 @@ home: {
 
   /* --- top picture area --- */
   heroImageAlt: "Krem Chympe cave and waterfall",
-  heroTitle: "Krem Chympe — Destination Information",
-  logoAria: "Shining Bike Rentals, back to top",
-  logoText: "Shining Bike\nRentals",
+  heroTitle: "KREM CHYMPE",
+  logoAria: "TEAM EXPLO ERA",
+  logoText: "TEAM EXPLO ERA",
   heroHeading: "EXPLORE KREM CHYMPE\nAT YOUR OWN PACE",
   bookNow: "Book now",
-  policyLink: "Cancellation Policy",
+  policyLink: "Policy",
 
   /* --- first section --- */
   aboutHeading: "A Natural Destination Like No Other",
@@ -100,7 +100,7 @@ home: {
   videoShrinkAria: "Shrink {name} video",
 
   /* --- "Trusted by" --- */
-  trustedHeading: "Trusted by Travelers From",
+  trustedHeading: "Trusted by visitors From",
   cities: ["GUWAHATI", "SHILLONG", "JOWAI", "CHERRAPUNJI"],
 
   /* --- rating box --- */
@@ -108,17 +108,17 @@ home: {
   ratingAria: "Rating",
   oneStarAria: "1 star",
   manyStarsAria: "{n} stars",
-  yourNamePlaceholder: "Your name (optional)",
+  yourNamePlaceholder: "Your name",
   yourCommentPlaceholder: "Write your comment (optional)",
-  nameAria: "Your name (optional)",
+  nameAria: "Your name",
   commentAria: "Your comment (optional)",
   honeypotPlaceholder: "Leave empty",
   letterCount: "{n} / 300",
   submitFeedback: "Submit Feedback",
-  feedbackHint: "Your comment will appear under What Our Travelers Say",
+  feedbackHint: "Your comment will help us and future visitors",
   tapStarFirst: "Tap a star to rate first.",
   sending: "Sending…",
-  thanksWithComment: "Thank you! Your comment is now showing in What Our Travelers Say.",
+  thanksWithComment: "Thank you! For your comment.",
   thanksNoComment: "Thank you for your feedback!",
   sendFailed: "Could not send. Please try again.",
 
@@ -131,7 +131,7 @@ home: {
   starsOutOfFiveAria: "{n} out of 5 stars",
   /* Add or remove reviews here. Each one is:  { quote: "...", by: "Name, Place" }  */
   reviews: [
-    { quote: "The cave exploration and bamboo rafting were incredible. David was an excellent guide who knew the terrain perfectly.", by: "Rahul S., Guwahati" },
+    { quote: "The cave exploration and bamboo rafting were incredible. Guide was an excellent guide who knew the terrain perfectly.", by: "Rahul S., Guwahati" },
     { quote: "Booked the Wilderness Expedition. The 4x4 off-roading and the river camp were the highlights.", by: "Anjali D., Kolkata" },
     { quote: "A truly raw and beautiful experience. The homestay was comfortable, and the local food was amazing.", by: "David M., UK" }
   ],
