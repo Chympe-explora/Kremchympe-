@@ -50,7 +50,7 @@ home: {
   heroImageAlt: "Krem Chympe cave and waterfall",
   heroTitle: "Krem Chympe — Destination like no one",
   logoAria: "TEAM EXPLO ERA, Advanture era Awaits",
-  logoText: "Shining Bike\nRentals",
+  logoText: "TEAM EXPLO ERA",
   heroHeading: "EXPLORE KREM CHYMPE\nAT YOUR OWN PACE",
   bookNow: "Book now",
   policyLink: "Cancellation Policy",
