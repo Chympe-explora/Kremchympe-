@@ -903,7 +903,8 @@ var FLEET=[
     list.forEach(function(r){rv.insertBefore(card(r),first)});
     rv.scrollLeft=0;
   }
-  fetch('api/feedback').then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(l){if(Array.isArray(l))showReviews(l)}).catch(function(){});
+  var BACKEND=((TEXT.backend&&TEXT.backend.url)||'').replace(/\/+$/,'');
+  fetch(BACKEND+'/api/ratings?site=website-b').then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){var l=(j.ratings||[]).filter(function(r){return r.comment});if(l.length)showReviews(l)}).catch(function(){});
   dragScroll(rv);
   function step(dir){var c=rv.querySelector('.review'),gap=parseFloat(getComputedStyle(rv).columnGap)||16;rv.scrollBy({left:dir*(c.offsetWidth+gap),behavior:beh})}
   $('rvPrev').addEventListener('click',function(){step(-1)});
@@ -911,9 +912,9 @@ var FLEET=[
 
   btn.addEventListener('click',function(){
     if(!rating){msg.textContent=T('home.tapStarFirst');return}
-    var body={rating:rating,name:$('fbName').value.trim(),comment:txt.value.trim(),website:$('fbWeb').value};
+    var body={site:'website-b',rating:rating,name:$('fbName').value.trim(),comment:txt.value.trim(),website:$('fbWeb').value};
     btn.disabled=true;btn.textContent=T('home.sending');
-    fetch('api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+    fetch(BACKEND+'/api/ratings',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
       .then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(!r.ok)throw new Error(j.error||'');return j})})
       .then(function(){
         if(body.comment){
