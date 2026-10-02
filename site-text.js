@@ -47,12 +47,12 @@ home: {
 
   /* --- top picture area --- */
   heroImageAlt: "Krem Chympe cave and waterfall",
-  heroTitle: "KREM CHYMPE",
-  logoAria: "TEAM EXPLO ERA",
-  logoText: "TEAM EXPLO ERA",
+  heroTitle: "Krem Chympe — Destination Information",
+  logoAria: "Shining Bike Rentals, back to top",
+  logoText: "Shining Bike\nRentals",
   heroHeading: "EXPLORE KREM CHYMPE\nAT YOUR OWN PACE",
   bookNow: "Book now",
-  policyLink: "Policy",
+  policyLink: "Cancellation Policy",
 
   /* --- first section --- */
   aboutHeading: "A Natural Destination Like No Other",
@@ -79,28 +79,44 @@ home: {
   popupHighlights: "Highlights",
   priceFrom: "From {price} / person",
 
-  /* --- Explore section (two videos) --- */
+  /* --- Whole-page background + round picture selector (top of the page) ---
+     Every item below = one round picture AND one full-page background. Add more any time, the round pictures slide.
+     name  = label next to the round picture       desc = short text shown in the top section
+     image = round picture (also the background if there is no video)   e.g. "images/place-1.jpg"
+     video = (optional) video file name inside the videos folder WITHOUT .mp4, e.g. "scene-1" = videos/scene-1.mp4 (+ scene-1.jpg)
+     sub   = (optional) small second line under the name, like the country in the reference
+     pos   = (optional) which part of the picture stays visible when cropped, e.g. "50% 40%"
+     Scenes 1-3 are also the package videos (Private Tour, Camping, Wilderness Expedition). */
+  nowViewing: "Now viewing",
+  modeAria: "Where to show the background",
+  modeSite: "Whole site",
+  modeHero: "Hero only",
+  navAria: "Main menu",
+  navHome: "Home",
+  navAbout: "About",
+  navPackages: "Packages",
+  navReviews: "Reviews",
+  navContact: "Contact",
+  exploreAria: "Pick a place to explore",
+  exploreHandleAria: "Show places to explore",
   exploreHeading: "Explore Krem Chympe",
-  /* The places shown in this section. The first 2 are always visible; "View all" opens the rest.
-     name  = title on the picture        desc = text shown when the video is opened full size
-     video = file name inside the videos folder, WITHOUT .mp4  (e.g. "route-waterfall" = videos/route-waterfall.mp4 + route-waterfall.jpg)
-     If that file is not there yet, the "fallback" clip is used instead. So to use your own clip, just upload it with that name.
-     start = (optional) second to start the fallback clip from, so two tiles don't look identical. */
   explore: [
-    { name: "Waterfall", video: "route-waterfall", fallback: "route-dawki", start: 0, pos: "50% 69%",
+    { name: "Waterfall", sub: "Guided visit", image: "images/place-1.jpg", video: "scene-1", pos: "50% 50%",
       desc: "Waterfall visits are part of every Krem Chympe trip. Your local guide shows you the best spots and keeps the group safe around the water. Water levels change with the season and weather." },
-    { name: "Cave", video: "route-cave", fallback: "route-guwahati", start: 0, pos: "50% 80%",
-      desc: "Krem Chympe is known for cave exploration, including underground water. Go with a local guide, wear sturdy shoes and bring a torch or headlamp if you have one." },
-    { name: "River", video: "route-river", fallback: "route-dawki", start: 4, pos: "50% 69%",
-      desc: "Take a bamboo raft on the river with the forest on both banks. A quiet, easy way to see the landscape from the water." },
-    { name: "Forest", video: "route-forest", fallback: "route-guwahati", start: 4, pos: "50% 80%",
-      desc: "Trek through the forest trails around Krem Chympe with a local guide. Guides speak English, Hindi and the local language." }
+    { name: "Forest", sub: "Forest trails", image: "images/place-2.jpg", video: "scene-2", pos: "50% 50%",
+      desc: "Trek through the forest trails around Krem Chympe with a local guide. Guides speak English, Hindi and the local language." },
+    { name: "Waterfall Pool", sub: "Swim and cool off", image: "images/place-3.jpg", video: "scene-3", pos: "50% 50%",
+      desc: "Cool off in the clear blue pool below the falls. Stay with your guide, wear shoes with good grip and mind the slippery rocks." },
+    { name: "River", sub: "Hanging bridge", image: "images/place-4.jpg", pos: "50% 50%",
+      desc: "Cross the hanging bridge for a view of the river from above, or take a bamboo raft on the water. A quiet, easy way to see the landscape." },
+    { name: "Cave", sub: "Cave and water", image: "images/place-5.jpg", pos: "50% 55%",
+      desc: "Krem Chympe is known for cave exploration, including underground water. Go with a local guide, wear sturdy shoes and bring a torch or headlamp if you have one." }
   ],
   videoOpenAria: "Open {name} video full size",
   videoShrinkAria: "Shrink {name} video",
 
   /* --- "Trusted by" --- */
-  trustedHeading: "Trusted by visitors From",
+  trustedHeading: "Trusted by Travelers From",
   cities: ["GUWAHATI", "SHILLONG", "JOWAI", "CHERRAPUNJI"],
 
   /* --- rating box --- */
@@ -108,17 +124,17 @@ home: {
   ratingAria: "Rating",
   oneStarAria: "1 star",
   manyStarsAria: "{n} stars",
-  yourNamePlaceholder: "Your name",
+  yourNamePlaceholder: "Your name (optional)",
   yourCommentPlaceholder: "Write your comment (optional)",
-  nameAria: "Your name",
+  nameAria: "Your name (optional)",
   commentAria: "Your comment (optional)",
   honeypotPlaceholder: "Leave empty",
   letterCount: "{n} / 300",
   submitFeedback: "Submit Feedback",
-  feedbackHint: "Your comment will help us and future visitors",
+  feedbackHint: "Your comment will appear under What Our Travelers Say",
   tapStarFirst: "Tap a star to rate first.",
   sending: "Sending…",
-  thanksWithComment: "Thank you! For your comment.",
+  thanksWithComment: "Thank you! Your comment is now showing in What Our Travelers Say.",
   thanksNoComment: "Thank you for your feedback!",
   sendFailed: "Could not send. Please try again.",
 
@@ -131,7 +147,7 @@ home: {
   starsOutOfFiveAria: "{n} out of 5 stars",
   /* Add or remove reviews here. Each one is:  { quote: "...", by: "Name, Place" }  */
   reviews: [
-    { quote: "The cave exploration and bamboo rafting were incredible. Guide was an excellent guide who knew the terrain perfectly.", by: "Rahul S., Guwahati" },
+    { quote: "The cave exploration and bamboo rafting were incredible. David was an excellent guide who knew the terrain perfectly.", by: "Rahul S., Guwahati" },
     { quote: "Booked the Wilderness Expedition. The 4x4 off-roading and the river camp were the highlights.", by: "Anjali D., Kolkata" },
     { quote: "A truly raw and beautiful experience. The homestay was comfortable, and the local food was amazing.", by: "David M., UK" }
   ],
