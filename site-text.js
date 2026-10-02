@@ -32,24 +32,24 @@ common: {
 contact: {
   phoneShow: "91 8787679579",            /* how the number looks on screen */
   phoneForLink: "+918787679579",         /* same number, no spaces, with country code (used when someone taps it) */
-  email: "shiningbikerental@gmail.com",
-  instagramUrl: "https://instagram.com/shiningcars",
-  instagramHandle: "@shiningcars"
+  email: "teamexploera@gmail.com",
+  instagramUrl: "https://www.instagram.com/team_explo_era?stkn=ZHZpODB3aXl0bXBu",
+  instagramHandle: "@team_explo_era"
 },
 
 /* =====================================================================
    HOME PAGE  (book.html)
    ===================================================================== */
 home: {
-  pageTitle: "Krem Chympe — Destination Information",
+  pageTitle: "KREM CHYMPE",
   metaDescription: "Krem Chympe: cave exploration, waterfalls, forest trekking, camping and homestay in East Jaintia Hills, Meghalaya.",
-  shareTitle: "Krem Chympe — Destination Information",
+  shareTitle: "KREM CHYMPE",
   shareDescription: "Explore Krem Chympe at your own pace.",
 
   /* --- top picture area --- */
   heroImageAlt: "Krem Chympe cave and waterfall",
-  heroTitle: "Krem Chympe — Destination Information",
-  logoAria: "Shining Bike Rentals, back to top",
+  heroTitle: "Krem Chympe — Destination like no one",
+  logoAria: "TEAM EXPLO ERA, Advanture era Awaits",
   logoText: "Shining Bike\nRentals",
   heroHeading: "EXPLORE KREM CHYMPE\nAT YOUR OWN PACE",
   bookNow: "Book now",
