@@ -405,7 +405,8 @@ function doneScreen(id,waUrl){
     '<a class="btn ghost" href="'+esc(TEL)+'">'+esc(T('booking.callButton',{phone:PHONE}))+'</a><a class="btn '+(waUrl?'ghost':'fill')+'" href="book.html">'+esc(T('booking.backToMain'))+'</a></div>';
   scrollTo(0,0);
 }
-$('f').addEventListener('submit',function(e){
+getConfig().then(applyMode);
+  $('f').addEventListener('submit',function(e){
   e.preventDefault();
   if(!valid(5))return;
   var msg=$('msg'),go=$('go');msg.textContent='';msg.className='msg';
@@ -413,6 +414,8 @@ $('f').addEventListener('submit',function(e){
   var c=calc(),adv=num('advance'),text=buildMessage(c,adv);
   var summary={package:pname(),date:fmtDate($('date').value),people:c.people+(c.kids>0?' + '+c.kids+' children':''),total:inr(c.total),name:$('name').value.trim(),whatsapp:$('whatsapp').value.trim()};
   getConfig().then(function(cfg){
+    applyMode(cfg);
+if(!WAMODE&&!S.receipt){show(5);$('rcErr').textContent=T('booking.errReceipt');throw new Error('Please upload your payment receipt.')}
     var wa=cfg.mode==='whatsapp'&&cfg.whatsapp;
     var waUrl=wa?'https://wa.me/'+cfg.whatsapp+'?text='+encodeURIComponent(text+'\n\n(Payment receipt: I will send it in this chat.)'):'';
     var post=postJSON(BACKEND+'/api/siteb/booking',{summary:summary,message:text,website:($('hp')||{}).value||''});
