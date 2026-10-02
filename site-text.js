@@ -23,7 +23,8 @@ window.TEXT = {
 
 /* ---------- Used everywhere ---------- */
 common: {
-  currency: "₹"
+  currency: "₹",
+  loaderText: "Krem Chympe"              /* word shown on the blue curtain between pages */
 },
 
 /* ---------- Phone, email, Instagram (used on several pages) ---------- */
@@ -46,9 +47,9 @@ home: {
 
   /* --- top picture area --- */
   heroImageAlt: "Krem Chympe cave and waterfall",
-  heroTitle: "Krem Chympe",
-  logoAria: "TEAM EXPLO ERA, back to top",
-  logoText: "TEAM EXPLO ERA",
+  heroTitle: "Krem Chympe — Destination Information",
+  logoAria: "Shining Bike Rentals, back to top",
+  logoText: "Shining Bike\nRentals",
   heroHeading: "EXPLORE KREM CHYMPE\nAT YOUR OWN PACE",
   bookNow: "Book now",
   policyLink: "Cancellation Policy",
@@ -75,16 +76,31 @@ home: {
   sliderAria: "Video position",
   popupHint: "Swipe the video or drag the slider to go back and forward.",
   popupBook: "Book now",
+  popupHighlights: "Highlights",
+  priceFrom: "From {price} / person",
 
   /* --- Explore section (two videos) --- */
   exploreHeading: "Explore Krem Chympe",
-  video1Name: "Cave and Waterfall",
-  video2Name: "Forest and River",
-  videoOpenAria: "Open video full size",
-  videoShrinkAria: "Shrink video",
+  /* The places shown in this section. The first 2 are always visible; "View all" opens the rest.
+     name  = title on the picture        desc = text shown when the video is opened full size
+     video = file name inside the videos folder, WITHOUT .mp4  (e.g. "route-waterfall" = videos/route-waterfall.mp4 + route-waterfall.jpg)
+     If that file is not there yet, the "fallback" clip is used instead. So to use your own clip, just upload it with that name.
+     start = (optional) second to start the fallback clip from, so two tiles don't look identical. */
+  explore: [
+    { name: "Waterfall", video: "route-waterfall", fallback: "route-dawki", start: 0, pos: "50% 69%",
+      desc: "Waterfall visits are part of every Krem Chympe trip. Your local guide shows you the best spots and keeps the group safe around the water. Water levels change with the season and weather." },
+    { name: "Cave", video: "route-cave", fallback: "route-guwahati", start: 0, pos: "50% 80%",
+      desc: "Krem Chympe is known for cave exploration, including underground water. Go with a local guide, wear sturdy shoes and bring a torch or headlamp if you have one." },
+    { name: "River", video: "route-river", fallback: "route-dawki", start: 4, pos: "50% 69%",
+      desc: "Take a bamboo raft on the river with the forest on both banks. A quiet, easy way to see the landscape from the water." },
+    { name: "Forest", video: "route-forest", fallback: "route-guwahati", start: 4, pos: "50% 80%",
+      desc: "Trek through the forest trails around Krem Chympe with a local guide. Guides speak English, Hindi and the local language." }
+  ],
+  videoOpenAria: "Open {name} video full size",
+  videoShrinkAria: "Shrink {name} video",
 
   /* --- "Trusted by" --- */
-  trustedHeading: "Trusted by visitors From",
+  trustedHeading: "Trusted by Travelers From",
   cities: ["GUWAHATI", "SHILLONG", "JOWAI", "CHERRAPUNJI"],
 
   /* --- rating box --- */
@@ -92,17 +108,17 @@ home: {
   ratingAria: "Rating",
   oneStarAria: "1 star",
   manyStarsAria: "{n} stars",
-  yourNamePlaceholder: "Your name",
+  yourNamePlaceholder: "Your name (optional)",
   yourCommentPlaceholder: "Write your comment (optional)",
-  nameAria: "Your name",
+  nameAria: "Your name (optional)",
   commentAria: "Your comment (optional)",
   honeypotPlaceholder: "Leave empty",
   letterCount: "{n} / 300",
   submitFeedback: "Submit Feedback",
-  feedbackHint: "Your comment will help us and future visitors",
+  feedbackHint: "Your comment will appear under What Our Travelers Say",
   tapStarFirst: "Tap a star to rate first.",
   sending: "Sending…",
-  thanksWithComment: "Thank you for your comments.",
+  thanksWithComment: "Thank you! Your comment is now showing in What Our Travelers Say.",
   thanksNoComment: "Thank you for your feedback!",
   sendFailed: "Could not send. Please try again.",
 
@@ -115,7 +131,7 @@ home: {
   starsOutOfFiveAria: "{n} out of 5 stars",
   /* Add or remove reviews here. Each one is:  { quote: "...", by: "Name, Place" }  */
   reviews: [
-    { quote: "The cave exploration and bamboo rafting were incredible. Guide was an excellent guide who knew the terrain perfectly.", by: "Rahul S., Guwahati" },
+    { quote: "The cave exploration and bamboo rafting were incredible. David was an excellent guide who knew the terrain perfectly.", by: "Rahul S., Guwahati" },
     { quote: "Booked the Wilderness Expedition. The 4x4 off-roading and the river camp were the highlights.", by: "Anjali D., Kolkata" },
     { quote: "A truly raw and beautiful experience. The homestay was comfortable, and the local food was amazing.", by: "David M., UK" }
   ],
@@ -147,8 +163,20 @@ packages: {
       "Private tour for your own group only.",
       "Pick any extras you like on the next page."
     ],
-    /* Extra lines in the pop-up on the home page. Example:  ["Duration", "Full day"],  */
-    info: [],
+    /* Details shown in the pop-up on the home page (edit freely).
+       description = a short paragraph    info = rows of  ["Label", "Value"]    highlights = small tags
+       The price line (From ₹...) is read automatically from pricing.json. */
+    description: "A private guided day at Krem Chympe, just for your group. Explore the cave and waterfalls and trek the forest at your own pace, with no other groups and no rush. On the next page you can add a 4×4 jeep, lunch, adventure activities or an overnight camping stay.",
+    info: [
+      ["Type", "Private guided day tour"],
+      ["Group", "Your own group only"],
+      ["Guide", "Local guide, David Tariang (Brichyrnot village)"],
+      ["Languages", "English, Hindi, local language"],
+      ["Children", "Under 12 pay half price"],
+      ["Location", "Krem Chympe, East Jaintia Hills, Meghalaya"]
+    ],
+    highlightsLabel: "Highlights and add-ons",
+    highlights: ["Cave exploration", "Waterfalls", "Forest trekking", "4×4 jeep (add-on)", "Lunch (add-on)", "Adventure activities (add-on)", "Camping (add-on)"],
     /* Names of the extras (Page 2). Keep the short names on the left (jeep, guide...) as they are. */
     options: {
       jeep:       { label: "4×4 Jeep" },
@@ -173,7 +201,16 @@ packages: {
       "Overnight camping stay.",
       "Choose tent, meals and guide on the next page."
     ],
-    info: [],
+    description: "Spend a night in the wild at Krem Chympe. Pick your tent, meals, bamboo dishes and an overnight guide on the next page, then choose your check-in date.",
+    info: [
+      ["Type", "Overnight camping stay"],
+      ["Guide", "Local guide, David Tariang (Brichyrnot village)"],
+      ["Languages", "English, Hindi, local language"],
+      ["Children", "Under 12 pay half price"],
+      ["Location", "Krem Chympe, East Jaintia Hills, Meghalaya"]
+    ],
+    highlightsLabel: "Choose on the next page",
+    highlights: ["Tent rental", "Meals", "Overnight guide", "Bamboo dishes"],
     options: {
       tent:      { label: "Tent Rental" },
       meals:     { label: "Meals" },
@@ -200,7 +237,15 @@ packages: {
       "All meals",
       "Bamboo dishes"
     ],
-    info: [],
+    description: "The full multi-day expedition with everything included: 4×4 jeep transfers, an expert local guide, adventure activities, camping and all meals, all for one fixed price per person.",
+    info: [
+      ["Type", "Multi-day expedition"],
+      ["Price", "Fixed per person, all inclusions covered"],
+      ["Booking", "Pay advance at least 3 days before"],
+      ["Cancel", "At least 7 days before the date"],
+      ["Location", "Krem Chympe, East Jaintia Hills, Meghalaya"]
+    ],
+    highlightsLabel: "Everything included",
     options: {}
   }
 },
