@@ -302,7 +302,7 @@ packages: {
    ===================================================================== */
 payment: {
   payeeName: "Krem Chympe Adventure & Camping",
-  upiId: "yourname@upi",
+  upiId: "8787679579@ybl",
   qrImage: "images/payment-qr.png",          /* put your QR picture in the images folder with this name */
   /* Bank rows. Add, remove or rename rows freely:  ["Name shown", "Value shown"],  */
   bankRows: [
