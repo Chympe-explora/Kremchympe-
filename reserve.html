@@ -97,7 +97,10 @@ table.inv{width:100%;border-collapse:collapse;font-size:.95rem}
 .tabs button{flex:1;padding:.6rem 0;border:0;border-radius:10px;background:var(--chip);font:600 .9rem var(--sans);cursor:pointer;color:var(--ink)}
 .tabs button.on{background:var(--main);color:#fff}
 .pane{display:none;text-align:center;margin-bottom:1rem}.pane.on{display:block}
-.pane img{width:200px;max-width:70%;border-radius:12px;border:1px solid var(--line)}
+.pane img{width:260px;max-width:80%;border-radius:12px;border:1px solid var(--line);background:#fff}
+.kv{align-items:center}.kv .vv{margin-left:auto;font-weight:600;overflow-wrap:anywhere;text-align:right}
+.cp{flex:none;border:0;border-radius:8px;background:var(--chip);color:var(--ink);font:600 .8rem var(--sans);padding:.4rem .7rem;cursor:pointer}.cp.ok{background:var(--main);color:#fff}
+.pane .btn.sm{display:block;margin-top:.8rem;padding:.7rem 1rem;font-size:.95rem}
 .pane .qrmiss{display:none;color:var(--soft);font-size:.9rem}
 .kv{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:1px solid var(--line);text-align:left;font-size:.95rem}.kv span:first-child{color:var(--soft)}.kv span:last-child{font-weight:600;overflow-wrap:anywhere;text-align:right}
 .bal{display:flex;justify-content:space-between;font:600 1rem var(--sans);padding:.3rem 0}.bal b{font-size:1.1rem}
@@ -154,8 +157,8 @@ table.inv{width:100%;border-collapse:collapse;font-size:.95rem}
     <h2 class="h" data-t="booking.page4Heading"></h2>
     <div class="os" id="os"></div>
     <div class="tabs" role="tablist"><button type="button" data-tab="qr" class="on" data-t="booking.tabQr"></button><button type="button" data-tab="upi" data-t="booking.tabUpi"></button><button type="button" data-tab="bank" data-t="booking.tabBank"></button></div>
-    <div class="pane on" id="p-qr"><img id="qrImg" data-ta="alt={booking.qrAlt}|src={payment.qrImage}"><p class="qrmiss" id="qrMiss" data-t="booking.qrMissing"></p></div>
-    <div class="pane" id="p-upi"><div class="kv"><span data-t="booking.upiIdLabel"></span><span data-t="payment.upiId"></span></div><div class="kv"><span data-t="booking.payeeLabel"></span><span data-t="payment.payeeName"></span></div><a class="btn fill" id="upiLink" style="display:block;margin-top:.9rem" data-t="booking.upiButton"></a></div>
+    <div class="pane on" id="p-qr"><img id="qrImg" data-ta="alt={booking.qrAlt}|src={payment.qrImage}"><p class="qrmiss" id="qrMiss" data-t="booking.qrMissing"></p><a class="btn ghost sm" id="qrDl" download="Krem-Chympe-payment-QR.png" data-t="booking.downloadQr"></a></div>
+    <div class="pane" id="p-upi"><div class="kv"><span data-t="booking.upiIdLabel"></span><span class="vv" data-t="payment.upiId"></span><button type="button" class="cp" data-t="booking.copy"></button></div><div class="kv"><span data-t="booking.payeeLabel"></span><span class="vv" data-t="payment.payeeName"></span><button type="button" class="cp" data-t="booking.copy"></button></div><a class="btn fill" id="upiLink" style="display:block;margin-top:.9rem" data-t="booking.upiButton"></a></div>
     <div class="pane" id="p-bank"></div>
     <div class="f"><label for="advance" data-t="booking.advanceLabel"></label><input class="in" id="advance" type="number" inputmode="numeric" min="0"><p class="err"></p></div>
     <div class="bal"><span data-t="booking.balanceLabel"></span><b id="bal"></b></div>
@@ -288,7 +291,7 @@ function drawPayment(){
   if(!$('advance').value||num('advance')<min)$('advance').value=min;
   if(num('advance')>c.total)$('advance').value=c.total;
   updBal();
-  $('p-bank').innerHTML=TEXT.payment.bankRows.map(function(r){return'<div class="kv"><span>'+esc(r[0])+'</span><span>'+esc(r[1])+'</span></div>'}).join('');
+  $('p-bank').innerHTML=TEXT.payment.bankRows.map(function(r){return'<div class="kv"><span>'+esc(r[0])+'</span><span class="vv">'+esc(r[1])+'</span><button type="button" class="cp">'+esc(T('booking.copy'))+'</button></div>'}).join('')+'<button type="button" class="btn fill sm" data-copyall="1" style="width:100%">'+esc(T('booking.copyAll'))+'</button>';
 }
 function updBal(){
   var c=calc(),a=num('advance');
@@ -463,12 +466,28 @@ $('f').addEventListener('submit',function(e){
   });
 });
 
+/* ---------- copy buttons (UPI ID, payee, bank rows, copy all) ---------- */
+function copyText(txt){
+  if(navigator.clipboard&&window.isSecureContext)return navigator.clipboard.writeText(txt);
+  return new Promise(function(ok,no){try{var a=d.createElement('textarea');a.value=txt;a.style.cssText='position:fixed;opacity:0';d.body.appendChild(a);a.select();var r=d.execCommand('copy');a.remove();r?ok():no()}catch(e){no(e)}});
+}
+d.addEventListener('click',function(e){
+  var b=e.target.closest('.cp,[data-copyall]');if(!b)return;
+  var txt;
+  if(b.hasAttribute('data-copyall')){txt=[].map.call(b.parentNode.querySelectorAll('.kv'),function(k){return k.firstElementChild.textContent+': '+k.querySelector('.vv').textContent}).join('\n')}
+  else{var v=b.parentNode.querySelector('.vv');txt=v?v.textContent:''}
+  if(!txt)return;
+  var label=b.hasAttribute('data-copyall')?T('booking.copyAll'):T('booking.copy');
+  copyText(txt).then(function(){b.textContent=T('booking.copied');b.classList.add('ok')},function(){b.textContent=T('booking.copyFailed')})
+   .then(function(){setTimeout(function(){b.textContent=label;b.classList.remove('ok')},1600)});
+});
+
 /* ---------- start ---------- */
 loadPricing().then(function(j){
   CFG=j;MX=+j.maxPeople||50;
   $('pkSel').innerHTML=Object.keys(CFG.packages).map(function(k){return'<option value="'+k+'">'+esc(pname(k))+'</option>'}).join('');
   $('qrImg').onerror=function(){this.style.display='none';$('qrMiss').style.display='block'};
-  $('qrImg').src=TEXT.payment.qrImage;
+  $('qrImg').src=TEXT.payment.qrImage;$('qrDl').href=TEXT.payment.qrImage;
   var q='';try{var u=new URLSearchParams(location.search);q=u.get('package')||u.get('vehicle')||sessionStorage.getItem('kcPackage')||''}catch(e){}
   var k=fromName(q);
   $('loading').hidden=true;
