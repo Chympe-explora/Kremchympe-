@@ -9,5 +9,5 @@ pages_build_output_dir = "public"
 binding = "BOOKINGS_KV"
 id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
 
-# Secrets (TELEGRAM_TOKEN, TELEGRAM_CHAT_ID, ADMIN_PASSWORD) are NOT stored here.
+# Secrets (TELEGRAM_TOKEN, TELEGRAM_BOOKING_GROUP_ID, TELEGRAM_CHAT_ID, ADMIN_PASSWORD) are NOT stored here.
 # Add them in the dashboard or with: npx wrangler pages secret put NAME

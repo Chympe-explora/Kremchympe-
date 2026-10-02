@@ -55,6 +55,9 @@ select.in{appearance:none;-webkit-appearance:none;background:#fff url("data:imag
 .done .id{display:block;margin:.2rem 0 1.2rem;font:700 1.3rem var(--sans);color:var(--ink)}
 .done .btn{display:block;margin-top:.7rem}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* Desktop: scale the whole form up (all sizes are rem) and widen the card */
+@media(min-width:900px){html{font-size:125%}.app{max-width:820px;padding:2.2rem 2.6rem 2.6rem}.pane img{width:260px}.prev img{max-height:300px}}
+@media(min-width:1500px){html{font-size:135%}.app{max-width:900px}}
 
 .opt.sub,.note.sub,.items.sub{margin-left:1rem}
 .note.sub{margin-top:-.2rem}
@@ -157,7 +160,7 @@ table.inv{width:100%;border-collapse:collapse;font-size:.95rem}
     <div class="f"><label for="receipt" data-t="booking.receiptLabel"></label><input class="in" id="receipt" type="file" accept="image/*,application/pdf"><p class="err" id="rcErr"></p><div class="prev" id="rcPrev"></div></div>
     <label class="chk"><input type="checkbox" id="agree"><span><span data-t="booking.agreeBefore"></span> <a href="terms.html" target="_blank" rel="noopener" data-t="booking.agreeLink"></a><span data-t="booking.agreeAfter"></span></span></label>
     <p class="err" id="agErr"></p>
-    <div class="btns" style="flex-direction:column"><button class="btn fill" id="go" type="submit" data-t="booking.submit"></button><button type="button" class="btn ghost" data-back data-t="booking.back"></button></div>
+    <input id="hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0"><div class="btns" style="flex-direction:column"><button class="btn fill" id="go" type="submit" data-t="booking.submit"></button><button type="button" class="btn ghost" data-back data-t="booking.back"></button></div>
     <p class="msg" id="msg" role="status" aria-live="polite"></p>
   </section>
 </form>
@@ -370,28 +373,61 @@ $('receipt').addEventListener('change',function(){
 });
 
 /* ---------- submit ---------- */
+var BACKEND=((TEXT.backend&&TEXT.backend.url)||'').replace(/\/+$/,'');
+var METHODS={qr:'QR code',upi:'UPI ID',bank:'Bank transfer'};
+function fmtDate(v){var p=String(v).split('-');return p.length===3?p[2]+'-'+p[1]+'-'+p[0]:v}
+/* Full, readable breakdown (used for WhatsApp, and for the group when the admin set it to "Group") */
+function buildMessage(c,adv){
+  var L=['*NEW BOOKING*','',
+    '*Destination:* '+T('booking.brand'),
+    '*Package / tour:* '+pname(),
+    '*Check-in date:* '+fmtDate($('date').value),
+    '*Name:* '+$('name').value.trim(),
+    '*WhatsApp:* '+$('whatsapp').value.trim(),
+    '*People:* '+c.people+(c.kids>0?' adults + '+c.kids+' children (total '+(c.people+c.kids)+')':'')];
+  var req=$('request').value.trim();if(req)L.push('*Special request:* '+req);
+  L.push('','*BREAKDOWN (activities, facilities & extras)*');
+  c.lines.forEach(function(r){L.push('- '+r.l+' ('+r.x+'): '+inr(r.a))});
+  L.push('','*Total price:* '+inr(c.total),'*Advance paid ('+(METHODS[S.method]||S.method)+'):* '+inr(adv),'*Balance on arrival:* '+inr(c.total-adv),
+    '','Cancellation policy accepted: Yes');
+  return L.join('\n');
+}
+function getConfig(){
+  if(!BACKEND)return Promise.resolve({mode:'group',whatsapp:''});
+  return fetch(BACKEND+'/api/siteb/config',{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){return{mode:j.mode==='whatsapp'?'whatsapp':'group',whatsapp:String(j.whatsapp||'').replace(/\D/g,'')}}).catch(function(){return{mode:'group',whatsapp:''}});
+}
+function postJSON(url,body){return fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(!r.ok||!j.ok){var e=new Error(j.error||'x');throw e}return j})})}
+function dataUrlToBlob(u){var m=u.match(/^data:([^;]+);base64,(.*)$/),b=atob(m[2]),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return new Blob([a],{type:m[1]})}
+function doneScreen(id,waUrl){
+  $('app').innerHTML='<div class="done"><h1 class="h">'+esc(T('booking.doneHeading'))+'</h1><p>'+esc(T('booking.doneText',{package:pname()}))+'</p><p>'+esc(T('booking.doneIdLabel'))+'<span class="id">'+esc(id)+'</span></p>'+
+    (waUrl?'<a class="btn fill" href="'+esc(waUrl)+'" target="_blank" rel="noopener">Open WhatsApp to send your booking</a>':'')+
+    '<a class="btn ghost" href="'+esc(TEL)+'">'+esc(T('booking.callButton',{phone:PHONE}))+'</a><a class="btn '+(waUrl?'ghost':'fill')+'" href="book.html">'+esc(T('booking.backToMain'))+'</a></div>';
+  scrollTo(0,0);
+}
 $('f').addEventListener('submit',function(e){
   e.preventDefault();
   if(!valid(5))return;
   var msg=$('msg'),go=$('go');msg.textContent='';msg.className='msg';
   go.disabled=true;go.textContent=T('booking.sending');
-  var opts=P().options.filter(function(o){return isOn(o)}).map(function(o){return o.id});
-  var body={package:S.pkg,name:$('name').value,whatsapp:$('whatsapp').value,date:$('date').value,request:$('request').value,
-    people:num('people'),children:P().childPrice!=null?num('children'):0,options:opts,itemQty:S.qty,advance:num('advance'),
-    payMethod:S.method,agreed:true,receipt:S.receipt};
-  fetch('api/book',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
-    .then(function(r){return r.json().catch(function(){return{}}).then(function(j){
-      if(!r.ok||!j.success){var er=new Error(j.error||'x');er.code=j.code;throw er}return j})})
-    .then(function(j){
-      $('app').innerHTML='<div class="done"><h1 class="h">'+esc(T('booking.doneHeading'))+'</h1><p>'+esc(T('booking.doneText',{package:pname()}))+'</p><p>'+esc(T('booking.doneIdLabel'))+'<span class="id">'+esc(j.id)+'</span></p><a class="btn ghost" href="'+esc(TEL)+'">'+esc(T('booking.callButton',{phone:PHONE}))+'</a><a class="btn fill" href="book.html">'+esc(T('booking.backToMain'))+'</a></div>';
-      scrollTo(0,0);
-    })
-    .catch(function(err){
-      var known=err.code&&err.code!=='dateExpedition'&&TEXT.booking.serverErrors[err.code];
-      msg.className='msg bad';
-      msg.innerHTML=esc(known||(err.message&&err.message!=='x'?err.message:T('booking.errSendFailed')))+' '+esc(T('booking.tryAgainCall'))+' '+callLink()+esc(T('booking.sentenceEnd'));
-      go.disabled=false;go.textContent=T('booking.submit');
+  var c=calc(),adv=num('advance'),text=buildMessage(c,adv);
+  var summary={package:pname(),date:fmtDate($('date').value),people:c.people+(c.kids>0?' + '+c.kids+' children':''),total:inr(c.total),name:$('name').value.trim(),whatsapp:$('whatsapp').value.trim()};
+  getConfig().then(function(cfg){
+    var wa=cfg.mode==='whatsapp'&&cfg.whatsapp;
+    var waUrl=wa?'https://wa.me/'+cfg.whatsapp+'?text='+encodeURIComponent(text+'\n\n(Payment receipt: I will send it in this chat.)'):'';
+    var post=postJSON(BACKEND+'/api/siteb/booking',{summary:summary,message:text,website:($('hp')||{}).value||''});
+    if(wa){ /* WhatsApp mode: group gets the short summary; the visitor sends the full breakdown on WhatsApp. A group hiccup must not block WhatsApp. */
+      return post.catch(function(){return{id:'-'}}).then(function(j){doneScreen(j.id,waUrl);location.href=waUrl});
+    }
+    /* Group mode: full breakdown + receipt go straight to the booking group. */
+    return post.then(function(j){
+      var fd=new FormData();fd.append('id',j.id);fd.append('file',dataUrlToBlob(S.receipt),'receipt');
+      return fetch(BACKEND+'/api/siteb/receipt',{method:'POST',body:fd}).catch(function(){}).then(function(){doneScreen(j.id,'')});
     });
+  }).catch(function(err){
+    msg.className='msg bad';
+    msg.innerHTML=esc((err.message&&err.message!=='x'?err.message:T('booking.errSendFailed')))+' '+esc(T('booking.tryAgainCall'))+' '+callLink()+esc(T('booking.sentenceEnd'));
+    go.disabled=false;go.textContent=T('booking.submit');
+  });
 });
 
 /* ---------- start ---------- */

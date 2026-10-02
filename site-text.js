@@ -29,28 +29,34 @@ common: {
 },
 
 /* ---------- Phone, email, Instagram (used on several pages) ---------- */
+/* WEBSITE A (the backend that receives bookings). Paste YOUR backend address here (no slash at the end).
+   The admin switches Group / WhatsApp and sets the WhatsApp number inside the Telegram admin bot -> "Website B Submit". */
+backend: {
+  url: "https://teamexploera-backend.book-and-explore.workers.dev"
+},
+
 contact: {
   phoneShow: "91 8787679579",            /* how the number looks on screen */
   phoneForLink: "+918787679579",         /* same number, no spaces, with country code (used when someone taps it) */
-  email: "teamexploera@gmail.com",
-  instagramUrl: "https://www.instagram.com/team_explo_era?stkn=ZHZpODB3aXl0bXBu",
-  instagramHandle: "@team_explo_era"
+  email: "shiningbikerental@gmail.com",
+  instagramUrl: "https://instagram.com/shiningcars",
+  instagramHandle: "@shiningcars"
 },
 
 /* =====================================================================
    HOME PAGE  (book.html)
    ===================================================================== */
 home: {
-  pageTitle: "KREM CHYMPE",
+  pageTitle: "Krem Chympe — Destination Information",
   metaDescription: "Krem Chympe: cave exploration, waterfalls, forest trekking, camping and homestay in East Jaintia Hills, Meghalaya.",
-  shareTitle: "KREM CHYMPE",
+  shareTitle: "Krem Chympe — Destination Information",
   shareDescription: "Explore Krem Chympe at your own pace.",
 
   /* --- top picture area --- */
   heroImageAlt: "Krem Chympe cave and waterfall",
-  heroTitle: "Krem Chympe — Destination like no one",
-  logoAria: "TEAM EXPLO ERA, Advanture era Awaits",
-  logoText: "TEAM EXPLO ERA",
+  heroTitle: "Krem Chympe — Destination Information",
+  logoAria: "Shining Bike Rentals, back to top",
+  logoText: "Shining Bike\nRentals",
   heroHeading: "EXPLORE KREM CHYMPE\nAT YOUR OWN PACE",
   bookNow: "Book now",
   policyLink: "Cancellation Policy",
