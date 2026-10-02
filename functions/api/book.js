@@ -97,8 +97,12 @@ export function validate(b) {
   return { d, lines, total, advance, balance: total - advance, receipt, receiptType: m && m[1], errors, codes };
 }
 
+// Bookings (details + price + receipt) go to the BOOKING GROUP, not the admin's own chat.
+// Set TELEGRAM_BOOKING_GROUP_ID to the group's id (negative number, e.g. -1001234567890).
+// Falls back to TELEGRAM_CHAT_ID only if the group variable is not set.
 async function notifyTelegram(env, id, v) {
-  if (!env.TELEGRAM_TOKEN || !env.TELEGRAM_CHAT_ID) return;
+  const chatId = env.TELEGRAM_BOOKING_GROUP_ID || env.TELEGRAM_CHAT_ID;
+  if (!env.TELEGRAM_TOKEN || !chatId) return;
   const { d } = v;
   const items = v.lines.map((l) => `• ${esc(l.label)}${l.qty > 1 ? " × " + l.qty : ""}: ${inr(l.amount)}`).join("\n");
   const text =
@@ -108,19 +112,21 @@ async function notifyTelegram(env, id, v) {
     (d.request ? `<b>Request:</b> ${esc(d.request)}\n` : "") +
     `\n${items}\n\n<b>Total:</b> ${inr(v.total)}\n<b>Advance paid (${esc(d.payMethod.toUpperCase())}):</b> ${inr(v.advance)}\n<b>Balance:</b> ${inr(v.balance)}\n\nReceipt attached below. Please verify before confirming.`;
   const api = (m) => `https://api.telegram.org/bot${env.TELEGRAM_TOKEN}/${m}`;
-  await fetch(api("sendMessage"), {
+  const r1 = await fetch(api("sendMessage"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text, parse_mode: "HTML" }),
+    body: JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" }),
   });
+  if (!r1.ok) console.log("Telegram sendMessage failed", r1.status, await r1.text());
   // Receipt as a document so PDFs and images both work.
   const bin = Uint8Array.from(atob(v.receipt.split(",")[1]), (c) => c.charCodeAt(0));
   const ext = v.receiptType === "application/pdf" ? "pdf" : v.receiptType === "image/png" ? "png" : "jpg";
   const fd = new FormData();
-  fd.append("chat_id", env.TELEGRAM_CHAT_ID);
+  fd.append("chat_id", chatId);
   fd.append("caption", `Receipt for ${id}`);
   fd.append("document", new Blob([bin], { type: v.receiptType }), `receipt-${id}.${ext}`);
-  await fetch(api("sendDocument"), { method: "POST", body: fd });
+  const r2 = await fetch(api("sendDocument"), { method: "POST", body: fd });
+  if (!r2.ok) console.log("Telegram sendDocument failed", r2.status, await r2.text());
 }
 
 export async function onRequestPost({ request, env }) {
