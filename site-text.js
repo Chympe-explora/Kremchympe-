@@ -36,30 +36,30 @@ backend: {
 },
 
 contact: {
-  phoneShow: "91 8787679579",            /* how the number looks on screen */
-  phoneForLink: "+918787679579",         /* same number, no spaces, with country code (used when someone taps it) */
-  email: "shiningbikerental@gmail.com",
-  instagramUrl: "https://instagram.com/shiningcars",
-  instagramHandle: "@shiningcars"
+  phoneShow: "91 76279 42622",            /* how the number looks on screen */
+  phoneForLink: "+9176279 42622",         /* same number, no spaces, with country code (used when someone taps it) */
+  email: "teamexploera@gmail.com",
+  instagramUrl: "https://www.instagram.com/team_explo_era?stkn=ZHZpODB3aXl0bXBu",
+  instagramHandle: "@team_explo_era"
 },
 
 /* =====================================================================
    HOME PAGE  (book.html)
    ===================================================================== */
 home: {
-  pageTitle: "Krem Chympe — Destination Information",
+  pageTitle: "KREM CHYMPE",
   metaDescription: "Krem Chympe: cave exploration, waterfalls, forest trekking, camping and homestay in East Jaintia Hills, Meghalaya.",
-  shareTitle: "Krem Chympe — Destination Information",
+  shareTitle: "KREM CHYMPE",
   shareDescription: "Explore Krem Chympe at your own pace.",
 
   /* --- top picture area --- */
   heroImageAlt: "Krem Chympe cave and waterfall",
   heroTitle: "Krem Chympe — Destination Information",
-  logoAria: "Shining Bike Rentals, back to top",
-  logoText: "Shining Bike\nRentals",
+  logoAria: "Team Explo Era, Adventure Era Awaits",
+  logoText: "TEAM\nEXPLO ERA",
   heroHeading: "EXPLORE KREM CHYMPE\nAT YOUR OWN PACE",
   bookNow: "Book now",
-  policyLink: "Cancellation Policy",
+  policyLink: "POLICY",
 
   /* --- first section --- */
   aboutHeading: "A Natural Destination Like No Other",
