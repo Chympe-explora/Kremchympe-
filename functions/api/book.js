@@ -41,6 +41,7 @@ export function price(pkg, people, children, optionIds, itemQty = {}) {
   return { lines, total: lines.reduce((t, l) => t + l.amount, 0) };
 }
 
+const MAXP = Number(PRICING.maxPeople) || 50;
 const todayIST = () => new Date(Date.now() + 5.5 * 3600 * 1000).toISOString().slice(0, 10);
 const addDays = (iso, n) => new Date(Date.parse(iso) + n * 86400000).toISOString().slice(0, 10);
 
@@ -69,11 +70,11 @@ export function validate(b) {
   };
   if (!d.name) err("name", "Name is required.");
   if (!/^\+?[0-9\s-]{7,15}$/.test(d.whatsapp)) err("whatsapp", "Enter a valid WhatsApp number.");
-  if (!Number.isInteger(people) || people < 1 || people > 50) err("people", "Enter a valid number of people.");
-  if (!Number.isInteger(children) || children < 0 || children > 50) err("children", "Enter a valid number of children.");
+  if (!Number.isInteger(people) || people < 1 || people > MAXP) err("people", "Enter a valid number of people.");
+  if (!Number.isInteger(children) || children < 0 || children > MAXP) err("children", "Enter a valid number of children.");
   if (!/^\d{4}-\d{2}-\d{2}$/.test(d.date) || isNaN(Date.parse(d.date))) err("date", "Choose a date.");
   else if (d.date < addDays(todayIST(), pkg.minDaysAhead))
-    key === "expedition" ? err("dateExpedition", "Expedition bookings must be made at least 3 days ahead.") : err("datePast", "Choose a future date.");
+    pkg.minDaysAhead > 0 ? err("dateExpedition", `This package must be booked at least ${pkg.minDaysAhead} days ahead.`) : err("datePast", "Choose a future date.");
 
   if (errors.length) return { errors, codes };
 
