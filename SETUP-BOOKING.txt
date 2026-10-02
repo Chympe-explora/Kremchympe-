@@ -1,4 +1,18 @@
-BEFORE GOING LIVE
-1. Edit pricing.json: replace the placeholder prices, UPI ID, bank details (single source for the page AND the server).
-2. Put your payment QR image at images/payment-qr.png
-3. Home page cards (book.html FLEET list) each carry pkg:'private' | 'camping' | 'expedition'.
+HOW TO CHANGE THINGS (no coding needed)
+
+1. WORDS  -> open  site-text.js
+   Every word on every page is in that one file (home page, the 5 booking pages,
+   cancellation policy, owner's bookings page). Change only the text between
+   the quote marks. The top of the file explains the 7 simple rules.
+
+2. PRICES -> open  pricing.json
+   Only numbers live there (adult/child prices, extras, thali and bamboo dish prices,
+   minimum advance). The names inside it are only for your booking alert.
+
+3. PAYMENT DETAILS (UPI ID, bank rows, QR file name) -> site-text.js, section "payment".
+   Put your QR picture at images/payment-qr.png
+
+4. Adding a new extra or dish: add it in pricing.json (with its price)
+   AND give it a name in site-text.js under the same short name.
+
+5. Videos for the 3 package cards: book.html, the FLEET list near the bottom.

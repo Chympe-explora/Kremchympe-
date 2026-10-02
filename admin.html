@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Bookings | Shining Bike Rentals</title>
+<script src="site-text.js"></script>
+<title data-t="admin.pageTitle"></title>
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
@@ -31,28 +32,30 @@ select{padding:.3rem;border:1px solid #ccc;border-radius:.5rem;font:inherit}
 </head>
 <body>
 <main id="login">
-  <h1>Admin login</h1>
+  <h1 data-t="admin.loginHeading"></h1>
   <form id="loginForm">
-    <label for="pw" style="display:block;margin-top:1.2rem;font-size:.9rem">Password</label>
+    <label for="pw" style="display:block;margin-top:1.2rem;font-size:.9rem" data-t="admin.passwordLabel"></label>
     <input id="pw" type="password" autocomplete="current-password" required>
-    <button class="pill" type="submit">Sign in</button>
+    <button class="pill" type="submit" data-t="admin.signIn"></button>
     <p id="loginErr" class="err"></p>
   </form>
 </main>
 <main id="dash" class="hidden">
-  <div class="bar"><h1>Bookings</h1><div><button id="refresh" class="pill">Refresh</button><button id="logout" class="pill">Sign out</button></div></div>
+  <div class="bar"><h1 data-t="admin.bookingsHeading"></h1><div><button id="refresh" class="pill" data-t="admin.refresh"></button><button id="logout" class="pill" data-t="admin.signOut"></button></div></div>
   <p id="msg" role="status"></p>
   <div class="wrap"><table>
-    <thead><tr><th>ID</th><th>Customer</th><th>Package</th><th>Date &amp; guests</th><th>Payment</th><th>Receipt</th><th>Status</th><th>Actions</th></tr></thead>
+    <thead><tr id="bkHead"></tr></thead>
     <tbody id="rows"></tbody>
   </table></div>
-  <h1 style="margin:2rem 0 1rem">Reviews</h1>
+  <h1 style="margin:2rem 0 1rem" data-t="admin.reviewsHeading"></h1>
   <div class="wrap"><table style="min-width:640px">
-    <thead><tr><th>Date</th><th>Stars</th><th>Name</th><th>Comment</th><th>Actions</th></tr></thead>
+    <thead><tr id="rvHead"></tr></thead>
     <tbody id="revRows"></tbody>
   </table></div>
 </main>
+<script src="text-loader.js"></script>
 <script>
+[["bkHead","bookingHeaders"],["rvHead","reviewHeaders"]].forEach(function(p){TEXT.admin[p[1]].forEach(function(h){var th=document.createElement("th");th.textContent=h;document.getElementById(p[0]).appendChild(th)})});
 var STATUSES=['Pending','Confirmed','Completed','Cancelled'];
 var $=function(i){return document.getElementById(i)};
 var getToken=function(){return sessionStorage.getItem('adminToken')};
@@ -61,8 +64,8 @@ var getToken=function(){return sessionStorage.getItem('adminToken')};
 async function api(path,opts){
   opts=opts||{};
   var res=await fetch('/api/admin'+path,Object.assign({},opts,{headers:{'Content-Type':'application/json',Authorization:'Bearer '+getToken()}}));
-  if(res.status===401){logout('Wrong password.');throw new Error('Unauthorized')}
-  if(!res.ok)throw new Error((await res.json().catch(function(){return{}})).error||'Request failed');
+  if(res.status===401){logout(T('admin.wrongPassword'));throw new Error('Unauthorized')}
+  if(!res.ok)throw new Error((await res.json().catch(function(){return{}})).error||T('admin.requestFailed'));
   return res.json();
 }
 function logout(err){
@@ -75,31 +78,31 @@ function cell(tr,t){var td=tr.insertCell();td.textContent=t;return td}
 // Rows are built with textContent so booking data can never inject HTML.
 function render(list){
   var tb=$('rows');tb.innerHTML='';
-  if(!list.length){cell(tb.insertRow(),'No bookings yet.').colSpan=8;return}
+  if(!list.length){cell(tb.insertRow(),T('admin.noBookings')).colSpan=8;return}
   list.forEach(function(b){
     var tr=tb.insertRow();
     cell(tr,b.id);
     var who=cell(tr,b.name);who.append(document.createElement('br'),b.whatsapp||b.phone||'');
     var pk=cell(tr,b.packageName||'');
-    (b.items||[]).forEach(function(l){pk.append(document.createElement('br'),l.label+': ₹'+l.amount)});
-    if(b.request)pk.append(document.createElement('br'),'Request: '+b.request);
-    cell(tr,b.date).append(document.createElement('br'),(b.people||0)+' people'+(b.children?' + '+b.children+' children':''));
-    var pay=cell(tr,'Total ₹'+(b.total||0));
-    pay.append(document.createElement('br'),'Advance ₹'+(b.advance||0)+' ('+String(b.payMethod||'').toUpperCase()+')',document.createElement('br'),'Balance ₹'+(b.balance||0));
+    (b.items||[]).forEach(function(l){pk.append(document.createElement('br'),l.label+': '+inr(l.amount))});
+    if(b.request)pk.append(document.createElement('br'),T('admin.requestLine',{text:b.request}));
+    cell(tr,b.date).append(document.createElement('br'),(b.children?T('admin.peopleWithChildrenLine',{n:b.people||0,kids:b.children}):T('admin.peopleLine',{n:b.people||0})));
+    var pay=cell(tr,T('admin.totalLine',{amount:inr(b.total||0)}));
+    pay.append(document.createElement('br'),T('admin.advanceLine',{amount:inr(b.advance||0),method:String(b.payMethod||'').toUpperCase()}),document.createElement('br'),T('admin.balanceLine',{amount:inr(b.balance||0)}));
     var rc=tr.insertCell();
-    if(typeof b.receipt==='string'&&/^data:image\/(jpeg|png);base64,/.test(b.receipt)){var im=new Image();im.src=b.receipt;im.alt='Receipt';im.style.cssText='width:110px;border:1px solid #ccc;background:#fff';rc.append(im)}
-    else if(typeof b.receipt==='string'&&/^data:application\/pdf;base64,/.test(b.receipt)){var a=document.createElement('a');a.href=b.receipt;a.download='receipt-'+b.id+'.pdf';a.textContent='Download PDF';rc.append(a)}
+    if(typeof b.receipt==='string'&&/^data:image\/(jpeg|png);base64,/.test(b.receipt)){var im=new Image();im.src=b.receipt;im.alt=T('admin.receiptAlt');im.style.cssText='width:110px;border:1px solid #ccc;background:#fff';rc.append(im)}
+    else if(typeof b.receipt==='string'&&/^data:application\/pdf;base64,/.test(b.receipt)){var a=document.createElement('a');a.href=b.receipt;a.download='receipt-'+b.id+'.pdf';a.textContent=T('admin.downloadPdf');rc.append(a)}
     var sel=document.createElement('select');
-    STATUSES.forEach(function(s){sel.add(new Option(s,s,false,s===b.status))});
+    STATUSES.forEach(function(s){sel.add(new Option((TEXT.admin.statusLabels||{})[s]||s,s,false,s===b.status))});
     sel.onchange=async function(){
-      try{await api('/bookings/'+encodeURIComponent(b.id),{method:'PUT',body:JSON.stringify({status:sel.value})});say(b.id+' set to '+sel.value+'.')}
+      try{await api('/bookings/'+encodeURIComponent(b.id),{method:'PUT',body:JSON.stringify({status:sel.value})});say(T('admin.statusChanged',{id:b.id,status:(TEXT.admin.statusLabels||{})[sel.value]||sel.value}))}
       catch(e){say(e.message);load()}
     };
     cell(tr,'').append(sel);
-    var del=document.createElement('button');del.textContent='Delete';del.className='pill';
+    var del=document.createElement('button');del.textContent=T('admin.deleteButton');del.className='pill';
     del.onclick=async function(){
-      if(!confirm('Delete booking '+b.id+'? This cannot be undone.'))return;
-      try{await api('/bookings/'+encodeURIComponent(b.id),{method:'DELETE'});say(b.id+' deleted.');load()}
+      if(!confirm(T('admin.confirmDeleteBooking',{id:b.id})))return;
+      try{await api('/bookings/'+encodeURIComponent(b.id),{method:'DELETE'});say(T('admin.bookingDeleted',{id:b.id}));load()}
       catch(e){say(e.message)}
     };
     cell(tr,'').append(del);
@@ -107,22 +110,22 @@ function render(list){
 }
 function renderReviews(list){
   var tb=$('revRows');tb.innerHTML='';
-  if(!list.length){cell(tb.insertRow(),'No reviews yet.').colSpan=5;return}
+  if(!list.length){cell(tb.insertRow(),T('admin.noReviews')).colSpan=5;return}
   list.forEach(function(r){
     var tr=tb.insertRow();
     cell(tr,(r.createdAt||'').slice(0,10));
     cell(tr,'★'.repeat(r.rating)+'☆'.repeat(5-r.rating));
-    cell(tr,r.name||'(no name)');cell(tr,r.comment||'(rating only)');
-    var del=document.createElement('button');del.textContent='Delete';del.className='pill';
+    cell(tr,r.name||T('admin.noName'));cell(tr,r.comment||T('admin.ratingOnly'));
+    var del=document.createElement('button');del.textContent=T('admin.deleteButton');del.className='pill';
     del.onclick=async function(){
-      if(!confirm('Remove this review from the website?'))return;
-      try{await api('/feedback/'+encodeURIComponent(r.id),{method:'DELETE'});say('Review removed.');load()}catch(e){say(e.message)}
+      if(!confirm(T('admin.confirmDeleteReview')))return;
+      try{await api('/feedback/'+encodeURIComponent(r.id),{method:'DELETE'});say(T('admin.reviewRemoved'));load()}catch(e){say(e.message)}
     };
     cell(tr,'').append(del);
   });
 }
 async function load(){
-  say('Loading…');
+  say(T('admin.loading'));
   try{var res=await Promise.all([api('/bookings'),api('/feedback')]);render(res[0]);renderReviews(res[1]);say('')}
   catch(e){if(e.message!=='Unauthorized')say(e.message)}
 }

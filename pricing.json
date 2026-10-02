@@ -1,80 +1,180 @@
 {
-  "_README": "SINGLE SOURCE OF TRUTH. The booking page (reserve.html) and the server (functions/api/book.js) both read this file, so edit prices ONLY here. All amounts are in INR. PLACEHOLDER PRICES: replace every number and the payment details below with your real ones.",
+  "_README": "PRICES AND RULES ONLY. Edit prices here (all amounts in INR). The booking page and the server both read this file. ALL WORDS the visitor sees (names, notes, taglines, payment details) are in site-text.js. The 'name' / 'label' fields below are only used in the booking alert you receive on Telegram/admin and as a backup. Options with 'items' are priced per item x quantity. An option with \"requires\":\"camping\" only appears when Camping is ticked. If you change minAdvance, also change the sentence in the cancellation policy in site-text.js. PLACEHOLDER PRICES: replace them with your real ones.",
   "minAdvance": 1000,
-  "payment": {
-    "payeeName": "Krem Chympe Adventure & Camping",
-    "upiId": "yourname@upi",
-    "qrImage": "images/payment-qr.png",
-    "bank": {
-      "accountName": "Your Account Name",
-      "accountNumber": "0000000000",
-      "ifsc": "XXXX0000000",
-      "bankName": "Your Bank",
-      "branch": "Your Branch"
-    }
-  },
   "packages": {
     "private": {
       "name": "Private Tour",
-      "tagline": "A private guided day in Krem Chympe, just for your group.",
       "adultPrice": 1500,
       "childPrice": 750,
-      "childNote": "Children (under 12) are charged half price.",
       "minDaysAhead": 0,
-      "notes": [
-        "Private tour for your own group only.",
-        "Pick any extras you like on the next page."
-      ],
       "options": [
-        { "id": "jeep",      "label": "4×4 Jeep",             "price": 4000, "unit": "group" },
-        { "id": "guide",     "label": "Local Guide",          "price": 1000, "unit": "group" },
-        { "id": "activities","label": "Adventure Activities", "price": 500,  "unit": "person" },
-        { "id": "lunch",     "label": "Lunch",                "price": 250,  "unit": "person" },
-        { "id": "camping",   "label": "Camping",              "price": 400,  "unit": "person" },
-        { "id": "tent",      "label": "Tent Rental",          "price": 600,  "unit": "group" },
-        { "id": "meals",     "label": "Meals",                "price": 350,  "unit": "person" },
-        { "id": "overnight", "label": "Overnight Guide",      "price": 800,  "unit": "group" },
-        { "id": "bamboo",    "label": "Bamboo Dishes",        "price": 300,  "unit": "person" }
+        {
+          "id": "jeep",
+          "label": "4×4 Jeep",
+          "price": 4000,
+          "unit": "group"
+        },
+        {
+          "id": "guide",
+          "label": "Local Guide",
+          "price": 1000,
+          "unit": "group"
+        },
+        {
+          "id": "activities",
+          "label": "Adventure Activities",
+          "price": 500,
+          "unit": "person"
+        },
+        {
+          "id": "lunch",
+          "label": "Lunch",
+          "price": 0,
+          "unit": "person",
+          "items": [
+            {
+              "id": "veg",
+              "label": "Veg Thali",
+              "price": 200
+            },
+            {
+              "id": "chicken",
+              "label": "Chicken Thali",
+              "price": 300
+            },
+            {
+              "id": "pork",
+              "label": "Pork Thali",
+              "price": 300
+            }
+          ]
+        },
+        {
+          "id": "camping",
+          "label": "Camping",
+          "price": 400,
+          "unit": "person"
+        },
+        {
+          "id": "tent",
+          "label": "Tent Rental",
+          "price": 600,
+          "unit": "group",
+          "requires": "camping"
+        },
+        {
+          "id": "meals",
+          "label": "Meals",
+          "price": 350,
+          "unit": "person"
+        },
+        {
+          "id": "overnight",
+          "label": "Overnight Guide",
+          "price": 800,
+          "unit": "group",
+          "requires": "camping"
+        },
+        {
+          "id": "bamboo",
+          "label": "Bamboo Dishes",
+          "price": 0,
+          "unit": "person",
+          "requires": "camping",
+          "items": [
+            {
+              "id": "bchicken",
+              "label": "Bamboo Chicken",
+              "price": 450
+            },
+            {
+              "id": "bpork",
+              "label": "Bamboo Pork",
+              "price": 450
+            },
+            {
+              "id": "bfish",
+              "label": "Bamboo Fish",
+              "price": 400
+            },
+            {
+              "id": "bveg",
+              "label": "Bamboo Veg",
+              "price": 300
+            },
+            {
+              "id": "brice",
+              "label": "Bamboo Rice",
+              "price": 200
+            }
+          ]
+        }
       ]
     },
     "camping": {
       "name": "Camping Package",
-      "tagline": "Stay overnight in the wild at Krem Chympe.",
       "adultPrice": 1000,
       "childPrice": 500,
-      "childNote": "Children (under 12) are charged half price.",
       "minDaysAhead": 0,
-      "notes": [
-        "Overnight camping stay.",
-        "Choose tent, meals and guide on the next page."
-      ],
       "options": [
-        { "id": "tent",      "label": "Tent Rental",     "price": 600, "unit": "group" },
-        { "id": "meals",     "label": "Meals",           "price": 350, "unit": "person" },
-        { "id": "overnight", "label": "Overnight Guide", "price": 800, "unit": "group" },
-        { "id": "bamboo",    "label": "Bamboo Dishes",   "price": 300, "unit": "person" }
+        {
+          "id": "tent",
+          "label": "Tent Rental",
+          "price": 600,
+          "unit": "group"
+        },
+        {
+          "id": "meals",
+          "label": "Meals",
+          "price": 350,
+          "unit": "person"
+        },
+        {
+          "id": "overnight",
+          "label": "Overnight Guide",
+          "price": 800,
+          "unit": "group"
+        },
+        {
+          "id": "bamboo",
+          "label": "Bamboo Dishes",
+          "price": 0,
+          "unit": "person",
+          "items": [
+            {
+              "id": "bchicken",
+              "label": "Bamboo Chicken",
+              "price": 450
+            },
+            {
+              "id": "bpork",
+              "label": "Bamboo Pork",
+              "price": 450
+            },
+            {
+              "id": "bfish",
+              "label": "Bamboo Fish",
+              "price": 400
+            },
+            {
+              "id": "bveg",
+              "label": "Bamboo Veg",
+              "price": 300
+            },
+            {
+              "id": "brice",
+              "label": "Bamboo Rice",
+              "price": 200
+            }
+          ]
+        }
       ]
     },
     "expedition": {
       "name": "Wilderness Expedition",
-      "tagline": "The full multi-day expedition, everything included.",
       "adultPrice": 3500,
       "childPrice": null,
-      "childNote": "",
       "minDaysAhead": 3,
-      "notes": [
-        "Fixed price per person, all inclusions below are covered.",
-        "Advance must be paid at least 3 days before the expedition.",
-        "Cancel at least 7 days before the expedition date."
-      ],
-      "inclusions": [
-        "4×4 Jeep transfers",
-        "Local expert guide",
-        "Adventure activities",
-        "Camping and tent",
-        "All meals",
-        "Bamboo dishes"
-      ],
       "options": []
     }
   }

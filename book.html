@@ -3,10 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Krem Chympe — Destination Information</title>
-<meta name="description" content="Krem Chympe: cave exploration, waterfalls, forest trekking, camping and homestay in East Jaintia Hills, Meghalaya.">
-<meta property="og:title" content="Krem Chympe — Destination Information">
-<meta property="og:description" content="Explore Krem Chympe at your own pace.">
+<script src="site-text.js"></script>
+<title data-t="home.pageTitle"></title>
+<meta name="description" content="" data-ta="content={home.metaDescription}">
+<meta property="og:title" content="" data-ta="content={home.shareTitle}">
+<meta property="og:description" content="" data-ta="content={home.shareDescription}">
 <meta name="theme-color" content="#cfcfcf">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%8D%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -175,114 +176,111 @@ textarea.fb-in{resize:vertical;min-height:5.4rem}
 <body>
 
 <header class="hero" id="top">
-  <img id="heroImg" class="hero-img" src="images/krem-chympe-hero.jpg" alt="Krem Chympe cave and waterfall" onerror="this.style.display='none'">
-  <h1 class="hero-title">Krem Chympe — Destination Information</h1>
-  <a class="logo" href="#top" aria-label="Shining Bike Rentals, back to top">
+  <img id="heroImg" class="hero-img" src="images/krem-chympe-hero.jpg" data-ta="alt={home.heroImageAlt}" onerror="this.style.display='none'">
+  <h1 class="hero-title" data-t="home.heroTitle"></h1>
+  <a class="logo" href="#top" data-ta="aria-label={home.logoAria}">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-    <span>Shining Bike<br>Rentals</span>
+    <span data-t="home.logoText"></span>
   </a>
   <div class="hero-copy">
-    <p class="hero-h">EXPLORE KREM CHYMPE<br>AT YOUR OWN PACE</p>
-    <a class="pill" href="reserve.html">Book now</a>
-    <a class="terms-link" href="terms.html">Cancellation Policy</a>
+    <p class="hero-h" data-t="home.heroHeading"></p>
+    <a class="pill" href="reserve.html" data-t="home.bookNow"></a>
+    <a class="terms-link" href="terms.html" data-t="home.policyLink"></a>
   </div>
 </header>
 
 <section class="sec journeys reveal">
-  <h2>A Natural Destination Like No Other</h2>
-  <p class="body-text">Krem Chympe is a natural destination offering cave exploration, waterfalls, underground water, forest trekking and local adventure experiences.<br><br>Local Guide: David Tariang, Brichyrnot village.<br>Languages: English, Hindi and local language.</p>
+  <h2 data-t="home.aboutHeading"></h2>
+  <p class="body-text" data-t="home.aboutText"></p>
 </section>
 
 <section class="sec best reveal">
-  <h2>Our Services</h2>
-  <p>We offer cave exploration, waterfall visits, forest trekking, 4×4 off-road travel, bamboo rafting, camping, homestay and local food experiences.</p>
+  <h2 data-t="home.servicesHeading"></h2>
+  <p data-t="home.servicesText"></p>
 </section>
 
-<section class="fleet-wrap reveal" id="fleetWrap" aria-label="Our experiences. Tap one to see its video.">
+<section class="fleet-wrap reveal" id="fleetWrap" data-ta="aria-label={home.packagesAria}">
   <div class="fleet-clip" id="fleetClip">
     <div id="fleetInner">
       <div class="fleet" id="fleet"></div>
-      <p class="fleet-note" id="fleetNote">More experiences coming soon.</p>
+      <p class="fleet-note" id="fleetNote" data-t="home.packagesNote"></p>
     </div>
   </div>
-  <div class="fleet-bar"><button type="button" class="fleet-btn" id="fleetBtn" aria-expanded="false" aria-controls="fleetClip"><span id="fleetBtnTxt">View all</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div>
+  <div class="fleet-bar"><button type="button" class="fleet-btn" id="fleetBtn" aria-expanded="false" aria-controls="fleetClip"><span id="fleetBtnTxt" data-t="home.viewAll"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div>
 </section>
 
-<div class="vw" id="vw" role="dialog" aria-modal="true" aria-label="Experience video and details" aria-hidden="true">
+<div class="vw" id="vw" role="dialog" aria-modal="true" data-ta="aria-label={home.popupAria}" aria-hidden="true">
   <div class="vw-card" id="vwCard">
-    <button type="button" class="vw-x" id="vwClose" aria-label="Close">&times;</button>
+    <button type="button" class="vw-x" id="vwClose" data-ta="aria-label={home.closeAria}">&times;</button>
     <div class="vw-media" id="vwMedia"><video id="vwVideo" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
     <div class="vw-info">
-      <div class="vw-track" id="vwTrack" role="slider" tabindex="0" aria-label="Video position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="vw-rail"><i class="vw-fill" id="vwFill"></i><b class="vw-knob" id="vwKnob"></b></div></div>
+      <div class="vw-track" id="vwTrack" role="slider" tabindex="0" data-ta="aria-label={home.sliderAria}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="vw-rail"><i class="vw-fill" id="vwFill"></i><b class="vw-knob" id="vwKnob"></b></div></div>
       <h3 id="vwName"></h3>
       <dl class="vw-specs" id="vwSpecs"></dl>
-      <div class="vw-row"><p class="vw-hint">Swipe the video or drag the slider to go back and forward.</p><a class="vw-res" id="vwRes" href="reserve.html">Book now</a></div>
+      <div class="vw-row"><p class="vw-hint" data-t="home.popupHint"></p><a class="vw-res" id="vwRes" href="reserve.html" data-t="home.popupBook"></a></div>
     </div>
   </div>
 </div>
 
 <section class="sec routes">
-  <h2 class="reveal">Explore Krem Chympe</h2>
+  <h2 class="reveal" data-t="home.exploreHeading"></h2>
   <div class="route-grid reveal" id="routeGrid">
-    <div class="route" role="button" tabindex="0" aria-expanded="false" aria-label="Open video full size"><video muted loop playsinline autoplay preload="metadata" poster="videos/route-dawki.jpg" aria-hidden="true" style="object-position:50% 69%"><source src="videos/route-dawki.mp4" type="video/mp4"></video><span>Cave and Waterfall</span></div>
-    <div class="route" role="button" tabindex="0" aria-expanded="false" aria-label="Open video full size"><video muted loop playsinline autoplay preload="metadata" poster="videos/route-guwahati.jpg" aria-hidden="true" style="object-position:50% 80%"><source src="videos/route-guwahati.mp4" type="video/mp4"></video><span>Forest and River</span></div>
+    <div class="route" role="button" tabindex="0" aria-expanded="false" data-ta="aria-label={home.videoOpenAria}"><video muted loop playsinline autoplay preload="metadata" poster="videos/route-dawki.jpg" aria-hidden="true" style="object-position:50% 69%"><source src="videos/route-dawki.mp4" type="video/mp4"></video><span data-t="home.video1Name"></span></div>
+    <div class="route" role="button" tabindex="0" aria-expanded="false" data-ta="aria-label={home.videoOpenAria}"><video muted loop playsinline autoplay preload="metadata" poster="videos/route-guwahati.jpg" aria-hidden="true" style="object-position:50% 80%"><source src="videos/route-guwahati.mp4" type="video/mp4"></video><span data-t="home.video2Name"></span></div>
   </div>
 </section>
 
 <section class="sec trusted">
-  <h2 class="reveal">Trusted by Travelers From</h2>
-  <p class="cities reveal">GUWAHATI <i>|</i> SHILLONG <i>|</i> JOWAI <i>|</i> CHERRAPUNJI</p>
+  <h2 class="reveal" data-t="home.trustedHeading"></h2>
+  <p class="cities reveal" id="cities"></p>
   <div class="card reveal">
-    <h3>Rate your experience</h3>
-    <div class="stars" id="stars" role="radiogroup" aria-label="Rating">
-      <button type="button" class="star" role="radio" aria-checked="false" aria-label="1 star"></button>
-      <button type="button" class="star" role="radio" aria-checked="false" aria-label="2 stars"></button>
-      <button type="button" class="star" role="radio" aria-checked="false" aria-label="3 stars"></button>
-      <button type="button" class="star" role="radio" aria-checked="false" aria-label="4 stars"></button>
-      <button type="button" class="star" role="radio" aria-checked="false" aria-label="5 stars"></button>
+    <h3 data-t="home.rateHeading"></h3>
+    <div class="stars" id="stars" role="radiogroup" data-ta="aria-label={home.ratingAria}">
+      <button type="button" class="star" role="radio" aria-checked="false" data-ta="aria-label={home.oneStarAria}"></button>
+      <button type="button" class="star" role="radio" aria-checked="false" data-star="2"></button>
+      <button type="button" class="star" role="radio" aria-checked="false" data-star="3"></button>
+      <button type="button" class="star" role="radio" aria-checked="false" data-star="4"></button>
+      <button type="button" class="star" role="radio" aria-checked="false" data-star="5"></button>
     </div>
-    <input class="fb-in" id="fbName" maxlength="40" autocomplete="name" placeholder="Your name (optional)" aria-label="Your name (optional)">
-    <textarea class="fb-in" id="fbText" maxlength="300" rows="3" placeholder="Write your comment (optional)" aria-label="Your comment (optional)"></textarea>
-    <p class="fb-count" id="fbCount" aria-hidden="true">0 / 300</p>
-    <input class="hp" id="fbWeb" tabindex="-1" autocomplete="off" aria-hidden="true" placeholder="Leave empty">
-    <button type="button" id="fbBtn" class="submit">Submit Feedback</button>
-    <p id="fbMsg" class="fb-msg" role="status" aria-live="polite">Your comment will appear under What Our Travelers Say</p>
+    <input class="fb-in" id="fbName" maxlength="40" autocomplete="name" data-ta="placeholder={home.yourNamePlaceholder}|aria-label={home.nameAria}">
+    <textarea class="fb-in" id="fbText" maxlength="300" rows="3" data-ta="placeholder={home.yourCommentPlaceholder}|aria-label={home.commentAria}"></textarea>
+    <p class="fb-count" id="fbCount" aria-hidden="true"></p>
+    <input class="hp" id="fbWeb" tabindex="-1" autocomplete="off" aria-hidden="true" data-ta="placeholder={home.honeypotPlaceholder}">
+    <button type="button" id="fbBtn" class="submit" data-t="home.submitFeedback"></button>
+    <p id="fbMsg" class="fb-msg" role="status" aria-live="polite" data-t="home.feedbackHint"></p>
   </div>
 </section>
 
 <section class="sec says">
-  <h2 class="reveal">What Our Travelers Say</h2>
+  <h2 class="reveal" data-t="home.reviewsHeading"></h2>
   <div class="rv-wrap">
-    <div class="reviews" id="reviews" tabindex="0" aria-label="Traveler reviews. Swipe sideways to read more.">
-      <figure class="review static"><blockquote>"The cave exploration and bamboo rafting were incredible. David was an excellent guide who knew the terrain perfectly."</blockquote><cite>— Rahul S., Guwahati</cite></figure>
-      <figure class="review static"><blockquote>"Booked the Wilderness Expedition. The 4x4 off-roading and the river camp were the highlights."</blockquote><cite>— Anjali D., Kolkata</cite></figure>
-      <figure class="review static"><blockquote>"A truly raw and beautiful experience. The homestay was comfortable, and the local food was amazing."</blockquote><cite>— David M., UK</cite></figure>
+    <div class="reviews" id="reviews" tabindex="0" data-ta="aria-label={home.reviewsAria}">
     </div>
-    <div class="rv-nav"><button type="button" id="rvPrev" aria-label="Previous reviews">&lsaquo;</button><button type="button" id="rvNext" aria-label="Next reviews">&rsaquo;</button></div>
+    <div class="rv-nav"><button type="button" id="rvPrev" data-ta="aria-label={home.previousAria}">&lsaquo;</button><button type="button" id="rvNext" data-ta="aria-label={home.nextAria}">&rsaquo;</button></div>
   </div>
   </section>
 
 <footer class="sec touch reveal" id="contact">
-  <h2>Get in Touch</h2>
+  <h2 data-t="home.contactHeading"></h2>
   <address class="body-text">
-    Brishyrnot East Jaintia Hills<br>lumshnong 321000 MEGHALAYA<br>
-    <a class="ig" href="https://instagram.com/shiningcars" target="_blank" rel="noopener" aria-label="Instagram @shiningcars"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></a><br>
-    Tel. <a href="tel:+918787679579">91 8787679579</a><br>
-    Email: <a href="mailto:shiningbikerental@gmail.com">shiningbikerental@gmail.com</a><br>
-    Social: <a href="https://instagram.com/shiningcars" target="_blank" rel="noopener">@shiningcars</a>
+    <span data-t="home.address"></span><br>
+    <a class="ig" href="" target="_blank" rel="noopener" data-ta="href={contact.instagramUrl}|aria-label={home.instagramAria}"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></a><br>
+    <span data-t="home.telLabel"></span> <a href="" data-ta="href=tel:{contact.phoneForLink}" data-t="contact.phoneShow"></a><br>
+    <span data-t="home.emailLabel"></span> <a href="" data-ta="href=mailto:{contact.email}" data-t="contact.email"></a><br>
+    <span data-t="home.socialLabel"></span> <a href="" target="_blank" rel="noopener" data-ta="href={contact.instagramUrl}" data-t="contact.instagramHandle"></a>
   </address>
-  <p class="note">Visitors must respect local communities, wildlife and the natural environment. All activities depend on weather and safety conditions.</p>
+  <p class="note" data-t="home.respectNote"></p>
 </footer>
 
+<script src="text-loader.js"></script>
 <script>
-/* ============ ADD MORE BIKES HERE ============
-   Upload the .mp4 (and a .jpg poster) into the videos/ folder, then add one entry below.
-   The first 3 show in the row; the "View all bikes" button slides the rest open below.
-   "info" = the details shown when a visitor taps the bike. Edit or add rows freely. */
+/* ============ THE PACKAGE CARDS ============
+   Only the video file names are here. The WORDS (names, details) are in site-text.js.
+   The first 3 show in a row; the "View all" button slides the rest open below. */
 var FLEET=[
-  {pkg:'private', name:'Private Tour',        src:'bike-aerox.mp4',  poster:'bike-aerox.jpg', info:[]},
-  {pkg:'camping', name:'Camping Package',      src:'bike-hunter.mp4', poster:'bike-hunter.jpg', info:[]},
-  {pkg:'expedition', name:'Wilderness Expedition', src:'bike-ktm.mp4', poster:'bike-ktm.jpg', info:[]}
+  {pkg:'private',    src:'bike-aerox.mp4',  poster:'bike-aerox.jpg'},
+  {pkg:'camping',    src:'bike-hunter.mp4', poster:'bike-hunter.jpg'},
+  {pkg:'expedition', src:'bike-ktm.mp4', poster:'bike-ktm.jpg'}
 ];
 </script>
 <script>
@@ -291,6 +289,24 @@ var FLEET=[
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var beh=reduce?'auto':'smooth';
   d.documentElement.classList.add('js');
+  function PK(b){return TEXT.packages[b.pkg]||{}}   /* words for a package card come from site-text.js */
+
+  /* ---- words that are built by script ---- */
+  $('cities').innerHTML=TEXT.home.cities.map(function(){return'<span></span>'}).join('<i>|</i>');
+  [].forEach.call($('cities').querySelectorAll('span'),function(sp,i){sp.textContent=TEXT.home.cities[i]});
+  [].forEach.call(d.querySelectorAll('.star'),function(s,i){
+    s.setAttribute('aria-label',i===0?T('home.oneStarAria'):T('home.manyStarsAria',{n:i+1}));
+  });
+  $('fbCount').textContent=T('home.letterCount',{n:0});
+  (function(){          /* the example reviews */
+    var box=d.getElementById('reviews');
+    TEXT.home.reviews.forEach(function(r){
+      var f=d.createElement('figure');f.className='review static';
+      var q=d.createElement('blockquote');q.textContent='"'+r.quote+'"';
+      var c=d.createElement('cite');c.textContent='— '+r.by;
+      f.append(q,c);box.append(f);
+    });
+  })();
 
   /* ---- scroll reveal ---- */
   var items=[].slice.call(d.querySelectorAll('.reveal'));
@@ -379,7 +395,7 @@ var FLEET=[
   }
   function setExpanded(x){
     expanded=x;wrap.classList.toggle('open',x);fbtn.setAttribute('aria-expanded',x);
-    fbtxt.textContent=x?'Show less':'View all'+(FLEET.length>PREVIEW?' ('+FLEET.length+')':'');
+    fbtxt.textContent=x?T('home.showLess'):(FLEET.length>PREVIEW?T('home.viewAllWithCount',{count:FLEET.length}):T('home.viewAll'));
     sizeClip();
     if(!x){var r=wrap.getBoundingClientRect();if(r.top<0)wrap.scrollIntoView({block:'start',behavior:beh})}
   }
@@ -407,10 +423,10 @@ var FLEET=[
   function openBike(i,tile){
     var b=FLEET[i];lastTile=tile;
     vv.poster='videos/'+b.poster;vv.src='videos/'+b.src;vv.load();
-    $('vwName').textContent=b.name;
+    $('vwName').textContent=PK(b).name||'';
     var sp=$('vwSpecs');sp.innerHTML='';
-    (b.info||[]).forEach(function(r){var dt=d.createElement('dt'),dd=d.createElement('dd');dt.textContent=r[0];dd.textContent=r[1];sp.append(dt,dd)});
-    sp.style.display=(b.info&&b.info.length)?'':'none';
+    (PK(b).info||[]).forEach(function(r){var dt=d.createElement('dt'),dd=d.createElement('dd');dt.textContent=r[0];dd.textContent=r[1];sp.append(dt,dd)});
+    sp.style.display=(PK(b).info&&PK(b).info.length)?'':'none';
     var pk=b.pkg||'';$('vwRes').href='reserve.html?package='+encodeURIComponent(pk);        /* the booking flow loads this package */
     try{sessionStorage.setItem('kcPackage',pk)}catch(_){}
     var r=tile.getBoundingClientRect();
@@ -438,10 +454,10 @@ var FLEET=[
     FLEET.forEach(function(b,i){
       var t=d.createElement('div');t.className='tile';t.tabIndex=0;t.setAttribute('role','button');
       t.style.animationDelay=(i%PREVIEW)*0.08+'s';
-      t.setAttribute('aria-label','Open '+b.name+' video and details');
+      t.setAttribute('aria-label',T('home.openCardAria',{name:PK(b).name||''}));
       var v=d.createElement('video');v.muted=true;v.loop=true;v.autoplay=true;v.playsInline=true;v.preload='metadata';v.setAttribute('aria-hidden','true');
       v.poster='videos/'+b.poster;v.src='videos/'+b.src;v.style.objectPosition='50% 58%';
-      var sp=d.createElement('span');sp.textContent=b.name;
+      var sp=d.createElement('span');sp.textContent=PK(b).name||'';
       t.append(v,sp);
       t.addEventListener('click',function(){openBike(i,t)});
       t.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openBike(i,t)}});
@@ -464,7 +480,7 @@ var FLEET=[
     watch(rv0);
     function toggle(){
       var open=t.classList.toggle('open');
-      t.setAttribute('aria-expanded',open);t.setAttribute('aria-label',open?'Shrink video':'Open video full size');
+      t.setAttribute('aria-expanded',open);t.setAttribute('aria-label',open?T('home.videoShrinkAria'):T('home.videoOpenAria'));
       grid.classList.toggle('has-open',open);
       if(open){t.scrollIntoView({block:'center',behavior:beh});var pp=rv0.play();if(pp&&pp.catch)pp.catch(function(){})}
     }
@@ -482,15 +498,15 @@ var FLEET=[
     s.addEventListener('mouseenter',function(){paint(i+1)});
     s.addEventListener('mouseleave',function(){paint(rating)});
   });
-  txt.addEventListener('input',function(){$('fbCount').textContent=txt.value.length+' / 300'});
+  txt.addEventListener('input',function(){$('fbCount').textContent=T('home.letterCount',{n:txt.value.length})});
 
   /* ---- reviews (newest visitor comments first, built with textContent so nothing can inject HTML) ---- */
   var rv=$('reviews');
   function card(r){
     var f=d.createElement('figure');f.className='review';
-    if(r.rating){var st=d.createElement('div');st.className='st';st.setAttribute('aria-label',r.rating+' out of 5 stars');st.textContent='★'.repeat(r.rating)+'☆'.repeat(5-r.rating);f.append(st)}
+    if(r.rating){var st=d.createElement('div');st.className='st';st.setAttribute('aria-label',T('home.starsOutOfFiveAria',{n:r.rating}));st.textContent='★'.repeat(r.rating)+'☆'.repeat(5-r.rating);f.append(st)}
     var q=d.createElement('blockquote');q.textContent=r.comment;
-    var c=d.createElement('cite');c.textContent='— '+(r.name||'Traveler');
+    var c=d.createElement('cite');c.textContent='— '+(r.name||T('home.defaultReviewer'));
     var box=d.createElement('div');box.append(q);
     f.append(box,c);return f;
   }
@@ -507,22 +523,22 @@ var FLEET=[
   $('rvNext').addEventListener('click',function(){step(1)});
 
   btn.addEventListener('click',function(){
-    if(!rating){msg.textContent='Tap a star to rate first.';return}
+    if(!rating){msg.textContent=T('home.tapStarFirst');return}
     var body={rating:rating,name:$('fbName').value.trim(),comment:txt.value.trim(),website:$('fbWeb').value};
-    btn.disabled=true;btn.textContent='Sending…';
+    btn.disabled=true;btn.textContent=T('home.sending');
     fetch('api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
       .then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(!r.ok)throw new Error(j.error||'');return j})})
       .then(function(){
         if(body.comment){
           rv.insertBefore(card({rating:body.rating,name:body.name,comment:body.comment}),rv.firstChild);
           rv.scrollTo({left:0,behavior:beh});
-          msg.textContent='Thank you! Your comment is now showing in What Our Travelers Say.';
-        } else msg.textContent='Thank you for your feedback!';
+          msg.textContent=T('home.thanksWithComment');
+        } else msg.textContent=T('home.thanksNoComment');
         rating=0;paint(0);stars.forEach(function(x){x.setAttribute('aria-checked','false')});
-        $('fbName').value='';txt.value='';$('fbCount').textContent='0 / 300';
+        $('fbName').value='';txt.value='';$('fbCount').textContent=T('home.letterCount',{n:0});
       })
-      .catch(function(e){msg.textContent=e.message||'Could not send. Please try again.'})
-      .then(function(){btn.disabled=false;btn.textContent='Submit Feedback'});
+      .catch(function(e){msg.textContent=e.message||T('home.sendFailed')})
+      .then(function(){btn.disabled=false;btn.textContent=T('home.submitFeedback')});
   });
 })();
 </script>

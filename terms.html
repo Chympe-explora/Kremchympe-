@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<title>Cancellation Policy | Krem Chympe Adventure &amp; Camping</title>
-<meta name="description" content="Cancellation policy for Krem Chympe Adventure &amp; Camping bookings.">
+<script src="site-text.js"></script>
+<title data-t="policy.pageTitle"></title>
+<meta name="description" content="" data-ta="content={policy.metaDescription}">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%8D%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,20 +47,31 @@ h1,h2,p,ul{margin:0}
 <body>
 <div class="wrap">
 <header class="hd">
-  <a class="back" href="javascript:history.length>1?history.back():location.href='book.html'" aria-label="Go back">&#8592;</a>
-  <h1 class="hello">Cancellation Policy</h1>
-  <p class="hello-sub">Please read this before you pay your advance.</p>
+  <a class="back" href="javascript:history.length>1?history.back():location.href='book.html'" data-ta="aria-label={policy.backAria}">&#8592;</a>
+  <h1 class="hello" data-t="policy.topHeading"></h1>
+  <p class="hello-sub" data-t="policy.topSub"></p>
 </header>
 <main class="sheet">
-  <h2 class="title">CANCELLATION POLICY</h2>
-  <p class="upd">Krem Chympe Adventure &amp; Camping</p>
-<section class="cl"><h2>1. Advance Payment</h2><ul class="subs"><li><span class="sn">&bull;</span><p>Booking is confirmed only after advance payment.</p></li><li><span class="sn">&bull;</span><p>Minimum advance is ₹1,000.</p></li><li><span class="sn">&bull;</span><p>Advance payment is non-refundable.</p></li></ul></section>
-<section class="cl"><h2>2. Cancellation by Visitor</h2><ul class="subs"><li><span class="sn">&bull;</span><p>If cancelled 7 days or more before the booking date — 50% of advance refunded.</p></li><li><span class="sn">&bull;</span><p>If cancelled 3 to 6 days before the booking date — 25% of advance refunded.</p></li><li><span class="sn">&bull;</span><p>If cancelled less than 3 days before the booking date — no refund.</p></li><li><span class="sn">&bull;</span><p>No refund for no-show.</p></li></ul></section>
-<section class="cl"><h2>3. Expedition Package</h2><ul class="subs"><li><span class="sn">&bull;</span><p>Expedition Package must be cancelled at least 7 days before the expedition date.</p></li><li><span class="sn">&bull;</span><p>Advance booking for the Expedition Package must be completed at least 3 days before the expedition.</p></li><li><span class="sn">&bull;</span><p>No refund for cancellation less than 7 days before the expedition.</p></li></ul></section>
-<section class="cl"><h2>4. Cancellation by Krem Chympe</h2><ul class="subs"><li><span class="sn">&bull;</span><p>If activities cannot be conducted due to weather, water levels, route conditions, or safety conditions — the booking may be postponed or cancelled.</p></li><li><span class="sn">&bull;</span><p>If cancelled by Krem Chympe, the advance payment will be refunded or adjusted to a new date.</p></li></ul></section>
-<section class="cl"><h2>5. Changes</h2><ul class="subs"><li><span class="sn">&bull;</span><p>Changes to date, group size, or selected services must be communicated in advance.</p></li><li><span class="sn">&bull;</span><p>Changes are subject to availability.</p></li></ul></section>
-<section class="cl"><h2>6. Refunds</h2><ul class="subs"><li><span class="sn">&bull;</span><p>Refunds will be processed within 7 working days.</p></li><li><span class="sn">&bull;</span><p>Refund will be made to the same payment method used for the advance payment.</p></li></ul></section>
+  <h2 class="title" data-t="policy.bigTitle"></h2>
+  <p class="upd" data-t="policy.subTitle"></p>
+  <div id="policySections"></div>
 </main>
 </div>
+<script src="text-loader.js"></script>
+<script>
+(function(){
+  var box=document.getElementById('policySections');
+  TEXT.policy.sections.forEach(function(s){
+    var sec=document.createElement('section');sec.className='cl';
+    var h=document.createElement('h2');h.textContent=s.title;sec.append(h);
+    var ul=document.createElement('ul');ul.className='subs';
+    s.points.forEach(function(p){
+      var li=document.createElement('li'),b=document.createElement('span'),pp=document.createElement('p');
+      b.className='sn';b.textContent='\u2022';pp.textContent=p;li.append(b,pp);ul.append(li);
+    });
+    sec.append(ul);box.append(sec);
+  });
+})();
+</script>
 </body>
 </html>
