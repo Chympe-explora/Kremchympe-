@@ -705,7 +705,7 @@ var FLEET=[
     var hl=p.highlights||p.inclusions||[],ul=$('vwHl');ul.innerHTML='';
     hl.forEach(function(t){var li=d.createElement('li');li.textContent=XT(b.pkg,t);ul.append(li)});
     fill('vwHlHead',hl.length?(p.highlightsLabel||T('home.popupHighlights')):'');ul.style.display=hl.length?'':'none';
-    var pr=PRICES&&PRICES[b.pkg];fill('vwPrice',pr?(pr.custom?T('home.priceCustom'):(pr.adultPrice?T('home.priceFrom',{price:inr(pr.adultPrice)}):'')):'');
+    var pr=PRICES&&PRICES[b.pkg];fill('vwPrice',pr?(pr.custom?T('home.priceCustom'):(pr.adultPrice?T('home.priceFrom',{price:inr(pr.adultPrice)}):(pr.fromNight?T('home.priceFromNight',{price:inr(pr.fromNight)}):''))):'');
     $('vwScroll').scrollTop=0;
     var pk=b.pkg||'';$('vwRes').href='reserve.html?package='+encodeURIComponent(pk);        /* the booking flow loads this package */
     try{sessionStorage.setItem('kcPackage',pk)}catch(_){}

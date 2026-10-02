@@ -85,6 +85,7 @@ home: {
   popupBook: "Book now",
   popupHighlights: "Highlights",
   priceFrom: "From {price} / person",
+  priceFromNight: "From {price} / night",
   priceCustom: "Fully customisable",
 
   /* --- Whole-page background + round picture selector (top of the page) ---
@@ -226,7 +227,7 @@ packages: {
       camping: { label: "Camping", details: "Overnight camping stay at the campsite. Tick this to add a tent, camping meals, an overnight guide and bamboo dishes below." },
       tent: { label: "Camping Tent Rental", details: "Choose the number of tents.", includes: ["Blanket", "Pillows", "Camping chairs"], note: "One tent comfortably fits 2 people. Priced per tent.", items: { tent: "Tent (sleeps 2)" } },
       meals: { label: "Camping Meals", details: "Dinner: veg thali. Breakfast: 2 servings of Maggi.", note: "Vegetarian meals only." },
-      overnight: { label: "Overnight Guide", details: "Required for all camping bookings because the campsite is far from the nearest village. The guide also prepares your dinner and breakfast.", note: "Camping without a guide is not allowed." },
+      overnight: { label: "Overnight Guide", details: "Required for all camping bookings because the campsite is far from the nearest village. The guide also prepares your dinner and breakfast.", note: "Camping without a guide is not allowed. Charged ₹2,000 per night." },
       bamboo: { label: "Traditional Bamboo Dishes", details: "Zero-oil bamboo-cooked dishes, available only with camping because they need extra preparation time and fresh ingredients.", items: { bchicken5: "Bamboo Chicken (500g)", bchicken1: "Bamboo Chicken (1kg)", bpork5: "Bamboo Pork (500g)", bpork1: "Bamboo Pork (1kg)", bbelly5: "Roasted Pork Belly Salad (500g)", bbelly1: "Roasted Pork Belly Salad (1kg)", bfish: "Boiled Fish (Zero Oil)", bveg: "Veg Bamboo Sabji", begg: "Boiled Egg", bchai: "Bamboo Chai" } }
     }
   },
@@ -236,27 +237,27 @@ packages: {
     tagline: "Stay overnight in the wild at Krem Chympe.",
     dateLabel: "Check-in date",
     optionsHeading: "Camping add-ons",
-    childNote: "Children are under 12 years old.",
+    childNote: "",
     notes: [
-      "Price is per person; add a tent, meals and bamboo dishes below.",
-      "An overnight guide is required for all camping."
+      "The overnight guide is required and costs ₹2,000 per night. Add tents, meals and bamboo dishes below.",
+      "Tents are charged per tent (each sleeps 2); meals and bamboo dishes are charged as shown."
     ],
-    description: "An overnight camping stay in the wild at Krem Chympe. Best for friends, couples and families who want to sleep under the stars beside the forest and enjoy traditional bamboo-cooked food. The price is per person, and you pick your tents, meals and bamboo dishes on the next page. An overnight guide is always included for your safety.",
+    description: "An overnight camping stay in the wild at Krem Chympe. Best for friends, couples and families who want to sleep under the stars beside the forest and enjoy traditional bamboo-cooked food. The overnight guide is required for your safety and costs ₹2,000 per night. You pick your tents, meals and bamboo dishes on the next page.",
     info: [
       ["Best for", "Friends, couples and families who want a night in the wild"],
-      ["Includes", "Campsite stay for each person and an overnight guide (required)"],
+      ["Includes", "Camping stay with an overnight guide (required, ₹2,000 per night)"],
       ["Activities", "Campfire evening, forest surroundings, bamboo-cooked dinner (optional)"],
       ["Facilities", "Tents with blanket, pillows and camping chairs (1 tent fits 2 people), camping meals, bamboo dishes"],
-      ["Conditions", "Overnight guide is required, camping meals are vegetarian only, bamboo dishes are available only with camping. Children under 12 pay the child price. Booking is confirmed after the advance."],
+      ["Conditions", "Overnight guide is required, camping meals are vegetarian only, bamboo dishes are available only with camping. The overnight guide is ₹2,000 per night. Booking is confirmed after the advance."],
       ["Language", "English, Hindi, local language"],
       ["Location", "Krem Chympe, East Jaintia Hills, Meghalaya"]
     ],
     highlightsLabel: "Choose on the next page",
-    highlights: ["Tent rental", "Camping meals", "Overnight guide (required)", "Bamboo dishes"],
+    highlights: ["Tent rental", "Camping meals", "Overnight guide, ₹2,000/night (required)", "Bamboo dishes"],
     options: {
       tent: { label: "Camping Tent Rental", details: "Choose the number of tents.", includes: ["Blanket", "Pillows", "Camping chairs"], note: "One tent comfortably fits 2 people. Priced per tent.", items: { tent: "Tent (sleeps 2)" } },
       meals: { label: "Camping Meals", details: "Dinner: veg thali. Breakfast: 2 servings of Maggi.", note: "Vegetarian meals only." },
-      overnight: { label: "Overnight Guide", details: "Required for all camping bookings because the campsite is far from the nearest village. The guide also prepares your dinner and breakfast.", note: "Camping without a guide is not allowed." },
+      overnight: { label: "Overnight Guide", details: "Required for all camping bookings because the campsite is far from the nearest village. The guide also prepares your dinner and breakfast.", note: "Camping without a guide is not allowed. Charged ₹2,000 per night." },
       bamboo: { label: "Traditional Bamboo Dishes", details: "Zero-oil bamboo-cooked dishes, available only with camping because they need extra preparation time and fresh ingredients.", items: { bchicken5: "Bamboo Chicken (500g)", bchicken1: "Bamboo Chicken (1kg)", bpork5: "Bamboo Pork (500g)", bpork1: "Bamboo Pork (1kg)", bbelly5: "Roasted Pork Belly Salad (500g)", bbelly1: "Roasted Pork Belly Salad (1kg)", bfish: "Boiled Fish (Zero Oil)", bveg: "Veg Bamboo Sabji", begg: "Boiled Egg", bchai: "Bamboo Chai" } }
     }
   },
@@ -454,7 +455,7 @@ policy: {
     { title: "1. Advance Payment", points: [
       "Booking is confirmed only after advance payment.",
       "Minimum advance is {minAdvance}.",
-      "Advance payment is non-refundable."
+      "Advance payment is refundable only as described in section 2."
     ]},
     { title: "2. Cancellation by Visitor", points: [
       "If cancelled 7 days or more before the booking date — 50% of advance refunded.",
@@ -465,17 +466,23 @@ policy: {
     { title: "3. Expedition Package", points: [
       "Expedition Package must be cancelled at least 7 days before the expedition date.",
       "Advance booking for the Expedition Package must be completed at least {expedition.days} days before the expedition.",
-      "No refund for cancellation less than 7 days before the expedition."
+      "No refund for cancellation less than 7 days before the expedition.",
+      "The Expedition price is {expedition.adult} per person (maximum {expedition.max} people per booking). Extra days, if added, are charged per person per day."
     ]},
-    { title: "4. Cancellation by Krem Chympe", points: [
+    { title: "4. Camping & Additional Services", points: [
+      "An overnight guide is required for all camping and is charged at {camping.night} per night.",
+      "Tents are charged per tent, and camping meals and bamboo dishes are charged as shown on the booking page.",
+      "Refund eligibility for these services depends on whether the service has already been provided or whether non-refundable arrangements have already been made."
+    ]},
+    { title: "5. Cancellation by Krem Chympe", points: [
       "If activities cannot be conducted due to weather, water levels, route conditions, or safety conditions — the booking may be postponed or cancelled.",
       "If cancelled by Krem Chympe, the advance payment will be refunded or adjusted to a new date."
     ]},
-    { title: "5. Changes", points: [
+    { title: "6. Changes", points: [
       "Changes to date, group size, or selected services must be communicated in advance.",
       "Changes are subject to availability."
     ]},
-    { title: "6. Refunds", points: [
+    { title: "7. Refunds", points: [
       "Refunds will be processed within 7 working days.",
       "Refund will be made to the same payment method used for the advance payment."
     ]}
