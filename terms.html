@@ -6,6 +6,7 @@
 <meta name="color-scheme" content="light dark">
 <script src="site-text.js"></script>
 <script src="motion.js"></script>
+<script src="fx.js"></script>
 <title data-t="policy.pageTitle"></title>
 <meta name="description" content="" data-ta="content={policy.metaDescription}">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%8D%3C/text%3E%3C/svg%3E">
@@ -62,16 +63,17 @@ h1,h2,p,ul{margin:0}
 <script>
 (function(){
   var box=document.getElementById('policySections');
-  TEXT.policy.sections.forEach(function(s){
+  function build(){TEXT.policy.sections.forEach(function(s){
     var sec=document.createElement('section');sec.className='cl';
     var h=document.createElement('h2');h.textContent=s.title;sec.append(h);
     var ul=document.createElement('ul');ul.className='subs';
     s.points.forEach(function(p){
       var li=document.createElement('li'),b=document.createElement('span'),pp=document.createElement('p');
-      b.className='sn';b.textContent='\u2022';pp.textContent=p;li.append(b,pp);ul.append(li);
+      b.className='sn';b.textContent='\u2022';pp.textContent=fmtText(p);li.append(b,pp);ul.append(li);
     });
     sec.append(ul);box.append(sec);
-  });
+  });}
+  loadPricing().then(build,build);
 })();
 </script>
 </body>

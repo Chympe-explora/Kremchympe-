@@ -1,6 +1,7 @@
 {
-  "_README": "PRICES AND RULES ONLY. Edit prices here (all amounts in INR). The booking page and the server both read this file. ALL WORDS the visitor sees (names, notes, taglines, payment details) are in site-text.js. The 'name' / 'label' fields below are only used in the booking alert you receive on Telegram/admin and as a backup. Options with 'items' are priced per item x quantity. An option with \"requires\":\"camping\" only appears when Camping is ticked. If you change minAdvance, also change the sentence in the cancellation policy in site-text.js. PLACEHOLDER PRICES: replace them with your real ones.",
+  "_README": "EDIT PRICES HERE (amounts in INR). The booking page, the home page and the server all read this file, so change a number and everything follows: totals, 'From ₹…', advance limits, and sentences that use {minAdvance}/{child}/{days}. minAdvance = smallest advance a visitor can pay. maxPeople = most adults (and most children) in one booking. Per package: adultPrice, childPrice (null = no children field), minDaysAhead (0 = any future date; 3 = must book 3+ days ahead). Option: price + unit ('person' = price x all guests, 'group' = flat). Option with 'items' = each item priced x quantity. Option with \"requires\":\"camping\" only shows when that option is ticked. A package with an empty options list becomes a fixed per-person package with a group-size selector. To add a package: copy one block, give it a new key, and add its words in site-text.js (packages section) and a card in FLEET in book.html. After editing, redeploy: the server uses the same file. PLACEHOLDER PRICES: replace with your real ones.",
   "minAdvance": 1000,
+  "maxPeople": 50,
   "packages": {
     "private": {
       "name": "Private Tour",

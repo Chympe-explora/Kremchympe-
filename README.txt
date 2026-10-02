@@ -41,3 +41,15 @@ NOTES
   - Edit the Terms & Conditions pop-up text at the bottom of public/book.html
     (search for id="termsDlg"). It is generic wording, check it before use.
   - Page text is copied from the original design, including its typos.
+
+
+NEW IN THIS VERSION
+5. HERO VIDEO PICKER -> hidden by default. Tap the top picture 3 times to show it, tap the X to hide it again.
+   Videos only. Edit them in site-text.js, section "explore" (name, sub, video file name, desc).
+6. PHOTO GALLERY section -> pictures only, its own round pictures (sideways on phones, up/down on computers).
+   Edit in site-text.js, section "gallery" (add a line = a new round picture). Put the photo in images/.
+7. FEEDBACK card -> collapsed until tapped.
+8. PRICES -> everything reads pricing.json: totals, "From Rs...", advance limits, children price, days ahead,
+   max people (maxPeople), and sentences using {minAdvance} {child} {days} {expedition.days}. Change a number,
+   redeploy (the server reads the same file), done. A package with an empty "options" list is a fixed per-person package.
+9. fx.js -> shared animation file (button ripples, count-up totals, page slides). Remove its <script> line to switch it off.

@@ -17,6 +17,7 @@
    deleted by mistake. Put it back (copy it from the zip) and refresh.
 
    PRICES are NOT here. Prices live in  pricing.json.
+   Words like {minAdvance}, {child}, {days}, {expedition.days} are filled in from pricing.json automatically, so change a price there and every sentence follows.
    ===================================================================== */
 
 window.TEXT = {
@@ -101,16 +102,29 @@ home: {
   exploreHandleAria: "Show places to explore",
   exploreHeading: "Explore Krem Chympe",
   explore: [
-    { name: "Waterfall", sub: "Guided visit", image: "images/place-1.jpg", video: "scene-1", pos: "50% 50%",
+    { name: "Waterfall", sub: "Guided visit", video: "scene-1", pos: "50% 50%",
       desc: "Waterfall visits are part of every Krem Chympe trip. Your local guide shows you the best spots and keeps the group safe around the water. Water levels change with the season and weather." },
-    { name: "Forest", sub: "Forest trails", image: "images/place-2.jpg", video: "scene-2", pos: "50% 50%",
+    { name: "Forest", sub: "Forest trails", video: "scene-2", pos: "50% 50%",
       desc: "Trek through the forest trails around Krem Chympe with a local guide. Guides speak English, Hindi and the local language." },
-    { name: "Waterfall Pool", sub: "Swim and cool off", image: "images/place-3.jpg", video: "scene-3", pos: "50% 50%",
-      desc: "Cool off in the clear blue pool below the falls. Stay with your guide, wear shoes with good grip and mind the slippery rocks." },
-    { name: "River", sub: "Hanging bridge", image: "images/place-4.jpg", pos: "50% 50%",
-      desc: "Cross the hanging bridge for a view of the river from above, or take a bamboo raft on the water. A quiet, easy way to see the landscape." },
-    { name: "Cave", sub: "Cave and water", image: "images/place-5.jpg", pos: "50% 55%",
-      desc: "Krem Chympe is known for cave exploration, including underground water. Go with a local guide, wear sturdy shoes and bring a torch or headlamp if you have one." }
+    { name: "Waterfall Pool", sub: "Swim and cool off", video: "scene-3", pos: "50% 50%",
+      desc: "Cool off in the clear blue pool below the falls. Stay with your guide, wear shoes with good grip and mind the slippery rocks." }
+  ],
+  railCloseAria: "Hide the video picker",
+
+  /* --- PHOTO GALLERY section (pictures only; has its own round pictures, separate from the hero videos) ---
+     name = label   sub = small second line   image = picture file   desc = text under the big picture   pos = crop focus, e.g. "50% 40%"
+     Add more any time: the round pictures slide (sideways on phones, up/down on computers). */
+  navGallery: "Gallery",
+  galleryHeading: "Photo Gallery",
+  galleryText: "Tap a round picture to change the photo.",
+  galleryAria: "Photo gallery. Pick a round picture to change the photo.",
+  galleryPickAria: "Show photo: {name}",
+  gallery: [
+    { name: "Waterfall", sub: "Guided visit", image: "images/place-1.jpg", pos: "50% 50%", desc: "The falls at Krem Chympe, best seen with a local guide who knows the safe spots." },
+    { name: "Forest", sub: "Forest trails", image: "images/place-2.jpg", pos: "50% 50%", desc: "Forest trails around Krem Chympe, walked at your own pace." },
+    { name: "Waterfall Pool", sub: "Swim and cool off", image: "images/place-3.jpg", pos: "50% 50%", desc: "The clear blue pool below the falls. Stay with your guide and mind the slippery rocks." },
+    { name: "River", sub: "Hanging bridge", image: "images/place-4.jpg", pos: "50% 50%", desc: "The hanging bridge over the river, or a bamboo raft on the water." },
+    { name: "Cave", sub: "Cave and water", image: "images/place-5.jpg", pos: "50% 55%", desc: "Cave exploration with underground water. Wear sturdy shoes and bring a torch if you have one." }
   ],
   videoOpenAria: "Open {name} video full size",
   videoShrinkAria: "Shrink {name} video",
@@ -121,6 +135,7 @@ home: {
 
   /* --- rating box --- */
   rateHeading: "Rate your experience",
+  rateHint: "Tap to rate and leave a comment",
   ratingAria: "Rating",
   oneStarAria: "1 star",
   manyStarsAria: "{n} stars",
@@ -174,7 +189,7 @@ packages: {
     tagline: "A private guided day in Krem Chympe, just for your group.",
     dateLabel: "Tour date",
     optionsHeading: "Private Tour options",
-    childNote: "Children (under 12) are charged half price.",
+    childNote: "Children are under 12 years old.",
     notes: [
       "Private tour for your own group only.",
       "Pick any extras you like on the next page."
@@ -188,7 +203,7 @@ packages: {
       ["Group", "Your own group only"],
       ["Guide", "Local guide, David Tariang (Brichyrnot village)"],
       ["Languages", "English, Hindi, local language"],
-      ["Children", "Under 12 pay half price"],
+      ["Children", "Under 12: {child} each"],
       ["Location", "Krem Chympe, East Jaintia Hills, Meghalaya"]
     ],
     highlightsLabel: "Highlights and add-ons",
@@ -212,7 +227,7 @@ packages: {
     tagline: "Stay overnight in the wild at Krem Chympe.",
     dateLabel: "Check-in date",
     optionsHeading: "Camping Package options",
-    childNote: "Children (under 12) are charged half price.",
+    childNote: "Children are under 12 years old.",
     notes: [
       "Overnight camping stay.",
       "Choose tent, meals and guide on the next page."
@@ -222,7 +237,7 @@ packages: {
       ["Type", "Overnight camping stay"],
       ["Guide", "Local guide, David Tariang (Brichyrnot village)"],
       ["Languages", "English, Hindi, local language"],
-      ["Children", "Under 12 pay half price"],
+      ["Children", "Under 12: {child} each"],
       ["Location", "Krem Chympe, East Jaintia Hills, Meghalaya"]
     ],
     highlightsLabel: "Choose on the next page",
@@ -242,7 +257,7 @@ packages: {
     optionsHeading: "Group size",
     notes: [
       "Fixed price per person, all inclusions below are covered.",
-      "Advance must be paid at least 3 days before the expedition.",
+      "Advance must be paid at least {days} days before the expedition.",
       "Cancel at least 7 days before the expedition date."
     ],
     inclusions: [
@@ -257,7 +272,7 @@ packages: {
     info: [
       ["Type", "Multi-day expedition"],
       ["Price", "Fixed per person, all inclusions covered"],
-      ["Booking", "Pay advance at least 3 days before"],
+      ["Booking", "Pay advance at least {days} days before"],
       ["Cancel", "At least 7 days before the date"],
       ["Location", "Krem Chympe, East Jaintia Hills, Meghalaya"]
     ],
@@ -367,9 +382,9 @@ booking: {
   errWhatsapp: "Enter a valid WhatsApp number.",
   errDateMissing: "Choose a date.",
   errDatePast: "Choose a future date.",
-  errDateExpedition: "Expedition bookings must be made at least 3 days ahead.",
-  errPeople: "Enter 1 to 50 people.",
-  errChildren: "Enter 0 to 50 children.",
+  errDateExpedition: "This package must be booked at least {days} days ahead.",
+  errPeople: "Enter 1 to {max} people.",
+  errChildren: "Enter 0 to {max} children.",
   errAdvance: "Advance must be between {min} and {max}.",
   errItems: "Choose at least one item for: {list} (or untick it).",
   errReceipt: "Please upload your payment receipt.",
@@ -389,7 +404,7 @@ booking: {
     children: "Enter a valid number of children.",
     date: "Choose a date.",
     datePast: "Choose a future date.",
-    dateExpedition: "Expedition bookings must be made at least 3 days ahead.",
+    dateExpedition: "This package must be booked further ahead. Please choose a later date.",
     advance: "The advance amount is not valid.",
     agree: "You must accept the Cancellation Policy.",
     receipt: "A payment receipt (image or PDF, under about 1.5 MB) is required.",
@@ -416,11 +431,11 @@ policy: {
   bigTitle: "CANCELLATION POLICY",
   subTitle: "Krem Chympe Adventure & Camping",
   /* Each box has a title and a list of points. Add, remove or change freely.
-     (If you change the minimum advance, also change it in pricing.json.) */
+     (The minimum advance and expedition days are filled in from pricing.json automatically.) */
   sections: [
     { title: "1. Advance Payment", points: [
       "Booking is confirmed only after advance payment.",
-      "Minimum advance is ₹1,000.",
+      "Minimum advance is {minAdvance}.",
       "Advance payment is non-refundable."
     ]},
     { title: "2. Cancellation by Visitor", points: [
@@ -431,7 +446,7 @@ policy: {
     ]},
     { title: "3. Expedition Package", points: [
       "Expedition Package must be cancelled at least 7 days before the expedition date.",
-      "Advance booking for the Expedition Package must be completed at least 3 days before the expedition.",
+      "Advance booking for the Expedition Package must be completed at least {expedition.days} days before the expedition.",
       "No refund for cancellation less than 7 days before the expedition."
     ]},
     { title: "4. Cancellation by Krem Chympe", points: [

@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <script src="site-text.js"></script>
 <script src="motion.js"></script>
+<script src="fx.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title data-t="booking.pageTitle"></title>
 <meta name="description" content="" data-ta="content={booking.metaDescription}">
@@ -177,6 +178,10 @@ function pname(k){return TX(k).name||CFG.packages[k||S.pkg].name}
 function oLabel(o){var x=(TX().options||{})[o.id];return(x&&x.label)||o.label}
 function oDetails(o){var x=(TX().options||{})[o.id];return x&&x.details}
 function iLabel(o,it){var x=(TX().options||{})[o.id];return(x&&x.items&&x.items[it.id])||it.label}
+var MX=50;
+function isFixed(){return !P().options.length}          /* a package with no extras = fixed price per person + group size */
+function PV(){var p=P();return{days:p.minDaysAhead||0,child:p.childPrice==null?'':inr(p.childPrice),adult:inr(p.adultPrice),minAdvance:inr(CFG.minAdvance)}}
+function FT(x){return fmtText(x,PV())}
 function num(id){var v=parseInt($(id).value,10);return isNaN(v)?0:v}
 function callLink(){return'<a href="'+esc(TEL)+'">'+esc(PHONE)+'</a>'}
 
@@ -211,9 +216,9 @@ function renderPackage(){
   $('date').min=minDate();
   $('dateLab').textContent=x.dateLabel||'';
   var ch=p.childPrice!=null;$('childWrap').style.display=ch?'':'none';if(!ch)$('children').value='0';
-  var n=li(x.notes);
-  if(ch)n='<p>'+esc(T('booking.childPricing',{price:inr(p.childPrice),note:x.childNote||''}))+'</p>'+n;
-  if(x.inclusions)n='<b>'+esc(T('booking.inclusionsHeading'))+'</b>'+li(x.inclusions)+'<b>'+esc(T('booking.priceLine',{price:inr(p.adultPrice)}))+'</b>'+n;
+  var n=li((x.notes||[]).map(FT));
+  if(ch)n='<p>'+esc(T('booking.childPricing',{price:inr(p.childPrice),note:FT(x.childNote||'')}))+'</p>'+n;
+  if(x.inclusions)n='<b>'+esc(T('booking.inclusionsHeading'))+'</b>'+li((x.inclusions||[]).map(FT))+'<b>'+esc(T('booking.priceLine',{price:inr(p.adultPrice)}))+'</b>'+n;
   $('notes').innerHTML=n;
   drawOptions();drawPricing();
   [].forEach.call(d.querySelectorAll('.err'),function(e){e.textContent=''});
@@ -221,31 +226,33 @@ function renderPackage(){
 function drawOptions(){
   var p=P(),box=$('optBox');
   $('optH').textContent=TX().optionsHeading||pname();
-  if(S.pkg==='expedition'){
+  if(isFixed()){
     var c=calc();
     box.innerHTML='<div class="stp"><button type="button" data-pp="-1" aria-label="'+esc(T('booking.fewerPeopleAria'))+'">−</button><output id="ppOut">'+c.people+'</output><button type="button" data-pp="1" aria-label="'+esc(T('booking.morePeopleAria'))+'">+</button></div>'+
       '<div class="est"><span>'+esc(T('booking.estimatedTotal',{people:c.people,price:inr(p.adultPrice)}))+'</span><b id="estT">'+inr(c.total)+'</b></div>';
+    fxNum($('estT'),c.total);
     return;
   }
   var h='';
   p.options.forEach(function(o){
     if(o.requires&&!S.sel[o.requires])return;            /* hidden until its parent (Camping) is ticked */
-    var on=!!S.sel[o.id],price=o.items?T('booking.chooseItems'):inr(o.price)+' '+(o.unit==='person'?T('booking.perPerson'):T('booking.flatPrice'));
-    h+='<label class="opt'+(on?' on':'')+(o.requires?' sub':'')+'"><input type="checkbox" data-opt="'+esc(o.id)+'"'+(on?' checked':'')+'><span>'+esc(oLabel(o))+'</span><em>'+esc(price)+'</em></label>';
-    if(on&&oDetails(o))h+='<div class="note sub">'+esc(oDetails(o))+'</div>';
+    var on=!!S.sel[o.id],fr=(S.fresh&&(o.id===S.fresh||o.requires===S.fresh))?' fresh':'',price=o.items?T('booking.chooseItems'):inr(o.price)+' '+(o.unit==='person'?T('booking.perPerson'):T('booking.flatPrice'));
+    h+='<label class="opt'+(on?' on':'')+(o.requires?' sub':'')+fr+'"><input type="checkbox" data-opt="'+esc(o.id)+'"'+(on?' checked':'')+'><span>'+esc(oLabel(o))+'</span><em>'+esc(price)+'</em></label>';
+    if(on&&oDetails(o))h+='<div class="note sub'+fr+'">'+esc(oDetails(o))+'</div>';
     if(on&&o.items){
-      h+='<div class="items'+(o.requires?' sub':'')+'">';
+      h+='<div class="items'+(o.requires?' sub':'')+((S.fresh===o.id)?' fresh':'')+'">';
       o.items.forEach(function(it){var nm=iLabel(o,it);h+='<div class="it"><span>'+esc(nm)+'<small>'+esc(T('booking.eachPrice',{price:inr(it.price)}))+'</small></span><div class="q"><button type="button" data-q="'+esc(o.id)+'|'+esc(it.id)+'|-1" aria-label="'+esc(T('booking.fewerAria',{name:nm}))+'">−</button><output>'+getQ(o.id,it.id)+'</output><button type="button" data-q="'+esc(o.id)+'|'+esc(it.id)+'|1" aria-label="'+esc(T('booking.moreAria',{name:nm}))+'">+</button></div></div>'});
       h+='</div>';
     }
   });
-  box.innerHTML=h+'<p class="err" id="optErr"></p>';
+  box.innerHTML=h+'<p class="err" id="optErr"></p>';S.fresh='';
 }
 function drawPricing(){
   var c=calc(),h='';
   c.lines.forEach(function(r){h+='<tr><td>'+esc(r.l)+'<small>'+esc(r.x)+'</small></td><td>'+inr(r.a)+'</td></tr>'});
-  h+='<tr class="t"><td>'+esc(T('booking.total'))+'</td><td>'+inr(c.total)+'</td></tr>';
+  h+='<tr class="t"><td>'+esc(T('booking.total'))+'</td><td id="invT">'+inr(c.total)+'</td></tr>';
   $('inv').innerHTML=h;
+  fxNum($('invT'),c.total,null,0);
 }
 function drawPayment(){
   var c=calc(),dt=$('date').value;
@@ -284,9 +291,9 @@ function fromName(v){
 var rules={
   name:function(v){return v.trim()?'':T('booking.errName')},
   whatsapp:function(v){return/^\+?[0-9\s-]{7,15}$/.test(v.trim())?'':T('booking.errWhatsapp')},
-  date:function(v){return !v?T('booking.errDateMissing'):(v<minDate()?(S.pkg==='expedition'?T('booking.errDateExpedition'):T('booking.errDatePast')):'')},
-  people:function(v){return(+v>=1&&+v<=50)?'':T('booking.errPeople')},
-  children:function(v){return(v===''||(+v>=0&&+v<=50))?'':T('booking.errChildren')},
+  date:function(v){return !v?T('booking.errDateMissing'):(v<minDate()?(P().minDaysAhead>0?T('booking.errDateExpedition',{days:P().minDaysAhead}):T('booking.errDatePast')):'')},
+  people:function(v){return(+v>=1&&+v<=MX)?'':T('booking.errPeople',{max:MX})},
+  children:function(v){return(v===''||(+v>=0&&+v<=MX))?'':T('booking.errChildren',{max:MX})},
   advance:function(v){var c=calc(),min=Math.min(CFG.minAdvance,c.total),a=+v;return(a>=min&&a<=c.total)?'':T('booking.errAdvance',{min:inr(min),max:inr(c.total)})}
 };
 function check(id){var el=$(id),m=rules[id](el.value),p=el.closest('.f').querySelector('.err');p.textContent=m;el.setAttribute('aria-invalid',m?'true':'false');return!m}
@@ -308,9 +315,11 @@ function valid(n){
 
 /* ---------- steps ---------- */
 function show(n){
+  $('app').classList.toggle('back',n<S.page);
   S.page=n;
   [].forEach.call(d.querySelectorAll('.step'),function(s){s.classList.toggle('show',+s.dataset.step===n)});
-  [].forEach.call($('steps').querySelectorAll('i'),function(i,k){i.classList.toggle('on',k+1===n)});
+  [].forEach.call($('steps').querySelectorAll('i'),function(i,k){i.classList.toggle('on',k+1===n);i.classList.toggle('done',k+1<n)});
+  [].forEach.call($('steps').querySelectorAll('b'),function(b,k){b.classList.toggle('done',k+1<n)});
   if(n===2)drawOptions();if(n===3)drawPricing();if(n===4)drawPayment();
   scrollTo({top:0,behavior:'auto'});
 }
@@ -318,8 +327,8 @@ d.addEventListener('click',function(e){
   var t;
   if(e.target.closest('[data-next]')){if(valid(S.page))show(S.page+1)}
   else if(e.target.closest('[data-back]')){show(S.page-1)}
-  else if((t=e.target.closest('[data-q]'))){var z=t.dataset.q.split('|');S.qty[z[0]]=S.qty[z[0]]||{};S.qty[z[0]][z[1]]=Math.min(50,Math.max(0,getQ(z[0],z[1])+(+z[2])));drawOptions()}
-  else if((t=e.target.closest('[data-pp]'))){var v=Math.min(50,Math.max(1,num('people')+(+t.dataset.pp)));$('people').value=v;drawOptions()}
+  else if((t=e.target.closest('[data-q]'))){var z=t.dataset.q.split('|');S.qty[z[0]]=S.qty[z[0]]||{};var nv=Math.min(50,Math.max(0,getQ(z[0],z[1])+(+z[2])));S.qty[z[0]][z[1]]=nv;var ou=t.parentNode.querySelector('output');ou.textContent=nv;fxBump(ou)}
+  else if((t=e.target.closest('[data-pp]'))){var v=Math.min(MX,Math.max(1,num('people')+(+t.dataset.pp)));$('people').value=v;drawOptions();fxBump($('ppOut'))}
   else if((t=e.target.closest('[data-tab]'))){
     S.method=t.dataset.tab;
     [].forEach.call(d.querySelectorAll('[data-tab]'),function(b){b.classList.toggle('on',b===t)});
@@ -328,7 +337,7 @@ d.addEventListener('click',function(e){
 });
 $('optBox').addEventListener('change',function(e){
   var c=e.target.closest('[data-opt]');if(!c)return;
-  if(c.checked)S.sel[c.dataset.opt]=true;else clearOpt(c.dataset.opt);
+  S.fresh=c.dataset.opt;if(c.checked)S.sel[c.dataset.opt]=true;else{clearOpt(c.dataset.opt);S.fresh=''}
   drawOptions();
 });
 $('pkSel').addEventListener('change',function(){setPackage(this.value)});
@@ -378,7 +387,7 @@ $('f').addEventListener('submit',function(e){
       scrollTo(0,0);
     })
     .catch(function(err){
-      var known=err.code&&TEXT.booking.serverErrors[err.code];
+      var known=err.code&&err.code!=='dateExpedition'&&TEXT.booking.serverErrors[err.code];
       msg.className='msg bad';
       msg.innerHTML=esc(known||(err.message&&err.message!=='x'?err.message:T('booking.errSendFailed')))+' '+esc(T('booking.tryAgainCall'))+' '+callLink()+esc(T('booking.sentenceEnd'));
       go.disabled=false;go.textContent=T('booking.submit');
@@ -386,8 +395,8 @@ $('f').addEventListener('submit',function(e){
 });
 
 /* ---------- start ---------- */
-fetch('pricing.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
-  CFG=j;
+loadPricing().then(function(j){
+  CFG=j;MX=+j.maxPeople||50;
   $('pkSel').innerHTML=Object.keys(CFG.packages).map(function(k){return'<option value="'+k+'">'+esc(pname(k))+'</option>'}).join('');
   $('qrImg').onerror=function(){this.style.display='none';$('qrMiss').style.display='block'};
   $('qrImg').src=TEXT.payment.qrImage;
