@@ -3,140 +3,190 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<script src="site-text.js"></script>
-<script src="fx.js"></script>
-<title data-t="admin.pageTitle"></title>
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<!-- Only this site's own scripts may run here; pictures/videos/API calls may come from https sites. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https: http://localhost:* blob: data:; media-src 'self' https: http://localhost:* blob:; connect-src 'self' https: http://localhost:*; base-uri 'none'; form-action 'none'">
+<title>Site dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;padding:1rem;font-family:'Courier Prime','Courier New',monospace;background:#dce8f0;color:#111}
-h1{margin:0;font:700 clamp(1.7rem,5vw,2.4rem)/1.1 'Playfair Display',Georgia,serif}
+body{margin:0;min-height:100vh;padding:0 0 6rem;font-family:'Courier Prime','Courier New',monospace;background:#dce8f0;color:#111;font-size:15px}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;margin:0}
+h1{font-size:clamp(1.4rem,5vw,2rem)}
+h2{font-size:1.25rem;margin:1.2rem 0 .6rem}
 .hidden{display:none!important}
-.pill{background:#d3e3ef;border:0;border-radius:.6rem;padding:.55rem 1rem;font:700 .85rem 'Playfair Display',Georgia,serif;cursor:pointer;transition:background .2s}
+button,input,select,textarea{font:inherit;color:inherit}
+.pill{display:inline-block;background:#d3e3ef;border:0;border-radius:.6rem;padding:.55rem .9rem;font:700 .85rem 'Playfair Display',Georgia,serif;cursor:pointer;transition:background .2s;white-space:nowrap;color:#111;text-decoration:none}
 .pill:hover{background:#c3d9ea}
-#login{max-width:24rem;margin:6rem auto 0;background:#fff;border-radius:1.5rem;padding:2rem}
-#login input{display:block;width:100%;margin:.4rem 0 1rem;padding:.75rem;border:1px solid #ccc;border-radius:.75rem;font:inherit}
-#login .pill{width:100%}
+.pill.dark{background:#111;color:#fff}.pill.dark:hover{background:#333}
+.pill.danger{background:#f3d4d4;color:#7a1d1d}.pill.danger:hover{background:#ecbcbc}
+.pill:disabled{opacity:.5;cursor:default}
+.pill.sm{padding:.3rem .6rem;font-size:.75rem}
+input[type=text],input[type=password],input[type=number],input[type=search],select,textarea{width:100%;padding:.6rem .7rem;border:1px solid #c5d3dc;border-radius:.7rem;background:#fff;min-width:0}
+textarea{resize:vertical;line-height:1.4}
+label.l{display:block;font-size:.78rem;margin:.6rem 0 .2rem;color:#334}
+.card{background:#fff;border-radius:1.2rem;padding:1rem;margin:0 0 .8rem}
+.muted{color:#556;font-size:.78rem}
 .err{min-height:1.2em;margin:.8rem 0 0;font-size:.85rem;color:#7a1d1d}
-#dash{max-width:72rem;margin:0 auto}
-.bar{display:flex;justify-content:space-between;align-items:center;gap:.75rem;margin-bottom:1rem}
-.bar div{display:flex;gap:.5rem}
-#msg{min-height:1.3em;font-size:.85rem;margin:0 0 .6rem}
-.wrap{background:#fff;border-radius:1.5rem;overflow-x:auto}
-table{width:100%;min-width:980px;border-collapse:collapse}
-th,td{padding:.75rem;text-align:left;vertical-align:top;font-size:.8rem}
-th{font:700 .85rem 'Playfair Display',Georgia,serif;white-space:nowrap}
-tbody tr{border-top:1px solid #e5e5e5}
-select{padding:.3rem;border:1px solid #ccc;border-radius:.5rem;font:inherit}
+code{background:#eef3f7;padding:0 .3rem;border-radius:.3rem;font-size:.8em}
+.acts{display:flex;gap:.5rem;flex-wrap:wrap}
+
+/* login */
+#login{max-width:24rem;margin:5rem auto 0;padding:0 1rem}
+#login .card{padding:1.6rem}
+#login .pill{width:100%;margin-top:1rem;padding:.8rem}
+
+/* header + tabs */
+#top{display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:.8rem 1rem;position:sticky;top:0;z-index:20;background:#dce8f0}
+#top .r{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+#tabs{display:flex;gap:.4rem;overflow-x:auto;padding:0 1rem .6rem;position:sticky;top:3.4rem;z-index:19;background:#dce8f0;scrollbar-width:none}
+#tabs::-webkit-scrollbar{display:none}
+#tabs button{flex:0 0 auto;border:0;background:#fff;border-radius:999px;padding:.5rem 1rem;font:700 .85rem 'Playfair Display',Georgia,serif;cursor:pointer}
+#tabs button.on{background:#111;color:#fff}
+#app{max-width:60rem;margin:0 auto;padding:0 1rem}
+
+/* text fields */
+details.grp{background:#fff;border-radius:1.2rem;margin:0 0 .7rem;overflow:hidden}
+details.grp>summary{padding:.9rem 1rem;cursor:pointer;font:700 1rem 'Playfair Display',Georgia,serif;list-style:none;display:flex;justify-content:space-between;gap:.5rem}
+details.grp>summary::-webkit-details-marker{display:none}
+details.grp>summary .n{font:400 .75rem 'Courier Prime',monospace;color:#667}
+.fld{padding:.2rem 1rem .9rem;border-top:1px solid #edf1f4}
+.fld .top{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin:.6rem 0 .3rem}
+.fld .nm{font-weight:700;font-size:.85rem}
+.fld .pth{font-size:.68rem;color:#778;word-break:break-all}
+.badge{display:inline-block;background:#fff3c4;border-radius:.4rem;padding:0 .35rem;font-size:.68rem;margin-left:.3rem}
+.sub{margin:.3rem 0 .3rem .6rem;padding-left:.6rem;border-left:3px solid #e3ebf1}
+.row{display:flex;gap:.4rem;align-items:flex-start;margin:.3rem 0}
+.row>.grow{flex:1;min-width:0}
+.row.pair>*{flex:1}
+.ctl{display:flex;gap:.2rem;flex:0 0 auto}
+.ctl button{border:0;background:#e6eef4;border-radius:.4rem;width:1.9rem;height:1.9rem;cursor:pointer;font-weight:700}
+.ctl button:disabled{opacity:.35}
+
+/* items (gallery / assets / library) */
+.item{display:flex;gap:.8rem;align-items:flex-start;background:#fff;border-radius:1.2rem;padding:.8rem;margin:0 0 .6rem}
+.thumb{flex:0 0 5.2rem;width:5.2rem;height:5.2rem;border-radius:.9rem;background:#cfdde7 center/cover no-repeat;overflow:hidden;position:relative}
+.thumb video,.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.item .body{flex:1;min-width:0}
+.item .acts{margin-top:.5rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+@media(max-width:420px){.two{grid-template-columns:1fr}}
+.pf{display:flex;gap:.4rem;margin:.3rem 0 0;flex-wrap:wrap}
+.pf label{font-size:.72rem;display:flex;gap:.25rem;align-items:center}
+
+/* feedback */
+.stars{color:#c98a00;letter-spacing:.1em}
+.photos{display:flex;gap:.4rem;margin-top:.5rem;flex-wrap:wrap}
+.photos a{display:block;width:4.2rem;height:4.2rem;border-radius:.7rem;background:#cfdde7 center/cover}
+.flag{font-size:.7rem;background:#eee;border-radius:.4rem;padding:0 .35rem;margin-left:.3rem}
+
+/* save bar / progress / toast */
+#savebar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#111;color:#fff;padding:.7rem 1rem;display:flex;gap:.6rem;align-items:center;justify-content:space-between}
+#savebar .pill{background:#fff;color:#111}
+#prog{position:fixed;left:0;right:0;top:0;z-index:40;background:#111;color:#fff;font-size:.8rem;padding:.4rem 1rem}
+#prog i{display:block;height:3px;background:#6ee7a0;width:0;margin-top:.3rem;transition:width .2s}
+#toast{position:fixed;left:50%;bottom:4.6rem;transform:translateX(-50%);z-index:50;background:#111;color:#fff;border-radius:999px;padding:.6rem 1.1rem;font-size:.85rem;max-width:92vw;text-align:center;pointer-events:none;opacity:0;transition:opacity .25s}
+#toast.on{opacity:1}#toast.bad{background:#8b1f1f}
 </style>
+<script src="site-text.js"></script>
 </head>
 <body>
+
 <main id="login">
-  <h1 data-t="admin.loginHeading"></h1>
-  <form id="loginForm">
-    <label for="pw" style="display:block;margin-top:1.2rem;font-size:.9rem" data-t="admin.passwordLabel"></label>
-    <input id="pw" type="password" autocomplete="current-password" required>
-    <button class="pill" type="submit" data-t="admin.signIn"></button>
-    <p id="loginErr" class="err"></p>
-  </form>
+  <div class="card">
+    <h1>Site dashboard</h1>
+    <p class="muted">Sign in to edit the website.</p>
+    <form id="loginForm" autocomplete="off">
+      <div id="stepPw">
+        <label class="l" for="pw">Password</label>
+        <input id="pw" type="password" autocomplete="current-password" required>
+      </div>
+      <div id="stepCode" class="hidden">
+        <label class="l" for="code">Code sent to your Telegram admin chat</label>
+        <input id="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6">
+      </div>
+      <button class="pill dark" id="loginBtn" type="submit">Sign in</button>
+      <p id="loginErr" class="err" role="alert"></p>
+    </form>
+  </div>
 </main>
-<main id="dash" class="hidden">
-  <div class="bar"><h1 data-t="admin.bookingsHeading"></h1><div><button id="refresh" class="pill" data-t="admin.refresh"></button><button id="logout" class="pill" data-t="admin.signOut"></button></div></div>
-  <p id="msg" role="status"></p>
-  <div class="wrap"><table>
-    <thead><tr id="bkHead"></tr></thead>
-    <tbody id="rows"></tbody>
-  </table></div>
-  <h1 style="margin:2rem 0 1rem" data-t="admin.reviewsHeading"></h1>
-  <div class="wrap"><table style="min-width:640px">
-    <thead><tr id="rvHead"></tr></thead>
-    <tbody id="revRows"></tbody>
-  </table></div>
+
+<header id="top" class="hidden">
+  <h1>Site dashboard</h1>
+  <div class="r">
+    <span id="ver" class="muted"></span>
+    <a class="pill" href="book.html" target="_blank" rel="noopener">View site</a>
+    <button class="pill" id="logout" type="button">Sign out</button>
+  </div>
+</header>
+<nav id="tabs" class="hidden" aria-label="Sections">
+  <button type="button" data-tab="text" class="on">Text</button>
+  <button type="button" data-tab="prices">Prices</button>
+  <button type="button" data-tab="gallery">Gallery</button>
+  <button type="button" data-tab="media">Pictures &amp; videos</button>
+  <button type="button" data-tab="feedback">Feedback</button>
+</nav>
+
+<main id="app" class="hidden">
+  <section id="tab-text">
+    <input id="q" type="search" placeholder="Search any text on the site…" aria-label="Search texts">
+    <p class="muted" style="margin:.5rem .2rem">Change any words below, then tap <b>Save</b>. Visitors see the change within a minute. Lists (like highlights) have + and ✕ buttons.</p>
+    <div id="textList"></div>
+  </section>
+
+  <section id="tab-prices" class="hidden">
+    <div class="card">
+      <h2 style="margin-top:0">Prices</h2>
+      <p class="muted">These numbers replace <code>pricing.json</code> for every visitor. "Reset to original" goes back to the file. Plan names, feature lists and button words are in the <b>Text</b> tab (sections <code>packages</code> and <code>home</code>).</p>
+      <div id="pricesForm"></div>
+      <div class="acts" style="margin-top:.8rem">
+        <button class="pill dark" id="pricesSave" type="button">Save prices</button>
+        <button class="pill danger" id="pricesReset" type="button">Reset to original</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-gallery" class="hidden">
+    <h2>Photo gallery</h2>
+    <p class="muted">The round pictures in the Photo Gallery section.</p>
+    <div id="galList"></div>
+    <div class="acts">
+      <button class="pill" id="galAdd" type="button">+ Add photo</button>
+      <button class="pill dark" id="galSave" type="button">Save gallery</button>
+      <button class="pill danger" id="galReset" type="button">Reset to original</button>
+    </div>
+    <h2>Top of the page: round pictures &amp; background videos</h2>
+    <p class="muted">Each one is a round picture and a full-page background. A video needs a round picture too.</p>
+    <div id="exList"></div>
+    <div class="acts">
+      <button class="pill" id="exAdd" type="button">+ Add scene</button>
+      <button class="pill dark" id="exSave" type="button">Save scenes</button>
+      <button class="pill danger" id="exReset" type="button">Reset to original</button>
+    </div>
+  </section>
+
+  <section id="tab-media" class="hidden">
+    <h2>Replace a picture or video on the site</h2>
+    <p class="muted">Pick the file you want to change and upload a new one. It replaces it everywhere on the site. Pictures up to 8 MB, files up to 20 MB (MP4 or WebM for videos).</p>
+    <div id="assetList"></div>
+    <h2>Everything you uploaded</h2>
+    <div id="libList"></div>
+  </section>
+
+  <section id="tab-feedback" class="hidden">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:.5rem">
+      <h2 id="fbTitle">Feedback</h2>
+      <button class="pill" id="fbRefresh" type="button">Refresh</button>
+    </div>
+    <div id="fbList"></div>
+  </section>
 </main>
-<script src="text-loader.js"></script>
-<script>
-[["bkHead","bookingHeaders"],["rvHead","reviewHeaders"]].forEach(function(p){TEXT.admin[p[1]].forEach(function(h){var th=document.createElement("th");th.textContent=h;document.getElementById(p[0]).appendChild(th)})});
-var STATUSES=['Pending','Confirmed','Completed','Cancelled'];
-var $=function(i){return document.getElementById(i)};
-var getToken=function(){return sessionStorage.getItem('adminToken')};
 
-// Authenticated fetch. A 401 returns the user to the login box.
-async function api(path,opts){
-  opts=opts||{};
-  var res=await fetch('/api/admin'+path,Object.assign({},opts,{headers:{'Content-Type':'application/json',Authorization:'Bearer '+getToken()}}));
-  if(res.status===401){logout(T('admin.wrongPassword'));throw new Error('Unauthorized')}
-  if(!res.ok)throw new Error((await res.json().catch(function(){return{}})).error||T('admin.requestFailed'));
-  return res.json();
-}
-function logout(err){
-  sessionStorage.removeItem('adminToken');
-  $('dash').classList.add('hidden');$('login').classList.remove('hidden');$('loginErr').textContent=err||'';
-}
-function say(t){$('msg').textContent=t}
-function cell(tr,t){var td=tr.insertCell();td.textContent=t;return td}
-
-// Rows are built with textContent so booking data can never inject HTML.
-function render(list){
-  var tb=$('rows');tb.innerHTML='';
-  if(!list.length){cell(tb.insertRow(),T('admin.noBookings')).colSpan=8;return}
-  list.forEach(function(b){
-    var tr=tb.insertRow();
-    cell(tr,b.id);
-    var who=cell(tr,b.name);who.append(document.createElement('br'),b.whatsapp||b.phone||'');
-    var pk=cell(tr,b.packageName||'');
-    (b.items||[]).forEach(function(l){pk.append(document.createElement('br'),l.label+': '+inr(l.amount))});
-    if(b.request)pk.append(document.createElement('br'),T('admin.requestLine',{text:b.request}));
-    cell(tr,b.date).append(document.createElement('br'),(b.children?T('admin.peopleWithChildrenLine',{n:b.people||0,kids:b.children}):T('admin.peopleLine',{n:b.people||0})));
-    var pay=cell(tr,T('admin.totalLine',{amount:inr(b.total||0)}));
-    pay.append(document.createElement('br'),T('admin.advanceLine',{amount:inr(b.advance||0),method:String(b.payMethod||'').toUpperCase()}),document.createElement('br'),T('admin.balanceLine',{amount:inr(b.balance||0)}));
-    var rc=tr.insertCell();
-    if(typeof b.receipt==='string'&&/^data:image\/(jpeg|png);base64,/.test(b.receipt)){var im=new Image();im.src=b.receipt;im.alt=T('admin.receiptAlt');im.style.cssText='width:110px;border:1px solid #ccc;background:#fff';rc.append(im)}
-    else if(typeof b.receipt==='string'&&/^data:application\/pdf;base64,/.test(b.receipt)){var a=document.createElement('a');a.href=b.receipt;a.download='receipt-'+b.id+'.pdf';a.textContent=T('admin.downloadPdf');rc.append(a)}
-    var sel=document.createElement('select');
-    STATUSES.forEach(function(s){sel.add(new Option((TEXT.admin.statusLabels||{})[s]||s,s,false,s===b.status))});
-    sel.onchange=async function(){
-      try{await api('/bookings/'+encodeURIComponent(b.id),{method:'PUT',body:JSON.stringify({status:sel.value})});say(T('admin.statusChanged',{id:b.id,status:(TEXT.admin.statusLabels||{})[sel.value]||sel.value}))}
-      catch(e){say(e.message);load()}
-    };
-    cell(tr,'').append(sel);
-    var del=document.createElement('button');del.textContent=T('admin.deleteButton');del.className='pill';
-    del.onclick=async function(){
-      if(!confirm(T('admin.confirmDeleteBooking',{id:b.id})))return;
-      try{await api('/bookings/'+encodeURIComponent(b.id),{method:'DELETE'});say(T('admin.bookingDeleted',{id:b.id}));load()}
-      catch(e){say(e.message)}
-    };
-    cell(tr,'').append(del);
-  });
-}
-function renderReviews(list){
-  var tb=$('revRows');tb.innerHTML='';
-  if(!list.length){cell(tb.insertRow(),T('admin.noReviews')).colSpan=5;return}
-  list.forEach(function(r){
-    var tr=tb.insertRow();
-    cell(tr,(r.createdAt||'').slice(0,10));
-    cell(tr,'★'.repeat(r.rating)+'☆'.repeat(5-r.rating));
-    cell(tr,r.name||T('admin.noName'));cell(tr,r.comment||T('admin.ratingOnly'));
-    var del=document.createElement('button');del.textContent=T('admin.deleteButton');del.className='pill';
-    del.onclick=async function(){
-      if(!confirm(T('admin.confirmDeleteReview')))return;
-      try{await api('/feedback/'+encodeURIComponent(r.id),{method:'DELETE'});say(T('admin.reviewRemoved'));load()}catch(e){say(e.message)}
-    };
-    cell(tr,'').append(del);
-  });
-}
-async function load(){
-  say(T('admin.loading'));
-  try{var res=await Promise.all([api('/bookings'),api('/feedback')]);render(res[0]);renderReviews(res[1]);say('')}
-  catch(e){if(e.message!=='Unauthorized')say(e.message)}
-}
-function showDash(){$('login').classList.add('hidden');$('dash').classList.remove('hidden');load()}
-$('loginForm').addEventListener('submit',function(e){
-  e.preventDefault();sessionStorage.setItem('adminToken',$('pw').value);$('pw').value='';$('loginErr').textContent='';showDash();
-});
-$('refresh').onclick=load;
-$('logout').onclick=function(){logout()};
-if(getToken())showDash();
-</script>
+<div id="savebar" class="hidden"><span id="saveMsg"></span><span><button class="pill sm" id="discard" type="button">Discard</button> <button class="pill" id="save" type="button">Save</button></span></div>
+<div id="prog" class="hidden"><span id="progMsg"></span><i id="progBar"></i></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<input type="file" id="picker" class="hidden">
+<script src="admin.js"></script>
 </body>
 </html>

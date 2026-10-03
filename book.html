@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script src="site-text.js"></script>
+<script src="live-content.js"></script>
 <script src="motion.js"></script>
 <script src="fx.js"></script>
 <title data-t="home.pageTitle"></title>
@@ -145,6 +146,12 @@ html.lock,html.lock body{overflow:hidden}
 .fb-in{display:block;width:100%;margin:0 0 .7rem;padding:.7rem .9rem;border:0;border-radius:14px;background:rgba(255,255,255,.92);color:var(--ink);font:400 clamp(.8rem,2.2vw,.95rem) var(--mono)}
 .fb-in::placeholder{color:#6b7c88}
 textarea.fb-in{resize:vertical;min-height:5.4rem}
+.fb-photo{position:relative;display:block;width:100%;margin:0 0 .5rem;padding:.7rem .9rem;border-radius:14px;background:rgba(255,255,255,.62);color:var(--ink);font:700 clamp(.8rem,2.2vw,.95rem) var(--mono);text-align:center;cursor:pointer}
+.fb-photo input{position:absolute;opacity:0;width:1px;height:1px}
+.fb-photo:focus-within{outline:2px solid #fff;outline-offset:2px}
+.fb-thumbs{display:flex;gap:.5rem;flex-wrap:wrap;margin:0 0 .7rem}
+.fb-thumbs button{position:relative;width:3.6rem;height:3.6rem;border:0;border-radius:12px;padding:0;background:#fff center/cover no-repeat;cursor:pointer}
+.fb-thumbs button::after{content:'\00d7';position:absolute;top:-6px;right:-6px;width:1.4rem;height:1.4rem;border-radius:50%;background:#111;color:#fff;font:700 1rem/1.4rem system-ui}
 .fb-count{margin:-.3rem .3rem .8rem 0;text-align:right;color:rgba(255,255,255,.9);font-size:.7rem}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .stars{display:flex;justify-content:center;gap:clamp(.5rem,2.6vw,1.1rem);margin:clamp(1.2rem,4vw,2rem) 0 clamp(1rem,3vw,1.4rem)}
@@ -526,6 +533,8 @@ html.anim.ready .top-nav a:nth-child(1){animation-delay:.35s}html.anim.ready .to
     </div>
     <input class="fb-in" id="fbName" maxlength="40" autocomplete="name" data-ta="placeholder={home.yourNamePlaceholder}|aria-label={home.nameAria}">
     <textarea class="fb-in" id="fbText" maxlength="300" rows="3" data-ta="placeholder={home.yourCommentPlaceholder}|aria-label={home.commentAria}"></textarea>
+    <label class="fb-photo" id="fbPhotoLbl"><input type="file" id="fbPhotos" accept="image/jpeg,image/png,image/webp" multiple><span data-t="home.addPhoto"></span></label>
+    <div class="fb-thumbs" id="fbThumbs"></div>
     <p class="fb-count" id="fbCount" aria-hidden="true"></p>
     <input class="hp" id="fbWeb" tabindex="-1" autocomplete="off" aria-hidden="true" data-ta="placeholder={home.honeypotPlaceholder}">
     <button type="button" id="fbBtn" class="submit" data-t="home.submitFeedback"></button>
@@ -696,8 +705,8 @@ var FLEET=[
   function fill(id,txt){var e=$(id);e.textContent=txt||'';e.style.display=txt?'':'none'}
   function openBike(i,tile){
     var b=FLEET[i],p=PK(b);lastTile=tile;
-    vv.poster='videos/'+b.poster;vv.src='videos/'+b.src;vv.load();
-    vbg.style.backgroundImage='url("videos/'+b.poster+'")';
+    vv.poster=M('videos/'+b.poster);vv.src=M('videos/'+b.src);vv.load();
+    vbg.style.backgroundImage='url("'+M('videos/'+b.poster)+'")';
     fill('vwName',p.name);fill('vwTag',XT(b.pkg,p.tagline||''));fill('vwDesc',XT(b.pkg,p.description||''));
     var sp=$('vwSpecs');sp.innerHTML='';
     (p.info||[]).forEach(function(r){var dt=d.createElement('dt'),dd=d.createElement('dd');dt.textContent=r[0];dd.textContent=XT(b.pkg,r[1]);sp.append(dt,dd)});
@@ -736,7 +745,7 @@ var FLEET=[
       t.style.animationDelay=i*0.1+'s';
       t.setAttribute('aria-label',T('home.openCardAria',{name:PK(b).name||''}));
       var v=d.createElement('video');v.muted=true;v.loop=true;v.autoplay=true;v.playsInline=true;v.preload='metadata';v.setAttribute('aria-hidden','true');
-      v.poster='videos/'+b.poster;v.src='videos/'+b.src;v.style.objectPosition='50% 58%';
+      v.poster=M('videos/'+b.poster);v.src=M('videos/'+b.src);v.style.objectPosition='50% 58%';
       var sp=d.createElement('span');sp.textContent=PK(b).name||'';
       t.append(v,sp);
       t.addEventListener('click',function(){openBike(i,t)});
@@ -753,10 +762,10 @@ var FLEET=[
       hero=d.querySelector('.hero'),layers=[],btns=[],dts=[],dots=$('exDots'),cur=-1,unlocked=false,heroCopy=$('exCopy');
   function bg(u){return 'url("'+u+'")'}
   PLACES.forEach(function(r,i){
-    var L=d.createElement('div'),pic=r.image||(r.video?'videos/'+r.video+'.jpg':'');
-    if(r.video){
+    var L=d.createElement('div'),pic=r.image||(r.video?M('videos/'+r.video+'.jpg'):'');
+    if(r.video||r.videoUrl){
       L.className='bg-l vid';var v=d.createElement('video');v.muted=true;v.defaultMuted=true;v.loop=true;v.playsInline=true;v.autoplay=true;v.setAttribute('playsinline','');v.setAttribute('muted','');v.preload=i===0?'auto':'none';
-      if(pic)v.poster=pic;v.dataset.src='videos/'+r.video+'.mp4';v.style.objectPosition=r.pos||'50% 50%';if(i===0)v.src=v.dataset.src;L.append(v);
+      if(pic)v.poster=pic;v.dataset.src=r.videoUrl||M('videos/'+r.video+'.mp4');v.style.objectPosition=r.pos||'50% 50%';if(i===0)v.src=v.dataset.src;L.append(v);
     }else{L.className='bg-l still';var im=d.createElement('div');im.style.backgroundImage=bg(pic);im.style.backgroundPosition=r.pos||'50% 50%';L.append(im)}
     bgBox.append(L);layers[i]=L;
     var b=d.createElement('button');b.type='button';b.className='ex-b';b.setAttribute('aria-pressed','false');
@@ -910,12 +919,53 @@ var FLEET=[
   $('rvPrev').addEventListener('click',function(){step(-1)});
   $('rvNext').addEventListener('click',function(){step(1)});
 
+  /* ---- optional photos on feedback (max 3). Shrunk in the browser first so phone photos upload fast. ---- */
+  var photos=[],thumbs=$('fbThumbs');
+  function shrink(file){
+    return new Promise(function(res,rej){
+      var u=URL.createObjectURL(file),im=new Image();
+      im.onload=function(){
+        URL.revokeObjectURL(u);
+        var s=Math.min(1,1600/Math.max(im.naturalWidth,im.naturalHeight)),c=d.createElement('canvas');
+        c.width=Math.max(1,Math.round(im.naturalWidth*s));c.height=Math.max(1,Math.round(im.naturalHeight*s));
+        c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+        function done(b){if(!b||b.size>2*1024*1024)rej(new Error(T('home.photoTooBig')));else res(b)}
+        c.toBlob(function(b){if(b&&b.type==='image/webp')done(b);else c.toBlob(done,'image/jpeg',.8)},'image/webp',.82);
+      };
+      im.onerror=function(){URL.revokeObjectURL(u);rej(new Error(T('home.photoBad')))};
+      im.src=u;
+    });
+  }
+  function drawThumbs(){
+    thumbs.textContent='';
+    photos.forEach(function(p,i){
+      var b=d.createElement('button');b.type='button';b.setAttribute('aria-label',T('home.removePhoto'));
+      b.style.backgroundImage='url("'+p.url+'")';
+      b.addEventListener('click',function(){URL.revokeObjectURL(p.url);photos.splice(i,1);drawThumbs()});
+      thumbs.append(b);
+    });
+    $('fbPhotoLbl').style.display=photos.length>=3?'none':'';
+  }
+  $('fbPhotos').addEventListener('change',function(e){
+    var files=[].slice.call(e.target.files||[]);e.target.value='';
+    files.slice(0,3-photos.length).reduce(function(chain,f){
+      return chain.then(function(){return shrink(f).then(function(b){photos.push({blob:b,url:URL.createObjectURL(b)});drawThumbs()})});
+    },Promise.resolve()).catch(function(err){msg.textContent=err.message});
+    if(files.length>3-photos.length)msg.textContent=T('home.photoLimit');
+  });
+
   btn.addEventListener('click',function(){
     if(!rating){msg.textContent=T('home.tapStarFirst');return}
     var body={site:'website-b',rating:rating,name:$('fbName').value.trim(),comment:txt.value.trim(),website:$('fbWeb').value};
     btn.disabled=true;btn.textContent=T('home.sending');
-    fetch(BACKEND+'/api/ratings',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
-      .then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(!r.ok)throw new Error(j.error||'');return j})})
+    var req;
+    if(photos.length){          /* with pictures: multipart (the server accepts up to 3, 2 MB each) */
+      var fd=new FormData();fd.append('site',body.site);fd.append('rating',body.rating);fd.append('name',body.name);fd.append('comment',body.comment);
+      photos.forEach(function(p,i){fd.append('photos',p.blob,'photo'+(i+1)+'.webp')});
+      req={method:'POST',body:fd};
+    }else req={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)};
+    fetch(BACKEND+'/api/ratings',req)
+      .then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(!r.ok)throw new Error(j.message||j.error||'');return j})})
       .then(function(){
         if(body.comment){
           var nc=card({rating:body.rating,name:body.name,comment:body.comment});nc.classList.add('rv-new');rv.insertBefore(nc,rv.firstChild);
@@ -925,6 +975,7 @@ var FLEET=[
         msg.classList.remove('pop');void msg.offsetWidth;msg.classList.add('pop');
         rating=0;paint(0);stars.forEach(function(x){x.setAttribute('aria-checked','false')});
         $('fbName').value='';txt.value='';$('fbCount').textContent=T('home.letterCount',{n:0});
+        photos=[];drawThumbs();
       })
       .catch(function(e){msg.textContent=e.message||T('home.sendFailed')})
       .then(function(){btn.disabled=false;btn.textContent=T('home.submitFeedback')});

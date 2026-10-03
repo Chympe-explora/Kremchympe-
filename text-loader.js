@@ -33,6 +33,7 @@
   var _pp = null;
   window.loadPricing = function () {
     return _pp || (_pp = fetch('pricing.json', { cache: 'no-store' }).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (j) {
+      if (window.CMS && CMS.prices && CMS.prices.packages) j = CMS.prices;   /* prices edited in the dashboard win over pricing.json */
       window.PRICING = j; VARS.minAdvance = inr(j.minAdvance);
       Object.keys(j.packages).forEach(function (k) { var p = j.packages[k]; VARS[k + '.adult'] = inr(p.adultPrice); VARS[k + '.child'] = p.childPrice == null ? '' : inr(p.childPrice); VARS[k + '.days'] = p.minDaysAhead || 0; VARS[k + '.night'] = p.fromNight ? inr(p.fromNight) : ''; VARS[k + '.max'] = p.maxPeople || j.maxPeople || ''; });
       return j; }));
