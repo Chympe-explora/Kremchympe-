@@ -982,5 +982,18 @@ var FLEET=[
   });
 })();
 </script>
+<script>
+/* Secret shortcut: tap the hero 5 times in a row to open the dashboard */
+(function(){
+  var n=0,t=0,GAP=700;
+  document.addEventListener('click',function(e){
+    var h=e.target.closest&&e.target.closest('.hero');
+    if(!h||e.target.closest('a,button,input,select,textarea,label,video[controls]')){n=0;return;}
+    var now=Date.now();
+    n=(now-t<GAP)?n+1:1; t=now;
+    if(n>=5){n=0;location.href='admin.html';}
+  });
+})();
+</script>
 </body>
 </html>
